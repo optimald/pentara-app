@@ -37,7 +37,8 @@
     "uuid": "^9.0.0",
     "@types/uuid": "^9.0.0",
     "jspdf": "^2.5.0",
-    "html2canvas": "^1.4.0"
+    "html2canvas": "^1.4.0",
+    "@supabase/supabase-js": "^2.38.0"
   },
   "devDependencies": {
     "eslint": "^8.0.0",
