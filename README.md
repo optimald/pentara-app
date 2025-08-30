@@ -22,7 +22,7 @@ pentara-app/
 ## Architecture Overview
 
 ### Web (`packages/web`)
-- **Landing page**: Hero, pricing, Calendly booking
+- **Landing page**: Hero, pricing, [Calendly booking](https://calendly.com/optimaldev/pentara-onboarding)
 - **Coach console**: Questionnaire interface, profile generation
 - **Tech**: Next.js 14, TypeScript, Tailwind CSS
 - **Deploy**: Vercel
@@ -85,7 +85,7 @@ npm run build:api
 - Coach cannot read future chats after onboarding
 
 ### Simple Monetization
-- $150 one-time onboarding (Calendly + Stripe)
+- $150 one-time onboarding via [Calendly booking](https://calendly.com/optimaldev/pentara-onboarding)
 - No subscriptions or in-app purchases
 - Free app after activation
 
