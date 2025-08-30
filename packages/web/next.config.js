@@ -10,6 +10,8 @@ const nextConfig = {
   experimental: {
     esmExternals: false,
   },
+  // Disable static optimization to prevent React context issues
+  output: 'standalone',
   async headers() {
     return [
       {
