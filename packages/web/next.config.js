@@ -10,16 +10,13 @@ const nextConfig = {
   experimental: {
     esmExternals: false,
   },
-  // Use export mode to avoid server-side rendering issues
-  output: 'export',
-  distDir: 'out',
-  images: {
-    unoptimized: true,
-  },
-  // Disable styled-jsx completely to avoid context issues
-  compiler: {
-    styledJsx: false,
-  },
+          // Use server-side rendering to avoid static generation issues
+        output: 'standalone',
+        distDir: '.next',
+        // Disable styled-jsx completely to avoid context issues
+        compiler: {
+          styledJsx: false,
+        },
   async headers() {
     return [
       {
