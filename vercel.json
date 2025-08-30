@@ -8,5 +8,6 @@
       "runtime": "@vercel/node"
     }
   },
-  "framework": "nextjs"
+  "framework": "nextjs",
+  "ignoreCommand": "git diff --quiet HEAD^ HEAD packages/web/"
 }
