@@ -24,10 +24,10 @@
 ### Development Environment
 - ✅ Install all dependencies (`npm run install:all`)
 - ✅ Verify Next.js dev server runs (`npm run dev:web`)
-- ⏳ Verify Expo dev server runs (`npm run dev:mobile`)
-- ⏳ Verify Vercel dev server runs (`npm run dev:api`)
-- ⏳ Set up ESLint and Prettier configurations
-- ⏳ Configure TypeScript strict mode across packages
+- ✅ Verify Expo dev server runs (`npm run dev:mobile`)
+- ✅ Verify Vercel dev server runs (`npm run dev:api`)
+- ✅ Set up ESLint and Prettier configurations
+- ✅ Configure TypeScript strict mode across packages
 
 ---
 
@@ -60,7 +60,7 @@
 - ✅ Add crisis resources link and contact information
 - ✅ Implement FAQ section addressing common questions
 - ✅ Create privacy policy page
-- ⏳ Add terms of service page
+- ✅ Add terms of service page
 - ✅ Ensure App Store compliance language
 
 ### Calendly Integration

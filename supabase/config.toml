@@ -8,7 +8,7 @@ enabled = true
 port = 54321
 # Schemas to expose in your API. Tables, views and stored procedures in this schema will get API
 # endpoints. public and storage are always included.
-schemas = ["public", "storage", "graphql_public"]
+schemas = ["public", "graphql_public"]
 # Extra schemas to add to the search_path of every request. public is always included.
 extra_search_path = ["public", "extensions"]
 # The maximum number of rows returns from a table or view. Limits payload size
@@ -22,7 +22,7 @@ port = 54322
 shadow_port = 54320
 # The database major version to use. This has to be the same as your remote database's. Run `SHOW
 # server_version_num;` on the remote database to check.
-major_version = 15
+major_version = 17
 
 [db.pooler]
 enabled = false
@@ -67,9 +67,9 @@ file_size_limit = "50MiB"
 enabled = true
 # The base URL of your website. Used as an allow-list for redirects and for constructing URLs used
 # in emails.
-site_url = "http://127.0.0.1:3000"
+site_url = "https://pentara-app-web-optimaldev.vercel.app/"
 # A list of *exact* URLs that auth providers are permitted to redirect to post authentication.
-additional_redirect_urls = ["https://127.0.0.1:3000"]
+additional_redirect_urls = ["https://pentara-app-web-optimaldev.vercel.app/", "https://pentara-app-web-optimaldev.vercel.app/**", "https://pentara-*-app-web-optimaldev.vercel.app", "https://pentara-*-app-web-optimaldev.vercel.app/**"]
 # How long tokens are valid for, in seconds. Defaults to 3600 (1 hour), maximum 604800 (1 week).
 jwt_expiry = 3600
 # If disabled, the refresh token will never expire.
@@ -304,7 +304,4 @@ backend = "postgres"
 [experimental]
 # Configures Postgres storage-engine with S3 as the file storage backend.
 s3_host = "localhost"
-s3_port = 54329
-s3_access_key_id = "625729a08b95bf1b7ff351a663f3a23c"
-s3_secret_access_key = "850181e4652dd023b7a98c58ae0ce8e95d4ac50d5721523b0a26cde61d5c4643"
 s3_region = "local"
