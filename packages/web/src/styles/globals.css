@@ -2,31 +2,114 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    @apply dark;
   }
   
   body {
-    @apply text-secondary-900 bg-white;
+    @apply text-dark-700 bg-dark-50 font-sans antialiased;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-serif;
+    @apply font-serif text-dark-800;
+  }
+  
+  /* Custom scrollbar for dark theme */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-dark-100;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-dark-300 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gold-500;
   }
 }
 
 @layer components {
+  /* Logo component */
+  .logo {
+    @apply flex items-center space-x-3;
+  }
+  
+  .logo-symbol {
+    @apply w-10 h-10 flex-shrink-0;
+  }
+  
+  .logo-text {
+    @apply text-2xl font-serif font-semibold text-dark-800;
+  }
+  
+  /* Button components */
   .btn-primary {
-    @apply bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+    @apply bg-gradient-gold text-dark-50 font-semibold py-3 px-8 rounded-xl 
+           transition-all duration-200 shadow-dark-md hover:shadow-dark-lg hover:shadow-glow-gold
+           focus:outline-none focus:ring-2 focus:ring-gold-500 focus:ring-offset-2 focus:ring-offset-dark-50
+           transform hover:-translate-y-0.5 active:translate-y-0;
   }
   
   .btn-secondary {
-    @apply bg-secondary-100 hover:bg-secondary-200 text-secondary-900 font-semibold py-3 px-8 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:ring-offset-2;
+    @apply bg-dark-200 hover:bg-dark-300 text-dark-700 hover:text-dark-800 
+           border border-dark-300 hover:border-gold-500 font-medium py-3 px-8 rounded-xl 
+           transition-all duration-200 shadow-dark-sm hover:shadow-dark-md
+           focus:outline-none focus:ring-2 focus:ring-gold-500 focus:ring-offset-2 focus:ring-offset-dark-50;
   }
   
+  .btn-ghost {
+    @apply text-dark-600 hover:text-gold-500 hover:bg-dark-100 
+           font-medium py-2 px-4 rounded-lg transition-all duration-200
+           focus:outline-none focus:ring-2 focus:ring-gold-500 focus:ring-offset-2 focus:ring-offset-dark-50;
+  }
+  
+  /* Card components */
+  .card {
+    @apply bg-dark-100 border border-dark-200 rounded-2xl p-6 
+           shadow-dark-md hover:shadow-dark-lg hover:border-gold-500/50
+           transition-all duration-300 hover:-translate-y-1;
+  }
+  
+  .card-voice {
+    @apply bg-gradient-dark border-2 border-dark-300 rounded-2xl p-6 
+           shadow-dark-md hover:shadow-dark-lg hover:shadow-glow-gold hover:border-gold-500
+           transition-all duration-300 hover:-translate-y-1 relative overflow-hidden;
+  }
+  
+  .card-voice::before {
+    content: '';
+    @apply absolute top-0 left-0 right-0 h-1 bg-gradient-gold;
+  }
+  
+  /* Form components */
+  .form-input {
+    @apply bg-dark-200 border border-dark-300 text-dark-800 placeholder-dark-500
+           rounded-xl px-4 py-3 text-base transition-all duration-200
+           focus:outline-none focus:ring-2 focus:ring-gold-500 focus:border-gold-500
+           hover:border-dark-400;
+  }
+  
+  .form-textarea {
+    @apply form-input resize-none;
+  }
+  
+  .form-label {
+    @apply block text-sm font-medium text-dark-600 mb-2;
+  }
+  
+  .form-error {
+    @apply text-error-400 text-sm mt-1;
+  }
+  
+  /* Layout components */
   .section-padding {
     @apply py-16 px-4 sm:px-6 lg:px-8;
   }
@@ -35,13 +118,87 @@
     @apply max-w-7xl mx-auto;
   }
   
-  .text-gradient {
-    @apply bg-gradient-to-r from-primary-600 to-primary-800 bg-clip-text text-transparent;
+  /* Text utilities */
+  .text-gradient-gold {
+    @apply bg-gradient-gold bg-clip-text text-transparent;
+  }
+  
+  .text-glow {
+    text-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+  }
+  
+  /* Navigation */
+  .nav-link {
+    @apply text-dark-600 hover:text-gold-500 font-medium transition-colors duration-200
+           relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 
+           after:bg-gold-500 after:transition-all after:duration-200 hover:after:w-full;
+  }
+  
+  .nav-link-active {
+    @apply text-gold-500 after:w-full;
+  }
+  
+  /* Loading states */
+  .skeleton {
+    @apply bg-dark-200 animate-pulse rounded;
+  }
+  
+  .shimmer {
+    @apply relative overflow-hidden;
+  }
+  
+  .shimmer::after {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-dark-300/50 to-transparent
+           animate-shimmer;
+  }
+  
+  /* Voice personality indicators */
+  .voice-strategist {
+    @apply border-l-4 border-blue-400;
+  }
+  
+  .voice-mentor {
+    @apply border-l-4 border-green-400;
+  }
+  
+  .voice-warrior {
+    @apply border-l-4 border-red-400;
+  }
+  
+  .voice-creator {
+    @apply border-l-4 border-purple-400;
+  }
+  
+  .voice-philosopher {
+    @apply border-l-4 border-indigo-400;
+  }
+  
+  .voice-healer {
+    @apply border-l-4 border-pink-400;
+  }
+  
+  .voice-builder {
+    @apply border-l-4 border-orange-400;
   }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Focus visible utilities */
+  .focus-visible-gold {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dark-50;
   }
 }

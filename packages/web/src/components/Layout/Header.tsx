@@ -1,19 +1,27 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="bg-white shadow-sm border-b border-secondary-200">
+    <header className="bg-dark-100/80 backdrop-blur-md border-b border-dark-200">
       <nav className="container-max section-padding py-4">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-primary-500 to-primary-700 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">P</span>
+          <Link href="/" className="logo">
+            <div className="logo-symbol">
+              <Image
+                src="/logo-symbol.svg"
+                alt="Pentara"
+                width={40}
+                height={40}
+                className="w-full h-full"
+                priority
+              />
             </div>
-            <span className="text-xl font-serif font-semibold text-secondary-900">
+            <span className="logo-text">
               Pentara
             </span>
           </Link>
@@ -22,19 +30,19 @@ export default function Header() {
           <div className="hidden md:flex items-center space-x-8">
             <Link 
               href="#how-it-works" 
-              className="text-secondary-600 hover:text-secondary-900 transition-colors"
+              className="nav-link"
             >
               How it works
             </Link>
             <Link 
               href="#faq" 
-              className="text-secondary-600 hover:text-secondary-900 transition-colors"
+              className="nav-link"
             >
               FAQ
             </Link>
             <Link 
               href="/privacy" 
-              className="text-secondary-600 hover:text-secondary-900 transition-colors"
+              className="nav-link"
             >
               Privacy
             </Link>
@@ -50,7 +58,7 @@ export default function Header() {
 
           {/* Mobile menu button */}
           <button
-            className="md:hidden p-2"
+            className="md:hidden p-2 text-dark-600 hover:text-gold-500 transition-colors"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -81,25 +89,25 @@ export default function Header() {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden mt-4 py-4 border-t border-secondary-200">
+          <div className="md:hidden mt-4 py-4 border-t border-dark-200">
             <div className="flex flex-col space-y-4">
               <Link 
                 href="#how-it-works" 
-                className="text-secondary-600 hover:text-secondary-900 transition-colors"
+                className="nav-link"
                 onClick={() => setIsMenuOpen(false)}
               >
                 How it works
               </Link>
               <Link 
                 href="#faq" 
-                className="text-secondary-600 hover:text-secondary-900 transition-colors"
+                className="nav-link"
                 onClick={() => setIsMenuOpen(false)}
               >
                 FAQ
               </Link>
               <Link 
                 href="/privacy" 
-                className="text-secondary-600 hover:text-secondary-900 transition-colors"
+                className="nav-link"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Privacy
