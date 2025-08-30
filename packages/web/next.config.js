@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
-  swcMinify: false, // Disable SWC minification to avoid issues
+  swcMinify: false,
   env: {
     NEXT_PUBLIC_CALENDLY_URL: process.env.NEXT_PUBLIC_CALENDLY_URL,
     NEXT_PUBLIC_FACEBOOK_URL: process.env.NEXT_PUBLIC_FACEBOOK_URL,
@@ -15,6 +15,10 @@ const nextConfig = {
   distDir: 'out',
   images: {
     unoptimized: true,
+  },
+  // Disable styled-jsx completely to avoid context issues
+  compiler: {
+    styledJsx: false,
   },
   async headers() {
     return [
