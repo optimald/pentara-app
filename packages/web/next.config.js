@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false, // Disable React strict mode to avoid context issues
   swcMinify: true,
   env: {
     NEXT_PUBLIC_CALENDLY_URL: process.env.NEXT_PUBLIC_CALENDLY_URL,
@@ -10,8 +10,6 @@ const nextConfig = {
   experimental: {
     esmExternals: false,
   },
-  // Disable static optimization to prevent React context issues
-  output: 'standalone',
   async headers() {
     return [
       {
