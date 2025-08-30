@@ -66,7 +66,7 @@ export function generatePersonalManual(answers: OnboardingAnswers): PersonalManu
       new: answers.beliefShifts?.newBelief || '',
     }],
     boundaries: extractBoundaries(answers),
-    preferredTone: answers.negativeTraits?.preferredResponse || [],
+    preferredTone: answers.negativeTraits?.preferredResponse ? [answers.negativeTraits.preferredResponse] : [],
     createdAt: new Date().toISOString(),
   };
 
@@ -76,10 +76,10 @@ export function generatePersonalManual(answers: OnboardingAnswers): PersonalManu
 export function generateFiveVoiceProfile(answers: OnboardingAnswers, manual: PersonalManual, userId: string, createdBy: string): FiveVoiceProfile {
   const inspirationFigures = answers.inspirations?.figures || [];
   const desiredQualities = answers.inspirations?.qualities || [];
-  const desiredArchetypes = answers.inspirations?.desiredArchetypes || '';
+  const desiredArchetypes = answers.inspirations?.desiredArchetypes || [];
 
   // Map user's inspirations to voice archetypes
-  const selectedArchetypes = selectVoiceArchetypes(inspirationFigures, desiredQualities, desiredArchetypes);
+  const selectedArchetypes = selectVoiceArchetypes(inspirationFigures, desiredQualities, Array.isArray(desiredArchetypes) ? desiredArchetypes.join(', ') : desiredArchetypes);
   
   // Generate 5 voices based on selected archetypes
   const voices = selectedArchetypes.map((archetype, index) => 
@@ -113,7 +113,7 @@ function extractValues(answers: OnboardingAnswers): string[] {
     values.push(...relationshipValues);
   }
   
-  return [...new Set(values)]; // Remove duplicates
+  return Array.from(new Set(values)); // Remove duplicates
 }
 
 function extractStrengths(answers: OnboardingAnswers): string[] {
@@ -131,7 +131,7 @@ function extractStrengths(answers: OnboardingAnswers): string[] {
     strengths.push(answers.positiveTraits.superpower);
   }
   
-  return [...new Set(strengths)];
+  return Array.from(new Set(strengths));
 }
 
 function extractBoundaries(answers: OnboardingAnswers): string[] {
@@ -145,7 +145,7 @@ function extractBoundaries(answers: OnboardingAnswers): string[] {
     boundaries.push(...extractKeywordsFromText(answers.relationshipDynamics.trustLosers));
   }
   
-  return [...new Set(boundaries)];
+  return Array.from(new Set(boundaries));
 }
 
 function extractKeywordsFromText(text: string): string[] {
@@ -204,7 +204,7 @@ function selectVoiceArchetypes(figures: string[], qualities: string[], desiredAr
   
   // Ensure we have exactly 5 unique archetypes
   const defaultArchetypes = ['The Mentor', 'The Strategist', 'The Warrior', 'The Creator', 'The Philosopher'];
-  const finalArchetypes = [...new Set([...sortedArchetypes, ...defaultArchetypes])].slice(0, 5);
+  const finalArchetypes = Array.from(new Set([...sortedArchetypes, ...defaultArchetypes])).slice(0, 5);
   
   return finalArchetypes;
 }

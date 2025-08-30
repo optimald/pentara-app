@@ -25,7 +25,7 @@ export function generatePersonalManualPDF(profile: FiveVoiceProfile): jsPDF {
 
   doc.setFontSize(14);
   doc.setFont('helvetica', 'normal');
-  doc.text(`Created for: ${profile.userEmail}`, pageWidth / 2, yPosition, { align: 'center' });
+  doc.text(`Created for: ${profile.userId}`, pageWidth / 2, yPosition, { align: 'center' });
   yPosition += 10;
 
   doc.setFontSize(10);
@@ -189,6 +189,6 @@ export function generatePersonalManualPDF(profile: FiveVoiceProfile): jsPDF {
 
 export function downloadPersonalManualPDF(profile: FiveVoiceProfile): void {
   const doc = generatePersonalManualPDF(profile);
-  const filename = `pentara-manual-${profile.userEmail.replace('@', '-')}-${new Date().toISOString().split('T')[0]}.pdf`;
+  const filename = `pentara-manual-${profile.userId}-${new Date().toISOString().split('T')[0]}.pdf`;
   doc.save(filename);
 }

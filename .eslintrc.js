@@ -34,5 +34,6 @@ module.exports = {
     'coverage/',
     '*.config.js',
     '*.config.ts',
+    'packages/web/**/*', // Let web package handle its own linting
   ],
 };

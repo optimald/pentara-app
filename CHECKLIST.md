@@ -84,7 +84,7 @@
 ### Authentication System
 - ✅ Set up NextAuth.js for coach authentication
 - ✅ Implement magic link login for coaches
-- ⏳ Create admin panel for managing coach accounts
+- ✅ Create admin panel for managing coach accounts
 - ✅ Add role-based access control (admin vs coach)
 - ✅ Implement session management and security
 
@@ -134,39 +134,39 @@
 ## Week 3: API Orchestrator & LLM Integration
 
 ### Vercel Functions Setup
-- ⏳ Create Vercel function structure in `packages/api/src/functions/`
-- ⏳ Set up OpenAI API integration and error handling
-- ⏳ Implement environment variable management
-- ⏳ Add CORS configuration for web and mobile clients
-- ⏳ Set up request/response logging (without chat storage)
+- ✅ Create Vercel function structure in `packages/api/api/`
+- ✅ Set up OpenAI API integration and error handling
+- ✅ Implement environment variable management
+- ✅ Add CORS configuration for web and mobile clients
+- ✅ Set up request/response logging (without chat storage)
 
 ### Core API Endpoints
-- ⏳ `POST /api/activate` - Validate code, return encrypted profile
-- ⏳ `POST /api/chat` - 5-voice fan-out + synthesis endpoint
-- ⏳ `POST /api/usage` - Anonymous usage counter increment
-- ⏳ `POST /api/swap-request` - Voice swap request to coach
-- ⏳ Add comprehensive input validation with Zod schemas
+- ✅ `POST /api/activate` - Validate code, return encrypted profile
+- ✅ `POST /api/chat` - 5-voice fan-out + synthesis endpoint
+- ✅ `POST /api/usage` - Anonymous usage counter increment
+- ✅ `POST /api/swap-request` - Voice swap request to coach
+- ✅ Add comprehensive input validation with Zod schemas
 
 ### Five-Voice Orchestrator
-- ⏳ Implement parallel LLM calls (5 simultaneous requests)
-- ⏳ Create voice-specific system prompts with token caps
-- ⏳ Add Personal Manual context injection per voice
-- ⏳ Implement response validation and token counting
-- ⏳ Add fallback handling for failed voice responses
+- ✅ Implement parallel LLM calls (5 simultaneous requests)
+- ✅ Create voice-specific system prompts with token caps
+- ✅ Add Personal Manual context injection per voice
+- ✅ Implement response validation and token counting
+- ✅ Add fallback handling for failed voice responses
 
 ### Synthesis Generation
-- ⏳ Create synthesis prompt combining 5 voice responses
-- ⏳ Generate 3 actionable next steps from responses
-- ⏳ Add reassurance message generation
-- ⏳ Implement synthesis token cap (<120 tokens)
+- ✅ Create synthesis prompt combining 5 voice responses
+- ✅ Generate 3 actionable next steps from responses
+- ✅ Add reassurance message generation
+- ✅ Implement synthesis token cap (<120 tokens)
 - ⏳ Test synthesis quality across different prompt types
 
 ### Security & Rate Limiting
-- ⏳ Implement JWT token generation and validation
-- ⏳ Add rate limiting per user (50 turns/day)
-- ⏳ Set up request authentication middleware
-- ⏳ Implement CORS security for production
-- ⏳ Add input sanitization and validation
+- ✅ Implement JWT token generation and validation
+- ✅ Add rate limiting per user (50 turns/day)
+- ✅ Set up request authentication middleware
+- ✅ Implement CORS security for production
+- ✅ Add input sanitization and validation
 
 ### Database Integration
 - ✅ Set up database schema (users, profiles, activation_codes, usage_counters)
