@@ -46,6 +46,25 @@ export default function Document() {
         
         {/* Preload critical assets */}
         <link rel="preload" href="/logo-symbol.svg" as="image" type="image/svg+xml" />
+        
+        {/* Google Analytics */}
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID || 'G-67S63E3C14'}`}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${process.env.NEXT_PUBLIC_GA_ID || 'G-67S63E3C14'}', {
+                page_title: document.title,
+                page_location: window.location.href,
+              });
+            `,
+          }}
+        />
       </Head>
       <body className="bg-dark-50 text-dark-700">
         <Main />
