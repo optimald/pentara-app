@@ -1,12 +1,11 @@
 {
   "version": 2,
-  "buildCommand": "npm run build:web",
+  "buildCommand": "npm run build:shared && cd packages/web && npm run build",
   "outputDirectory": "packages/web/.next",
   "installCommand": "npm install",
   "functions": {
     "packages/web/src/pages/api/**/*.ts": {
       "runtime": "@vercel/node"
     }
-  },
-  "framework": "nextjs"
+  }
 }
