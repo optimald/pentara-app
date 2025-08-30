@@ -1,0 +1,25 @@
+{
+  "name": "pentara-app",
+  "version": "1.0.0",
+  "description": "Pentara - Five voices. One circle. Clarity on demand.",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:web": "cd packages/web && npm run dev",
+    "dev:mobile": "cd packages/mobile && npm start",
+    "dev:api": "cd packages/api && npm run dev",
+    "build:web": "cd packages/web && npm run build",
+    "build:mobile": "cd packages/mobile && npm run build",
+    "build:api": "cd packages/api && npm run build",
+    "install:all": "npm install && npm run install:web && npm run install:mobile && npm run install:api",
+    "install:web": "cd packages/web && npm install",
+    "install:mobile": "cd packages/mobile && npm install",
+    "install:api": "cd packages/api && npm install"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  }
+}
