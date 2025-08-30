@@ -136,6 +136,12 @@ expo build:ios
 expo build:android
 ```
 
+## Social Media & Community
+
+- **Facebook**: [https://www.facebook.com/pentaraapp](https://www.facebook.com/pentaraapp)
+- **Website**: pentara.app
+- **Calendly Booking**: [https://calendly.com/optimaldev/pentara-onboarding](https://calendly.com/optimaldev/pentara-onboarding)
+
 ## Contributing
 
 1. Follow the 8-week milestone plan in SPEC.md

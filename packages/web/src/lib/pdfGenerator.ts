@@ -1,5 +1,5 @@
 import jsPDF from 'jspdf';
-import { PersonalManual, FiveVoiceProfile } from '@pentara/shared';
+import { PersonalManual, FiveVoiceProfile, ManualCategory } from '@pentara/shared';
 
 export function generatePersonalManualPDF(profile: FiveVoiceProfile): jsPDF {
   const doc = new jsPDF();
@@ -25,85 +25,98 @@ export function generatePersonalManualPDF(profile: FiveVoiceProfile): jsPDF {
 
   doc.setFontSize(14);
   doc.setFont('helvetica', 'normal');
-  doc.text(`Created for: ${profile.userId}`, pageWidth / 2, yPosition, { align: 'center' });
+  doc.text(`Created for: ${profile.userEmail}`, pageWidth / 2, yPosition, { align: 'center' });
   yPosition += 10;
 
   doc.setFontSize(10);
   doc.text(`Generated: ${new Date(profile.createdAt).toLocaleDateString()}`, pageWidth / 2, yPosition, { align: 'center' });
   yPosition += 20;
 
-  // Values Section
-  doc.setFontSize(16);
-  doc.setFont('helvetica', 'bold');
-  doc.text('Core Values', margin, yPosition);
-  yPosition += 10;
-
-  doc.setFontSize(12);
-  doc.setFont('helvetica', 'normal');
-  const valuesText = profile.manual.values.join(', ');
-  yPosition = addWrappedText(valuesText, margin, yPosition, pageWidth - 2 * margin);
-  yPosition += 10;
-
-  // Drivers Section
-  doc.setFontSize(16);
-  doc.setFont('helvetica', 'bold');
-  doc.text('Key Drivers', margin, yPosition);
-  yPosition += 10;
-
-  doc.setFontSize(12);
-  doc.setFont('helvetica', 'normal');
-  const driversText = profile.manual.drivers.join(', ');
-  yPosition = addWrappedText(driversText, margin, yPosition, pageWidth - 2 * margin);
-  yPosition += 10;
-
-  // Strengths Section
-  doc.setFontSize(16);
-  doc.setFont('helvetica', 'bold');
-  doc.text('Strengths & Superpowers', margin, yPosition);
-  yPosition += 10;
-
-  doc.setFontSize(12);
-  doc.setFont('helvetica', 'normal');
-  profile.manual.strengths.forEach(strength => {
-    yPosition = addWrappedText(`• ${strength}`, margin, yPosition, pageWidth - 2 * margin);
-    yPosition += 5;
-  });
-  yPosition += 5;
-
-  // Reset Protocol Section
-  doc.setFontSize(16);
-  doc.setFont('helvetica', 'bold');
-  doc.text('Reset Protocol', margin, yPosition);
-  yPosition += 10;
-
-  doc.setFontSize(12);
-  doc.setFont('helvetica', 'normal');
-  yPosition = addWrappedText('When you need to reset, try these actions:', margin, yPosition, pageWidth - 2 * margin);
-  yPosition += 5;
-
-  profile.manual.resets.forEach(reset => {
-    yPosition = addWrappedText(`• ${reset}`, margin, yPosition, pageWidth - 2 * margin);
-    yPosition += 5;
-  });
-  yPosition += 10;
-
-  // Belief Shifts Section
-  if (profile.manual.beliefs.length > 0) {
+  // Personal Manual Sections
+  const manual = profile.personalManual;
+  const valuesSections = manual.sections.filter(s => s.category === ManualCategory.VALUES);
+  
+  if (valuesSections.length > 0) {
     doc.setFontSize(16);
     doc.setFont('helvetica', 'bold');
-    doc.text('Belief Transformation', margin, yPosition);
+    doc.text('Core Values', margin, yPosition);
     yPosition += 10;
 
-    profile.manual.beliefs.forEach(belief => {
-      if (belief.old && belief.new) {
-        doc.setFontSize(12);
-        doc.setFont('helvetica', 'normal');
-        yPosition = addWrappedText(`Old belief: "${belief.old}"`, margin, yPosition, pageWidth - 2 * margin);
-        yPosition += 5;
-        yPosition = addWrappedText(`New belief: "${belief.new}"`, margin, yPosition, pageWidth - 2 * margin);
-        yPosition += 10;
-      }
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'normal');
+    valuesSections.forEach(section => {
+      yPosition = addWrappedText(section.content, margin, yPosition, pageWidth - 2 * margin);
+      yPosition += 5;
     });
+    yPosition += 10;
+  }
+
+  // Goals Section
+  const goalsSections = manual.sections.filter(s => s.category === ManualCategory.GOALS);
+  if (goalsSections.length > 0) {
+    doc.setFontSize(16);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Goals & Aspirations', margin, yPosition);
+    yPosition += 10;
+
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'normal');
+    goalsSections.forEach(section => {
+      yPosition = addWrappedText(section.content, margin, yPosition, pageWidth - 2 * margin);
+      yPosition += 5;
+    });
+    yPosition += 10;
+  }
+
+  // Strengths Section
+  const strengthsSections = manual.sections.filter(s => s.category === ManualCategory.STRENGTHS);
+  if (strengthsSections.length > 0) {
+    doc.setFontSize(16);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Strengths & Superpowers', margin, yPosition);
+    yPosition += 10;
+
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'normal');
+    strengthsSections.forEach(section => {
+      yPosition = addWrappedText(`• ${section.content}`, margin, yPosition, pageWidth - 2 * margin);
+      yPosition += 5;
+    });
+    yPosition += 10;
+  }
+
+  // Challenges Section
+  const challengesSections = manual.sections.filter(s => s.category === ManualCategory.CHALLENGES);
+  if (challengesSections.length > 0) {
+    doc.setFontSize(16);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Areas for Growth', margin, yPosition);
+    yPosition += 10;
+
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'normal');
+    challengesSections.forEach(section => {
+      yPosition = addWrappedText(`• ${section.content}`, margin, yPosition, pageWidth - 2 * margin);
+      yPosition += 5;
+    });
+    yPosition += 10;
+  }
+
+  // Preferences Section
+  const preferencesSections = manual.sections.filter(s => s.category === ManualCategory.PREFERENCES);
+  if (preferencesSections.length > 0) {
+    doc.setFontSize(16);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Preferences & Style', margin, yPosition);
+    yPosition += 10;
+
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'normal');
+    preferencesSections.forEach(section => {
+      yPosition = addWrappedText(section.content, margin, yPosition, pageWidth - 2 * margin);
+      yPosition += 5;
+    });
+    yPosition += 10;
   }
 
   // Check if we need a new page
@@ -132,32 +145,25 @@ export function generatePersonalManualPDF(profile: FiveVoiceProfile): jsPDF {
 
     doc.setFontSize(10);
     doc.setFont('helvetica', 'italic');
-    yPosition = addWrappedText(`Archetype: ${voice.archetype}`, margin, yPosition, pageWidth - 2 * margin, 10);
+    yPosition = addWrappedText(`Description: ${voice.description}`, margin, yPosition, pageWidth - 2 * margin, 10);
     yPosition += 5;
 
     doc.setFontSize(10);
     doc.setFont('helvetica', 'normal');
-    yPosition = addWrappedText(`Focus: ${voice.domainFocus}`, margin, yPosition, pageWidth - 2 * margin, 10);
+    yPosition = addWrappedText(`Personality: ${voice.personality}`, margin, yPosition, pageWidth - 2 * margin, 10);
     yPosition += 5;
 
     yPosition = addWrappedText(`Tone: ${voice.tone}`, margin, yPosition, pageWidth - 2 * margin, 10);
     yPosition += 5;
 
-    if (voice.inspiredBy.length > 0) {
-      yPosition = addWrappedText(`Inspired by: ${voice.inspiredBy.join(', ')}`, margin, yPosition, pageWidth - 2 * margin, 10);
+    if (voice.expertise && voice.expertise.length > 0) {
+      yPosition = addWrappedText(`Expertise: ${voice.expertise.join(', ')}`, margin, yPosition, pageWidth - 2 * margin, 10);
       yPosition += 5;
     }
 
-    // Sample lines
-    if (voice.sampleLines.length > 0) {
-      doc.setFont('helvetica', 'italic');
-      yPosition = addWrappedText('Sample guidance:', margin, yPosition, pageWidth - 2 * margin, 10);
-      yPosition += 3;
-      
-      voice.sampleLines.forEach(line => {
-        yPosition = addWrappedText(`"${line}"`, margin + 10, yPosition, pageWidth - 2 * margin - 10, 9);
-        yPosition += 3;
-      });
+    if (voice.inspirationSource) {
+      yPosition = addWrappedText(`Inspired by: ${voice.inspirationSource}`, margin, yPosition, pageWidth - 2 * margin, 10);
+      yPosition += 5;
     }
 
     yPosition += 10;
@@ -189,6 +195,6 @@ export function generatePersonalManualPDF(profile: FiveVoiceProfile): jsPDF {
 
 export function downloadPersonalManualPDF(profile: FiveVoiceProfile): void {
   const doc = generatePersonalManualPDF(profile);
-  const filename = `pentara-manual-${profile.userId}-${new Date().toISOString().split('T')[0]}.pdf`;
+  const filename = `pentara-manual-${profile.userEmail.replace('@', '-')}-${new Date().toISOString().split('T')[0]}.pdf`;
   doc.save(filename);
 }

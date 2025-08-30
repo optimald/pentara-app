@@ -3,6 +3,7 @@ import { signIn, getSession } from 'next-auth/react';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
+import SocialLoginButton from '../../components/Auth/SocialLoginButton';
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
@@ -60,6 +61,31 @@ export default function SignIn() {
 
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+            {/* Social Login Buttons */}
+            <div className="space-y-3 mb-6">
+              <SocialLoginButton 
+                provider="google" 
+                disabled={isLoading}
+                callbackUrl="/console"
+              />
+              <SocialLoginButton 
+                provider="facebook" 
+                disabled={isLoading}
+                callbackUrl="/console"
+              />
+            </div>
+
+            <div className="relative mb-6">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-secondary-300" />
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 bg-white text-secondary-500">
+                  Or continue with email
+                </span>
+              </div>
+            </div>
+
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-secondary-700">

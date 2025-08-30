@@ -32,8 +32,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     // Generate Personal Manual
-    const personalManual = generatePersonalManual(answers);
-    personalManual.userId = userEmail; // Use email as userId for now
+    const personalManual = generatePersonalManual(answers, userEmail);
 
     // Generate Five-Voice Profile
     const profile = generateFiveVoiceProfile(

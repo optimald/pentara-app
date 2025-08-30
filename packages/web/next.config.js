@@ -5,7 +5,16 @@ const nextConfig = {
   // Using pages directory (no experimental features needed)
   env: {
     NEXT_PUBLIC_CALENDLY_URL: process.env.NEXT_PUBLIC_CALENDLY_URL,
+    NEXT_PUBLIC_FACEBOOK_URL: process.env.NEXT_PUBLIC_FACEBOOK_URL,
   },
+  // Disable static optimization to avoid prerendering issues
+  trailingSlash: false,
+  // Force server-side rendering for all pages
+  experimental: {
+    esmExternals: false,
+  },
+  // Disable static export - use server-side rendering
+  distDir: '.next',
   async headers() {
     return [
       {

@@ -1,4 +1,4 @@
-import { OnboardingAnswers, PersonalManual, Voice, FiveVoiceProfile } from '@pentara/shared';
+import { PersonalManual, Voice, FiveVoiceProfile, VoiceTone, ManualCategory, PersonalManualSection, OnboardingAnswers } from '@pentara/shared';
 import { generateActivationCode } from '@pentara/shared';
 
 // Voice archetype templates based on common inspirational figures
@@ -54,26 +54,81 @@ const VOICE_ARCHETYPES = {
   },
 };
 
-export function generatePersonalManual(answers: OnboardingAnswers): PersonalManual {
+export function generatePersonalManual(answers: OnboardingAnswers, userId: string): PersonalManual {
+  const sections: PersonalManualSection[] = [];
+  let order = 1;
+
+  // Values sections
+  const values = extractValues(answers);
+  if (values.length > 0) {
+    sections.push({
+      id: `section_values_${Date.now()}`,
+      title: 'Core Values',
+      content: values.join(', '),
+      order: order++,
+      category: ManualCategory.VALUES
+    });
+  }
+
+  // Goals sections
+  if (answers.driversValues?.topDrivers) {
+    sections.push({
+      id: `section_goals_${Date.now()}`,
+      title: 'Key Drivers & Goals',
+      content: answers.driversValues.topDrivers.join(', '),
+      order: order++,
+      category: ManualCategory.GOALS
+    });
+  }
+
+  // Strengths sections
+  const strengths = extractStrengths(answers);
+  if (strengths.length > 0) {
+    sections.push({
+      id: `section_strengths_${Date.now()}`,
+      title: 'Strengths & Superpowers',
+      content: strengths.join(', '),
+      order: order++,
+      category: ManualCategory.STRENGTHS
+    });
+  }
+
+  // Challenges/Growth areas
+  const boundaries = extractBoundaries(answers);
+  if (boundaries.length > 0) {
+    sections.push({
+      id: `section_challenges_${Date.now()}`,
+      title: 'Areas for Growth',
+      content: boundaries.join(', '),
+      order: order++,
+      category: ManualCategory.CHALLENGES
+    });
+  }
+
+  // Preferences
+  if (answers.negativeTraits?.preferredResponse) {
+    sections.push({
+      id: `section_preferences_${Date.now()}`,
+      title: 'Communication Preferences',
+      content: answers.negativeTraits.preferredResponse,
+      order: order++,
+      category: ManualCategory.PREFERENCES
+    });
+  }
+
   const manual: PersonalManual = {
-    userId: '', // Will be set by the calling function
-    values: extractValues(answers),
-    drivers: answers.driversValues?.topDrivers || [],
-    strengths: extractStrengths(answers),
-    resets: answers.resetProtocol?.resetActions || [],
-    beliefs: [{
-      old: answers.beliefShifts?.oldBelief || '',
-      new: answers.beliefShifts?.newBelief || '',
-    }],
-    boundaries: extractBoundaries(answers),
-    preferredTone: answers.negativeTraits?.preferredResponse ? [answers.negativeTraits.preferredResponse] : [],
-    createdAt: new Date().toISOString(),
+    id: `manual_${Date.now()}`,
+    userId,
+    sections,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    version: 1
   };
 
   return manual;
 }
 
-export function generateFiveVoiceProfile(answers: OnboardingAnswers, manual: PersonalManual, userId: string, createdBy: string): FiveVoiceProfile {
+export function generateFiveVoiceProfile(answers: OnboardingAnswers, manual: PersonalManual, userEmail: string, createdBy: string): FiveVoiceProfile {
   const inspirationFigures = answers.inspirations?.figures || [];
   const desiredQualities = answers.inspirations?.qualities || [];
   const desiredArchetypes = answers.inspirations?.desiredArchetypes || [];
@@ -84,15 +139,18 @@ export function generateFiveVoiceProfile(answers: OnboardingAnswers, manual: Per
   // Generate 5 voices based on selected archetypes
   const voices = selectedArchetypes.map((archetype, index) => 
     createVoice(archetype, answers, manual, index)
-  ) as [Voice, Voice, Voice, Voice, Voice];
+  );
 
   const profile: FiveVoiceProfile = {
-    userId,
+    id: `profile_${Date.now()}`,
+    userId: manual.userId,
+    userEmail,
+    personalManual: manual,
     voices,
-    manual,
     welcomeMessage: generateWelcomeMessage(answers, voices),
     version: 1,
-    createdAt: new Date().toISOString(),
+    createdAt: new Date(),
+    updatedAt: new Date(),
     createdBy,
   };
 
@@ -212,36 +270,56 @@ function selectVoiceArchetypes(figures: string[], qualities: string[], desiredAr
 function createVoice(archetypeName: string, answers: OnboardingAnswers, manual: PersonalManual, index: number): Voice {
   const archetype = VOICE_ARCHETYPES[archetypeName as keyof typeof VOICE_ARCHETYPES];
   
+  // Get values and strengths from manual sections
+  const valuesSections = manual.sections.filter(s => s.category === ManualCategory.VALUES);
+  const strengthsSections = manual.sections.filter(s => s.category === ManualCategory.STRENGTHS);
+  
+  const values = valuesSections.map(s => s.content).join(', ');
+  const strengths = strengthsSections.map(s => s.content).join(', ');
+  
   const voice: Voice = {
     id: `voice_${index + 1}`,
     name: generateVoiceName(archetypeName, answers.inspirations?.figures || []),
-    archetype: archetypeName,
-    inspiredBy: getRelevantFigures(archetypeName, answers.inspirations?.figures || []),
-    domainFocus: archetype.domainFocus,
-    tone: archetype.tone,
-    dosDonts: {
-      dos: [
-        ...archetype.styleRules,
-        `Honor their values: ${manual.values.join(', ')}`,
-        `Support their strengths: ${manual.strengths.slice(0, 2).join(', ')}`,
-      ],
-      donts: [
-        `Avoid topics that trigger: ${manual.boundaries.slice(0, 2).join(', ')}`,
-        'Never provide medical or therapeutic advice',
-        'Keep responses under 140 tokens',
-      ],
-    },
-    tokenCap: 140,
-    styleRules: [
-      ...archetype.styleRules,
-      'Be concise and actionable',
-      'Reference their personal context when relevant',
-      'End with one specific next step when possible',
-    ],
-    sampleLines: generateSampleLines(archetypeName, answers),
+    description: archetype.description,
+    personality: `${archetypeName} - ${archetype.description}`,
+    expertise: [archetype.domainFocus, ...archetype.styleRules.slice(0, 2)],
+    tone: mapToVoiceTone(archetype.tone),
+    inspirationSource: getRelevantFigures(archetypeName, answers.inspirations?.figures || []).join(', '),
+    systemPrompt: generateSystemPrompt(archetypeName, archetype, values, strengths),
   };
   
   return voice;
+}
+
+function mapToVoiceTone(toneDescription: string): VoiceTone {
+  const lowerTone = toneDescription.toLowerCase();
+  
+  if (lowerTone.includes('wise') || lowerTone.includes('thoughtful')) return VoiceTone.WISE;
+  if (lowerTone.includes('supportive') || lowerTone.includes('gentle') || lowerTone.includes('compassionate')) return VoiceTone.SUPPORTIVE;
+  if (lowerTone.includes('challenging') || lowerTone.includes('direct') || lowerTone.includes('disciplined')) return VoiceTone.CHALLENGING;
+  if (lowerTone.includes('analytical') || lowerTone.includes('practical')) return VoiceTone.ANALYTICAL;
+  if (lowerTone.includes('creative') || lowerTone.includes('playful') || lowerTone.includes('imaginative')) return VoiceTone.CREATIVE;
+  
+  return VoiceTone.SUPPORTIVE; // Default
+}
+
+function generateSystemPrompt(archetypeName: string, archetype: any, values: string, strengths: string): string {
+  return `You are ${archetypeName}, ${archetype.description}. 
+
+Your role: ${archetype.domainFocus}
+Your tone: ${archetype.tone}
+
+User's core values: ${values}
+User's key strengths: ${strengths}
+
+Guidelines:
+${archetype.styleRules.map((rule: string) => `- ${rule}`).join('\n')}
+- Keep responses under 140 tokens
+- Be concise and actionable
+- Reference their personal context when relevant
+- Never provide medical or therapeutic advice
+
+Respond as ${archetypeName} would, honoring their values and supporting their growth.`;
 }
 
 function generateVoiceName(archetypeName: string, figures: string[]): string {
