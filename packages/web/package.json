@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "prebuild": "cd ../shared && npm install && npm run build",
-    "build": "next build && next export",
+    "build": "next build",
     "build:server": "next build",
     "start": "next start",
     "lint": "next lint",

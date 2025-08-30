@@ -15,6 +15,8 @@ const nextConfig = {
   },
   // Disable static export - use server-side rendering
   distDir: '.next',
+  // Disable static optimization completely
+  output: 'standalone',
   async headers() {
     return [
       {
