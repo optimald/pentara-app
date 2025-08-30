@@ -1,11 +1,6 @@
 {
   "version": 2,
   "buildCommand": "npm run build:web",
-  "outputDirectory": "packages/web/.next",
-  "installCommand": "npm install",
-  "functions": {
-    "packages/web/src/pages/api/**/*.ts": {
-      "runtime": "@vercel/node"
-    }
-  }
+  "outputDirectory": "packages/web/out",
+  "installCommand": "npm install"
 }

@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: false, // Disable React strict mode to avoid context issues
-  swcMinify: true,
+  reactStrictMode: false,
+  swcMinify: false, // Disable SWC minification to avoid issues
   env: {
     NEXT_PUBLIC_CALENDLY_URL: process.env.NEXT_PUBLIC_CALENDLY_URL,
     NEXT_PUBLIC_FACEBOOK_URL: process.env.NEXT_PUBLIC_FACEBOOK_URL,
@@ -9,6 +9,12 @@ const nextConfig = {
   trailingSlash: false,
   experimental: {
     esmExternals: false,
+  },
+  // Use export mode to avoid server-side rendering issues
+  output: 'export',
+  distDir: 'out',
+  images: {
+    unoptimized: true,
   },
   async headers() {
     return [
