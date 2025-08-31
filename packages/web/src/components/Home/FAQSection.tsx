@@ -10,36 +10,36 @@ export default function FAQSection() {
 
   const faqs: FAQItem[] = [
     {
-      question: "What exactly is Pentara?",
-      answer: "Pentara is a self-coaching app that gives you access to five AI voices inspired by figures you admire. After a personalized onboarding session, you'll have a private council of voices tuned to your values and goals. It's not therapy—it's a tool for reflection, decision-making, and personal growth."
+      question: "What exactly is Vibe Code?",
+      answer: "Vibe Code is a revolutionary AI-powered approach to development that's changing how developers work. It's not just another coding method—it's your intelligent partnership that understands your vision, anticipates your needs, and creates code through conversation, not memorization."
     },
     {
-      question: "How does the onboarding work?",
-      answer: "You'll book a 45-minute session with a trained coach who guides you through a comprehensive questionnaire. Together, you'll identify your values, inspirations, and goals to create your Personal Manual and configure five unique voices. After the session, you'll receive your activation code and Personal Manual PDF."
+      question: "How does Cursor implement Vibe Code?",
+      answer: "Cursor is an AI-powered code editor that reads your entire codebase and suggests solutions that actually fit. It's like having a senior developer beside you—AI that understands your intent and creates the exact code you need through natural conversation."
     },
     {
-      question: "Is my data private?",
-      answer: "Absolutely. Your conversations with the voices are stored only on your device—never on our servers. After your onboarding, even your coach cannot access your future conversations. We built Pentara with privacy as the foundation."
+      question: "Is my code private and secure?",
+      answer: "Absolutely. Cursor processes your code locally and only sends necessary context to AI models for suggestions. Your intellectual property and proprietary code remain secure and private on your device."
     },
     {
-      question: "What's the difference between this and therapy?",
-      answer: "Pentara is a self-coaching tool, not therapy. It's designed for reflection, decision-making, and gaining perspective on everyday challenges. If you're dealing with mental health issues, trauma, or crisis situations, please seek professional help from a licensed therapist or counselor."
+      question: "What's the difference between Cursor and other AI coding tools?",
+      answer: "Cursor goes beyond simple code completion. It implements Vibe Code methodology—understanding your entire project context, your coding style, and your intent. It's not just suggesting syntax, it's creating solutions that fit your specific needs and architecture."
     },
     {
-      question: "How much does it cost?",
-      answer: "There's a one-time $150 fee for the personalized onboarding session. After that, the app is completely free to use—no subscriptions, no in-app purchases. You own your council of voices."
+      question: "How much does Cursor cost?",
+      answer: "Cursor is completely free to use! There are no subscriptions, no in-app purchases, and no hidden fees. You get the full AI-powered development experience with Vibe Code methodology at no cost."
     },
     {
-      question: "Can I change my voices later?",
-      answer: "Yes! If you want to swap out a voice or adjust your council, you can request changes through the app. This will connect you back with a coach to make the adjustments you need."
+      question: "Can I use Cursor with my existing projects?",
+      answer: "Yes! Cursor works seamlessly with your existing codebase. It reads and understands your project structure, dependencies, and coding patterns to provide contextually relevant suggestions that fit your project's architecture."
     },
     {
-      question: "What if I'm not satisfied?",
-      answer: "We want you to love your personal council. If you're not satisfied after your onboarding session, we'll work with you to refine your voices or provide a refund. Your growth and satisfaction are our priority."
+      question: "What programming languages does Cursor support?",
+      answer: "Cursor supports all major programming languages including JavaScript, TypeScript, Python, Java, C++, Go, Rust, and many more. The AI understands the syntax and best practices for each language."
     },
     {
-      question: "How do I get started?",
-      answer: "Simply book your onboarding session using the calendar link on this page. You'll receive a confirmation email with everything you need to prepare for your session. The whole process takes about 45 minutes, and you'll leave with your activation code ready to use."
+      question: "How do I get started with Cursor?",
+      answer: "Simply download Cursor from cursor.sh, install it on your system, and open your existing project or create a new one. The AI will immediately start understanding your codebase and providing intelligent suggestions based on Vibe Code methodology."
     }
   ];
 
@@ -53,7 +53,7 @@ export default function FAQSection() {
               Frequently asked questions
             </h2>
             <p className="text-xl text-secondary-600">
-              Everything you need to know about Pentara
+              Everything you need to know about Cursor and Vibe Code
             </p>
           </div>
 
@@ -98,21 +98,6 @@ export default function FAQSection() {
                 )}
               </div>
             ))}
-          </div>
-
-          {/* Bottom CTA */}
-          <div className="text-center mt-12">
-            <p className="text-secondary-600 mb-6">
-              Still have questions? We're here to help.
-            </p>
-            <a
-              href={process.env.NEXT_PUBLIC_CALENDLY_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary"
-            >
-              Book your onboarding session
-            </a>
           </div>
         </div>
       </div>

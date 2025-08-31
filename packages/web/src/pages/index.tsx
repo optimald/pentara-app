@@ -9,22 +9,22 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Pentara - Five voices. One circle. Clarity on demand.</title>
+        <title>Cursor - Why Vibe Code? AI-Powered Development</title>
         <meta 
           name="description" 
-          content="A private self-coaching app with five inspired-by voices tuned to your values. Book a 45-minute onboarding session to create your personal council. Not therapy." 
+          content="Discover why Vibe Code with Cursor is revolutionizing development. AI-powered coding that understands your intent and creates code through conversation, not memorization." 
         />
-        <meta name="keywords" content="self-coaching, personal development, AI voices, decision making, clarity, not therapy" />
+        <meta name="keywords" content="cursor, vibe code, AI coding, development, programming, AI assistant, code generation" />
         
         {/* OpenGraph */}
-        <meta property="og:title" content="Pentara - Five voices. One circle. Clarity on demand." />
-        <meta property="og:description" content="A private self-coaching app with five inspired-by voices tuned to your values. Not therapy." />
+        <meta property="og:title" content="Cursor - Why Vibe Code? AI-Powered Development" />
+        <meta property="og:description" content="Discover why Vibe Code with Cursor is revolutionizing development. AI-powered coding that understands your intent and creates code through conversation." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://pentara.app" />
+        <meta property="og:url" content="https://cursor.sh" />
         
         {/* Twitter */}
-        <meta name="twitter:title" content="Pentara - Five voices. One circle. Clarity on demand." />
-        <meta name="twitter:description" content="A private self-coaching app with five inspired-by voices tuned to your values. Not therapy." />
+        <meta name="twitter:title" content="Cursor - Why Vibe Code? AI-Powered Development" />
+        <meta name="twitter:description" content="Discover why Vibe Code with Cursor is revolutionizing development. AI-powered coding that understands your intent and creates code through conversation." />
         
         {/* Structured Data */}
         <script
@@ -32,17 +32,17 @@ export default function Home() {
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "WebApplication",
-              "name": "Pentara",
-              "description": "A private self-coaching app with five inspired-by voices tuned to your values",
-              "url": "https://pentara.app",
-              "applicationCategory": "LifestyleApplication",
-              "operatingSystem": "iOS, Android",
+              "@type": "SoftwareApplication",
+              "name": "Cursor",
+              "description": "AI-powered code editor with Vibe Code methodology",
+              "url": "https://cursor.sh",
+              "applicationCategory": "DeveloperApplication",
+              "operatingSystem": "Windows, macOS, Linux",
               "offers": {
                 "@type": "Offer",
-                "price": "150",
+                "price": "0",
                 "priceCurrency": "USD",
-                "description": "One-time onboarding session"
+                "description": "Free AI-powered code editor"
               }
             })
           }}
