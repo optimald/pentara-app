@@ -198,3 +198,12 @@ const TermsPage: NextPage = () => {
 };
 
 export default TermsPage;
+
+// Force server-side rendering to avoid static generation issues
+export async function getServerSideProps() {
+  return {
+    props: {
+      // Empty props to force SSR
+    },
+  };
+}
