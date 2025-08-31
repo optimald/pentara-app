@@ -36,12 +36,7 @@
     "exactOptionalPropertyTypes": true
   },
   "include": [
-    "packages/*/src/**/*",
-    "packages/*/pages/**/*",
-    "packages/*/*.ts",
-    "packages/*/*.tsx",
-    "packages/*/*.js",
-    "packages/*/*.jsx"
+    "packages/shared/src/**/*"
   ],
   "exclude": [
     "node_modules",
