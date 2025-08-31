@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "npm run build:web",
+  "buildCommand": "npm run vercel-build",
   "outputDirectory": "packages/web/.next",
   "installCommand": "npm install"
 }
