@@ -6,6 +6,9 @@ export const useAnalytics = () => {
   const router = useRouter();
 
   useEffect(() => {
+    // Only run on client side
+    if (typeof window === 'undefined') return;
+
     const handleRouteChange = (url: string) => {
       // Google Analytics page view
       pageview(url);
