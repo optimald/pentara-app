@@ -5,17 +5,32 @@ import FacebookProvider from 'next-auth/providers/facebook';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { prisma } from '../../../lib/prisma';
 
-export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(prisma),
-  providers: [
+// Build providers array conditionally based on available environment variables
+const providers = [];
+
+// Add Google provider if credentials are available
+if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
+  providers.push(
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    }),
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    })
+  );
+}
+
+// Add Facebook provider if credentials are available
+if (process.env.FACEBOOK_CLIENT_ID && process.env.FACEBOOK_CLIENT_SECRET) {
+  providers.push(
     FacebookProvider({
-      clientId: process.env.FACEBOOK_CLIENT_ID!,
-      clientSecret: process.env.FACEBOOK_CLIENT_SECRET!,
-    }),
+      clientId: process.env.FACEBOOK_CLIENT_ID,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+    })
+  );
+}
+
+// Add Email provider if SMTP credentials are available
+if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
+  providers.push(
     EmailProvider({
       server: {
         host: process.env.SMTP_HOST,
@@ -25,9 +40,28 @@ export const authOptions: NextAuthOptions = {
           pass: process.env.SMTP_PASS,
         },
       },
-      from: process.env.FROM_EMAIL,
-    }),
-  ],
+      from: process.env.FROM_EMAIL || 'noreply@pentara.app',
+    })
+  );
+}
+
+// If no providers are configured, add a fallback email provider
+if (providers.length === 0) {
+  console.warn('No OAuth providers configured. Using fallback email provider.');
+  providers.push(
+    EmailProvider({
+      server: {
+        host: 'localhost',
+        port: 1025,
+      },
+      from: 'noreply@pentara.app',
+    })
+  );
+}
+
+export const authOptions: NextAuthOptions = {
+  adapter: PrismaAdapter(prisma),
+  providers,
   pages: {
     signIn: '/auth/signin',
     verifyRequest: '/auth/verify-request',
@@ -43,17 +77,22 @@ export const authOptions: NextAuthOptions = {
     async signIn({ user, account, profile, email, credentials }) {
       // Only allow coaches and admins to sign in
       if (user.email) {
-        const existingUser = await prisma.user.findUnique({
-          where: { email: user.email },
-        });
-        
-        if (!existingUser) {
-          // For new users, only allow if they're being created by an admin
-          // In production, you'd have a more sophisticated invitation system
+        try {
+          const existingUser = await prisma.user.findUnique({
+            where: { email: user.email },
+          });
+          
+          if (!existingUser) {
+            // For new users, only allow if they're being created by an admin
+            // In production, you'd have a more sophisticated invitation system
+            return false;
+          }
+          
+          return true;
+        } catch (error) {
+          console.error('Database error during sign in:', error);
           return false;
         }
-        
-        return true;
       }
       return false;
     },
@@ -61,6 +100,8 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: 'database',
   },
+  // Add error handling
+  debug: process.env.NODE_ENV === 'development',
 };
 
 export default NextAuth(authOptions);
