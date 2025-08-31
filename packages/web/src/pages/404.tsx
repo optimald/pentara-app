@@ -43,11 +43,4 @@ export default function Custom404() {
   );
 }
 
-// Use server-side rendering for error pages
-export async function getServerSideProps() {
-  return {
-    props: {},
-  };
-}
-
 

@@ -50,11 +50,4 @@ export default function Custom500() {
   );
 }
 
-// Use server-side rendering for error pages
-export async function getServerSideProps() {
-  return {
-    props: {},
-  };
-}
-
 
