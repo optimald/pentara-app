@@ -56,12 +56,6 @@
       "path": "./packages/web"
     },
     {
-      "path": "./packages/mobile"
-    },
-    {
-      "path": "./packages/api"
-    },
-    {
       "path": "./packages/shared"
     }
   ]
