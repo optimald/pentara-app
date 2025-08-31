@@ -21,9 +21,14 @@ export default function Footer() {
               See your path from every angle. A private self-coaching app with five 
               inspired-by perspectives tuned to your values. Not therapy.
             </p>
-            <p className="text-sm text-dark-500">
+            <p className="text-sm text-dark-500 mb-3">
               Private self-coaching tool.
             </p>
+            <div className="flex items-center space-x-2 text-dark-500 text-sm">
+              <span>⚠️</span>
+              <span>In crisis? Contact a mental health professional immediately or call</span>
+              <a href="tel:988" className="text-gold-500 hover:text-gold-400 font-medium">988</a>
+            </div>
           </div>
 
           {/* Quick Links */}

@@ -10,22 +10,22 @@ export default function Privacy() {
       </Head>
 
       <Layout>
-        <div className="section-padding bg-white">
+        <div className="section-padding bg-slate-900">
           <div className="container-max max-w-4xl">
-            <h1 className="text-4xl font-serif font-bold text-secondary-900 mb-8">
+            <h1 className="text-4xl font-serif font-bold text-white mb-8">
               Privacy Policy
             </h1>
             
-            <div className="prose prose-lg max-w-none">
-              <p className="text-xl text-secondary-600 mb-8">
+            <div className="prose prose-lg max-w-none prose-invert">
+              <p className="text-xl text-slate-300 mb-8">
                 Last updated: {new Date().toLocaleDateString()}
               </p>
 
-              <div className="bg-primary-50 border border-primary-200 rounded-lg p-6 mb-8">
-                <h2 className="text-xl font-semibold text-primary-900 mb-3">
+              <div className="bg-slate-800/50 border border-amber-600/30 rounded-lg p-6 mb-8">
+                <h2 className="text-xl font-semibold text-amber-400 mb-3">
                   Privacy-First Promise
                 </h2>
-                <p className="text-primary-800">
+                <p className="text-slate-200">
                   Your conversations with your Pentara voices are stored only on your device. 
                   We never store, read, or analyze your chat data on our servers. Your privacy 
                   is not just a policy—it's our architecture.

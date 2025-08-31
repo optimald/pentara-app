@@ -1,53 +1,43 @@
-import React from 'react';
-
 interface FAQItem {
   question: string;
   answer: string;
 }
 
 export default function FAQSection() {
+
   const faqs: FAQItem[] = [
     {
-      question: "What is Pentara?",
-      answer: "Pentara is your exclusive Personal Court of Wisdom—five sovereign advisors (The Sage, Warrior, Healer, Strategist, and Visionary) crafted by master coaches and calibrated to your unique values. This invitation-only royal council provides elite self-coaching guidance on your private device. Not therapy."
+      question: "What is this?",
+      answer: "Pentara creates your personal advisory council—five distinct voices that live on your device. You can consult individual advisors or your entire team for complex decisions. Ultra-private, personalized, and exclusively yours."
     },
     {
-      question: "Who are the five sovereign advisors?",
-      answer: "Your royal council consists of The Sage (ancient wisdom & reflection), The Warrior (bold action & courage), The Healer (compassion & emotional intelligence), The Strategist (logic & planning), and The Visionary (creativity & possibility). Each advisor has a distinct personality and guidance style, all tuned to your specific profile."
+      question: "What do I get in onboarding?",
+      answer: "A focused 45-minute conversation to understand your needs, followed by the creation of your personal advisory council of five voices, each tailored to your unique situation and goals."
     },
     {
-      question: "Who qualifies for Pentara?",
-      answer: "Pentara is designed for accomplished individuals seeking elite-level personal development. During our private consultation, we assess your candidacy based on your commitment to growth, values alignment, and readiness for this exclusive experience."
+      question: "What happens after?",
+      answer: "You get ongoing access to your personal team of five trusted voices for just $15/month. All conversations remain exclusively on your device—we never store chat logs on our servers."
     },
     {
-      question: "What makes Pentara different from other coaching services?",
-      answer: "Unlike mass-market solutions, Pentara creates your personal royal council—five distinct advisor personalities that live on your device. You can consult individual advisors or your entire council for complex decisions. Ultra-private, bespoke, and exclusively yours through a single curated onboarding."
+      question: "Is this therapy?",
+      answer: "No. Pentara is a self-coaching tool, not therapy or crisis intervention. If you're in crisis, please contact a mental health professional immediately."
     },
     {
-      question: "How does the process work?",
-      answer: "A focused 45-minute assessment determines fit for our exclusive process. Upon acceptance, master coaches craft your bespoke council of five advisors, each calibrated to your unique leadership context and decision-making style."
+      question: "How private is this?",
+      answer: "Completely private. All conversations happen on your device and are never sent to our servers. Your council and insights are yours alone—we can't access them even if we wanted to."
     },
     {
-      question: "Is my data completely private and secure?",
-      answer: "Absolutely. All conversations remain exclusively on your device. We never store chat logs on our servers. Your personal council is encrypted and accessible only to you—the ultimate in privacy and discretion."
+      question: "Can I change my council later?",
+      answer: "Yes. Your council evolves with you. You can request adjustments during follow-up sessions to realign your advisors as your goals and needs change."
     },
     {
-      question: "What's the investment?",
-      answer: "The assessment and council creation is $299, plus $10/month for ongoing access to your advisors. A single investment for lifetime access to your personal council of five sophisticated perspectives."
-    },
-    {
-      question: "Can I modify my council after creation?",
-      answer: "Yes. As a Pentara member, you can request refinements through private tune-up sessions with your assigned master coach. We ensure your council evolves with your growth and changing needs."
-    },
-    {
-      question: "What if I'm experiencing a crisis?",
-      answer: "Pentara is an elite self-coaching tool, not crisis intervention. If you're in crisis, please contact a mental health professional immediately or use the crisis resources available in the app."
-    },
-    {
-      question: "How do I request access?",
-      answer: "Request your private consultation through our exclusive booking system. Following your assessment, qualified candidates receive an activation code and lifetime access to their bespoke personal council."
+      question: "What if I'm not satisfied?",
+      answer: "We offer a 30-day satisfaction guarantee. If Pentara isn't right for you, we'll refund your onboarding fee. Your transformation is our priority."
     }
   ];
+
+  // Show only first 3 questions for now
+  const displayedFaqs = faqs.slice(0, 3);
 
   return (
     <section id="faq" className="section-padding bg-gradient-to-b from-dark-100 to-dark-200 relative">
@@ -78,9 +68,9 @@ export default function FAQSection() {
             </p>
           </div>
 
-          {/* FAQ Items - Static version */}
+          {/* FAQ Items - Static */}
           <div className="space-y-4">
-            {faqs.map((faq, index) => (
+            {displayedFaqs.map((faq, index) => (
               <div
                 key={index}
                 className="bg-dark-200 border border-dark-300 rounded-xl overflow-hidden hover:border-gold-500 transition-colors"
@@ -105,8 +95,8 @@ export default function FAQSection() {
                     </svg>
                   </div>
                 </div>
-                <div className="px-6 pb-5">
-                  <p className="text-dark-600 leading-relaxed">
+                <div className="px-6 pb-5 border-t border-dark-300">
+                  <p className="text-dark-600 leading-relaxed pt-4">
                     {faq.answer}
                   </p>
                 </div>
@@ -114,19 +104,68 @@ export default function FAQSection() {
             ))}
           </div>
 
-          {/* Secondary CTA */}
-          <div className="text-center mt-12">
-            <p className="text-dark-600 mb-6">
-              Ready for examination?
+          {/* View More Hint */}
+          <div className="text-center mt-8">
+            <p className="text-dark-500 text-sm">
+              Learn more about your council during your onboarding session
             </p>
-            <a
-              href="https://calendly.com/optimaldev/pentara-onboarding"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-gradient-to-r from-black via-gold-600 to-black text-white text-lg px-12 py-5 inline-flex items-center space-x-3 rounded-none font-bold hover:shadow-2xl hover:shadow-gold-500/40 transition-all duration-300 transform hover:-translate-y-1 border-2 border-gold-500"
-            >
-              <span>Claim Your Throne</span>
-            </a>
+          </div>
+
+          {/* Enhanced CTA with Seductress Guide */}
+          <div className="text-center mt-12">
+            <div className="max-w-4xl mx-auto">
+              {/* Seductress Guide Image - Full Impact */}
+              <div className="mb-8 flex justify-center">
+                <div className="relative w-64 h-80 rounded-lg overflow-hidden border-2 border-amber-600/40 shadow-2xl shadow-amber-500/20">
+                  <img 
+                    src="/seductress-guide.jpeg" 
+                    alt="Your Guide to the Council" 
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent"></div>
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-900/80 to-transparent p-4">
+                    <p className="text-amber-200 text-sm font-medium text-center">
+                      ✦ Your Personal Guide to the Council ✦
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Human Connection Narrative */}
+              <div className="text-center mb-6">
+                <h3 className="text-xl font-serif font-bold text-amber-300 mb-2">
+                  ✦ Meet Your Personal Guide ✦
+                </h3>
+                <p className="text-slate-300 text-lg leading-relaxed">
+                  Your 45-minute onboarding session is led by an experienced facilitator who will help you 
+                  discover your unique council of five archetypes. This personal consultation ensures your 
+                  council is perfectly calibrated to your journey.
+                </p>
+              </div>
+              
+              {/* Enhanced CTA Button */}
+              <div className="flex justify-center">
+                <a
+                  href="https://calendly.com/optimaldev/pentara-onboarding"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-gradient-to-r from-slate-900 via-amber-700 to-slate-900 text-white text-lg px-16 py-6 inline-flex items-center space-x-3 font-bold hover:shadow-2xl hover:shadow-amber-500/40 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl border-2 border-amber-600 group"
+                >
+                  <span className="text-2xl font-bold tracking-wide mr-3">Book Your Onboarding</span>
+                  <span className="text-amber-200 font-normal text-lg">($299)</span>
+                  <svg className="w-6 h-6 text-amber-200 ml-3 group-hover:translate-x-1 transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 19l-8-8z"/>
+                  </svg>
+                </a>
+              </div>
+              
+              {/* Professional Assurance */}
+              <div className="mt-4 text-center">
+                <p className="text-slate-400 text-sm">
+                  <span className="text-amber-400">✦</span> Professional guidance for your transformation <span className="text-amber-400">✦</span>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

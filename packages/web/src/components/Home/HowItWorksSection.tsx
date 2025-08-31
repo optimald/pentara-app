@@ -1,33 +1,33 @@
 export default function HowItWorksSection() {
   const steps = [
     {
-      number: "I",
-      title: "The Assessment",
-      description: "A focused 45-minute consultation to understand your leadership context and determine fit for our exclusive process.",
-      cta: "Request Assessment",
+      number: "1",
+      title: "Begin Your Initiation ($299)",
+      description: "Sacred consultation to understand your journey and reveal your council.",
+      cta: "Begin Your Initiation ($299)",
+      icon: (
+        <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+        </svg>
+      )
+    },
+    {
+      number: "2", 
+      title: "Your Council is Revealed",
+      description: "Five archetypes emerge, calibrated to your essence and ready to guide.",
+      icon: (
+        <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zM4 18v-4h3v-3c0-1.1.9-2 2-2h2V7H9.5C8.67 7 8 6.33 8 5.5S8.67 4 9.5 4h5c.83 0 1.5.67 1.5 1.5S15.33 7 14.5 7H13v2h2c1.1 0 2 .9 2 2v3h3v4H4z"/>
+        </svg>
+      )
+    },
+    {
+      number: "3",
+      title: "Receive Ongoing Wisdom ($10/mo)",
+      description: "Daily guidance, weekly insights, and monthly rituals that evolve with you.",
       icon: (
         <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
           <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-        </svg>
-      )
-    },
-    {
-      number: "II", 
-      title: "The Crafting",
-      description: "Master coaches create your bespoke council—five distinct advisors calibrated to your values, goals, and decision-making style.",
-      icon: (
-        <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12 1L9 9l-8 0 6.5 4.7L5 22l7-5.2L19 22l-2.5-8.3L23 9l-8 0L12 1z"/>
-        </svg>
-      )
-    },
-    {
-      number: "III",
-      title: "The Council",
-      description: "Your personal advisory council is delivered to your device. Five sophisticated perspectives, available whenever you need clarity.",
-      icon: (
-        <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M5 16L3 14l5.5-5.5L10 10l4-4 6 6-4 4-1.5-1.5L9 20l-4-4zm2.5-2.5L6 12l1.5-1.5L9 12l-1.5 1.5z"/>
         </svg>
       )
     }
@@ -39,10 +39,10 @@ export default function HowItWorksSection() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-serif font-bold text-dark-800 mb-6">
-            The Process
+            How It Works
           </h2>
           <p className="text-xl text-dark-600 max-w-2xl mx-auto">
-            Three steps to your personal council of advisors.
+            Three simple steps to get your trusted advisory council.
           </p>
         </div>
 
@@ -84,7 +84,7 @@ export default function HowItWorksSection() {
                       href="https://calendly.com/optimaldev/pentara-onboarding"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-primary text-sm px-6 py-2"
+                      className="bg-gradient-to-r from-slate-900 via-amber-700 to-slate-900 text-white px-6 py-2 font-bold border border-amber-600/60 hover:border-amber-500 transition-all duration-300"
                     >
                       {step.cta}
                     </a>
