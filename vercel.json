@@ -1,6 +1,6 @@
 {
   "version": 2,
   "buildCommand": "npm run build:web",
-  "outputDirectory": "packages/web/.next",
+  "outputDirectory": "packages/web/out",
   "installCommand": "npm install"
 }
