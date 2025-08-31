@@ -1,22 +1,28 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
-  swcMinify: false,
+  swcMinify: false, // Disable SWC minification to avoid issues
   env: {
     NEXT_PUBLIC_CALENDLY_URL: process.env.NEXT_PUBLIC_CALENDLY_URL,
     NEXT_PUBLIC_FACEBOOK_URL: process.env.NEXT_PUBLIC_FACEBOOK_URL,
   },
   trailingSlash: false,
+  // Force server-side rendering only - no static generation
+  output: 'standalone',
+  distDir: '.next',
   experimental: {
     esmExternals: false,
+    // Disable static optimization completely
+    staticPageGenerationTimeout: 0,
   },
-          // Force server-side rendering only - no static generation
-        output: 'standalone',
-        distDir: '.next',
-        // Disable styled-jsx completely to avoid context issues
-        compiler: {
-          styledJsx: false,
-        },
+  // Disable static generation for all pages
+  generateStaticParams: false,
+  // Force dynamic rendering
+  dynamicParams: true,
+  // Disable styled-jsx completely to avoid context issues
+  compiler: {
+    styledJsx: false,
+  },
   async headers() {
     return [
       {
