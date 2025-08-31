@@ -15,16 +15,16 @@ export default function Header() {
           <Link href="/" className="logo">
             <div className="logo-symbol">
               <Image
-                src="/logo-symbol.svg"
-                alt="Cursor"
+                src="/logo.jpeg"
+                alt="Pentara"
                 width={40}
                 height={40}
-                className="w-full h-full"
+                className="w-full h-full rounded-lg"
                 priority
               />
             </div>
             <span className="logo-text">
-              Cursor
+              Pentara
             </span>
           </Link>
 
@@ -49,12 +49,12 @@ export default function Header() {
               Privacy
             </Link>
             <a
-              href="https://cursor.sh"
+              href="https://calendly.com/optimaldev/pentara-onboarding"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary"
             >
-              Download Cursor
+              Book Onboarding
             </a>
           </div>
 
@@ -115,12 +115,13 @@ export default function Header() {
                 Privacy
               </Link>
               <a
-                href="https://cursor.sh"
+                href="https://calendly.com/optimaldev/pentara-onboarding"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-primary text-center"
+                className="btn-primary"
+                onClick={() => setIsMenuOpen(false)}
               >
-                Download Cursor
+                Book Onboarding
               </a>
             </div>
           </div>

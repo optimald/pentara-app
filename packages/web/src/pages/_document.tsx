@@ -8,18 +8,16 @@ export default function Document() {
         <meta name="theme-color" content="#f59e0b" />
         <meta name="description" content="Five voices. One circle. Clarity on demand. A private self-coaching app with five inspired-by voices tuned to your values." />
         
-        {/* Favicons */}
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        {/* Favicons - Use actual logo file */}
+        <link rel="icon" type="image/jpeg" href="/favicon.jpeg" />
+        <link rel="apple-touch-icon" href="/favicon.jpeg" />
         <link rel="manifest" href="/site.webmanifest" />
         
         {/* OpenGraph */}
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Pentara - Five voices. One circle. Clarity on demand." />
         <meta property="og:description" content="A private self-coaching app with five inspired-by voices tuned to your values. Not therapy." />
-        <meta property="og:image" content="/og-image.png" />
+        <meta property="og:image" content="/logo.jpeg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         
@@ -27,7 +25,7 @@ export default function Document() {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Pentara - Five voices. One circle. Clarity on demand." />
         <meta name="twitter:description" content="A private self-coaching app with five inspired-by voices tuned to your values. Not therapy." />
-        <meta name="twitter:image" content="/og-image.png" />
+        <meta name="twitter:image" content="/logo.jpeg" />
         
         {/* App manifest */}
         <meta name="application-name" content="Pentara" />
@@ -44,8 +42,8 @@ export default function Document() {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://calendly.com" />
         
-        {/* Preload critical assets */}
-        <link rel="preload" href="/logo-symbol.svg" as="image" type="image/svg+xml" />
+        {/* Preload critical assets - Use actual logo */}
+        <link rel="preload" href="/logo.jpeg" as="image" type="image/jpeg" />
         
         {/* Google Analytics */}
         <script

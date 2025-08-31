@@ -9,22 +9,22 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Cursor - Why Vibe Code? AI-Powered Development</title>
+        <title>Pentara - Five voices. One circle. Clarity on demand.</title>
         <meta 
           name="description" 
-          content="Discover why Vibe Code with Cursor is revolutionizing development. AI-powered coding that understands your intent and creates code through conversation, not memorization." 
+          content="A private self-coaching app with five inspired-by voices tuned to your values. Not therapy." 
         />
-        <meta name="keywords" content="cursor, vibe code, AI coding, development, programming, AI assistant, code generation" />
+        <meta name="keywords" content="pentara, coaching, self-coaching, personal development, AI voices, clarity" />
         
         {/* OpenGraph */}
-        <meta property="og:title" content="Cursor - Why Vibe Code? AI-Powered Development" />
-        <meta property="og:description" content="Discover why Vibe Code with Cursor is revolutionizing development. AI-powered coding that understands your intent and creates code through conversation." />
+        <meta property="og:title" content="Pentara - Five voices. One circle. Clarity on demand." />
+        <meta property="og:description" content="A private self-coaching app with five inspired-by voices tuned to your values. Not therapy." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://cursor.sh" />
+        <meta property="og:url" content="https://pentara.app" />
         
         {/* Twitter */}
-        <meta name="twitter:title" content="Cursor - Why Vibe Code? AI-Powered Development" />
-        <meta name="twitter:description" content="Discover why Vibe Code with Cursor is revolutionizing development. AI-powered coding that understands your intent and creates code through conversation." />
+        <meta name="twitter:title" content="Pentara - Five voices. One circle. Clarity on demand." />
+        <meta name="twitter:description" content="A private self-coaching app with five inspired-by voices tuned to your values. Not therapy." />
         
         {/* Structured Data */}
         <script
@@ -33,16 +33,16 @@ export default function Home() {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "SoftwareApplication",
-              "name": "Cursor",
-              "description": "AI-powered code editor with Vibe Code methodology",
-              "url": "https://cursor.sh",
-              "applicationCategory": "DeveloperApplication",
-              "operatingSystem": "Windows, macOS, Linux",
+              "name": "Pentara",
+              "description": "A private self-coaching app with five inspired-by voices tuned to your values",
+              "url": "https://pentara.app",
+              "applicationCategory": "HealthApplication",
+              "operatingSystem": "iOS, Android",
               "offers": {
                 "@type": "Offer",
-                "price": "0",
+                "price": "150",
                 "priceCurrency": "USD",
-                "description": "Free AI-powered code editor"
+                "description": "One-time onboarding session"
               }
             })
           }}
