@@ -2,33 +2,32 @@ export default function HowItWorksSection() {
   const steps = [
     {
       number: "01",
-      title: "Book a 45-minute onboarding",
-      description: "Schedule your personalized session with a trained coach who will guide you through our comprehensive questionnaire.",
-      price: "$150",
-      cta: "Book now",
+      title: "Download Cursor",
+      description: "Get the free AI-powered code editor that implements Vibe Code methodology. Install it on Windows, macOS, or Linux.",
+      cta: "Download now",
       icon: (
         <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
         </svg>
       )
     },
     {
       number: "02", 
-      title: "We craft your Personal Manual and five voices together",
-      description: "During the session, we'll create your unique profile with five carefully selected voices that reflect your values and goals.",
+      title: "Open your project",
+      description: "Cursor reads your entire codebase and understands your project structure, dependencies, and coding patterns.",
       icon: (
         <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
         </svg>
       )
     },
     {
       number: "03",
-      title: "Use Pentara anytime. Private, on your device.",
-      description: "Download the app, activate with your code, and start conversations with your personal council whenever you need guidance.",
+      title: "Code through conversation",
+      description: "Describe what you want in plain English and watch AI create the exact code you need. No more syntax hunting or memorization.",
       icon: (
         <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
         </svg>
       )
     }
@@ -40,10 +39,10 @@ export default function HowItWorksSection() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-secondary-900 mb-4">
-            How it works
+            How Vibe Code works
           </h2>
           <p className="text-xl text-secondary-600 max-w-2xl mx-auto">
-            Three simple steps to your personal council of voices
+            Three simple steps to AI-powered development
           </p>
         </div>
 
@@ -77,40 +76,20 @@ export default function HowItWorksSection() {
 
                 {/* CTA for step 1 */}
                 {step.cta && (
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-center">
                     <a
-                      href={process.env.NEXT_PUBLIC_CALENDLY_URL}
+                      href="https://cursor.sh"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn-primary"
                     >
                       {step.cta}
                     </a>
-                    {step.price && (
-                      <span className="text-lg font-semibold text-primary-600">
-                        {step.price}
-                      </span>
-                    )}
                   </div>
                 )}
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Bottom CTA */}
-        <div className="text-center mt-16">
-          <p className="text-secondary-600 mb-6">
-            Ready to build your personal council?
-          </p>
-          <a
-            href={process.env.NEXT_PUBLIC_CALENDLY_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-primary text-lg px-8 py-3"
-          >
-            Schedule your onboarding
-          </a>
         </div>
       </div>
     </section>

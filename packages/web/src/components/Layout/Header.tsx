@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -14,7 +16,7 @@ export default function Header() {
             <div className="logo-symbol">
               <Image
                 src="/logo-symbol.svg"
-                alt="Pentara"
+                alt="Cursor"
                 width={40}
                 height={40}
                 className="w-full h-full"
@@ -22,7 +24,7 @@ export default function Header() {
               />
             </div>
             <span className="logo-text">
-              Pentara
+              Cursor
             </span>
           </Link>
 
@@ -47,12 +49,12 @@ export default function Header() {
               Privacy
             </Link>
             <a
-              href={process.env.NEXT_PUBLIC_CALENDLY_URL}
+              href="https://cursor.sh"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary"
             >
-              Book onboarding
+              Download Cursor
             </a>
           </div>
 
@@ -113,12 +115,12 @@ export default function Header() {
                 Privacy
               </Link>
               <a
-                href={process.env.NEXT_PUBLIC_CALENDLY_URL}
+                href="https://cursor.sh"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-primary text-center"
               >
-                Book onboarding
+                Download Cursor
               </a>
             </div>
           </div>
