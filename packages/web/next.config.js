@@ -12,13 +12,7 @@ const nextConfig = {
   distDir: '.next',
   experimental: {
     esmExternals: false,
-    // Disable static optimization completely
-    staticPageGenerationTimeout: 0,
   },
-  // Disable static generation for all pages
-  generateStaticParams: false,
-  // Force dynamic rendering
-  dynamicParams: true,
   // Disable styled-jsx completely to avoid context issues
   compiler: {
     styledJsx: false,
