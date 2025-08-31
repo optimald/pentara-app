@@ -136,4 +136,12 @@ export default function Privacy() {
   );
 }
 
+// Use static generation for the privacy page
+export async function getStaticProps() {
+  return {
+    props: {},
+    revalidate: 3600,
+  };
+}
+
 

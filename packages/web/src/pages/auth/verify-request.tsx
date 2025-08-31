@@ -58,4 +58,11 @@ export default function VerifyRequest() {
   );
 }
 
+// Use static generation for the verify request page
+export async function getStaticProps() {
+  return {
+    props: {},
+  };
+}
+
 

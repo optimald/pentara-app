@@ -7,12 +7,6 @@ const nextConfig = {
     NEXT_PUBLIC_FACEBOOK_URL: process.env.NEXT_PUBLIC_FACEBOOK_URL,
   },
   trailingSlash: false,
-  // Force static export to avoid SSR issues
-  output: 'export',
-  distDir: 'out',
-  images: {
-    unoptimized: true,
-  },
   experimental: {
     esmExternals: false,
   },

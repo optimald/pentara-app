@@ -170,4 +170,12 @@ export default function CrisisResources() {
   );
 }
 
+// Use static generation for the crisis resources page
+export async function getStaticProps() {
+  return {
+    props: {},
+    revalidate: 3600,
+  };
+}
+
 

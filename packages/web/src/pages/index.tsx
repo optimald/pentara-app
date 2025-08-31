@@ -59,4 +59,13 @@ export default function Home() {
   );
 }
 
+// Use static generation for the home page
+export async function getStaticProps() {
+  return {
+    props: {},
+    // Revalidate every hour
+    revalidate: 3600,
+  };
+}
+
 

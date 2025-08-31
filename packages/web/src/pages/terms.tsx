@@ -199,4 +199,12 @@ const TermsPage: NextPage = () => {
 
 export default TermsPage;
 
+// Use static generation for the terms page
+export async function getStaticProps() {
+  return {
+    props: {},
+    revalidate: 3600,
+  };
+}
+
 

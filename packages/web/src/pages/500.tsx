@@ -58,4 +58,11 @@ export default function Custom500() {
   );
 }
 
+// Use static generation for the 500 page
+export async function getStaticProps() {
+  return {
+    props: {},
+  };
+}
+
 

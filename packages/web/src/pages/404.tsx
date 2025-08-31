@@ -50,4 +50,11 @@ export default function Custom404() {
   );
 }
 
+// Use static generation for the 404 page
+export async function getStaticProps() {
+  return {
+    props: {},
+  };
+}
+
 
