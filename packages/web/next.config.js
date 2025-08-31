@@ -14,10 +14,6 @@ const nextConfig = {
   compiler: {
     styledJsx: false,
   },
-  // Configure static generation for error pages
-  async generateStaticParams() {
-    return [];
-  },
   async headers() {
     return [
       {
