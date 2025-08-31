@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build --no-lint || exit 0",
-    "build:web": "cd ../shared && npm run build && cd ../web && npm run build",
+    "build:web": "npm run build:shared && npm run build --prefix packages/web",
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit"
