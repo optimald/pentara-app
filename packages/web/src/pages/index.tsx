@@ -59,12 +59,10 @@ export default function Home() {
   );
 }
 
-// Use static generation for the home page
-export async function getStaticProps() {
+// Use server-side rendering for the home page to avoid static generation issues
+export async function getServerSideProps() {
   return {
     props: {},
-    // Revalidate every hour
-    revalidate: 3600,
   };
 }
 

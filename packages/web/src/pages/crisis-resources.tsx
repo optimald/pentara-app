@@ -170,11 +170,10 @@ export default function CrisisResources() {
   );
 }
 
-// Use static generation for the crisis resources page
-export async function getStaticProps() {
+// Use server-side rendering for the crisis resources page to avoid static generation issues
+export async function getServerSideProps() {
   return {
     props: {},
-    revalidate: 3600,
   };
 }
 

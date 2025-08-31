@@ -136,11 +136,10 @@ export default function Privacy() {
   );
 }
 
-// Use static generation for the privacy page
-export async function getStaticProps() {
+// Use server-side rendering for the privacy page to avoid static generation issues
+export async function getServerSideProps() {
   return {
     props: {},
-    revalidate: 3600,
   };
 }
 

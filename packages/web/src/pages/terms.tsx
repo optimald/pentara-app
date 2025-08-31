@@ -199,11 +199,10 @@ const TermsPage: NextPage = () => {
 
 export default TermsPage;
 
-// Use static generation for the terms page
-export async function getStaticProps() {
+// Use server-side rendering for the terms page to avoid static generation issues
+export async function getServerSideProps() {
   return {
     props: {},
-    revalidate: 3600,
   };
 }
 

@@ -1,3 +1,5 @@
+'use client';
+
 import Head from 'next/head';
 import Link from 'next/link';
 
@@ -5,7 +7,7 @@ export default function Custom500() {
   return (
     <>
       <Head>
-        <title>Server Error - Pentara</title>
+        <title>Server Error - Cursor</title>
         <meta name="description" content="Something went wrong on our end" />
       </Head>
 
@@ -13,10 +15,10 @@ export default function Custom500() {
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <Link href="/" className="flex justify-center items-center space-x-2 mb-8">
             <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-700 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold">P</span>
+              <span className="text-white font-bold">C</span>
             </div>
             <span className="text-2xl font-serif font-semibold text-secondary-900">
-              Pentara
+              Cursor
             </span>
           </Link>
         </div>
@@ -56,13 +58,6 @@ export default function Custom500() {
       </div>
     </>
   );
-}
-
-// Use static generation for the 500 page
-export async function getStaticProps() {
-  return {
-    props: {},
-  };
 }
 
 

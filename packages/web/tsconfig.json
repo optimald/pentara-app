@@ -17,9 +17,12 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": [
+        "./src/*"
+      ]
     },
-    "composite": true
+    "composite": true,
+    "noEmit": true
   },
   "include": [
     "next-env.d.ts",

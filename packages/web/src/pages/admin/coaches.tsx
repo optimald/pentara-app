@@ -305,4 +305,11 @@ const CoachesPage: NextPage = () => {
 
 export default CoachesPage;
 
+// Use server-side rendering for the coaches page to avoid static generation issues
+export async function getServerSideProps() {
+  return {
+    props: {},
+  };
+}
+
 

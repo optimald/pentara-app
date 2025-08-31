@@ -58,8 +58,8 @@ export default function VerifyRequest() {
   );
 }
 
-// Use static generation for the verify request page
-export async function getStaticProps() {
+// Use server-side rendering for the verify request page to avoid static generation issues
+export async function getServerSideProps() {
   return {
     props: {},
   };

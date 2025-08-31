@@ -185,4 +185,11 @@ const AdminDashboard: NextPage = () => {
 
 export default AdminDashboard;
 
+// Use server-side rendering for the admin page to avoid static generation issues
+export async function getServerSideProps() {
+  return {
+    props: {},
+  };
+}
+
 
