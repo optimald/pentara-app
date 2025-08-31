@@ -2,32 +2,32 @@ export default function HowItWorksSection() {
   const steps = [
     {
       number: "01",
-      title: "Download Cursor",
-      description: "Get the free AI-powered code editor that implements Vibe Code methodology. Install it on Windows, macOS, or Linux.",
-      cta: "Download now",
+      title: "Book a 45-minute onboarding",
+      description: "Schedule your personalized session with a coach. We'll craft your Personal Manual and five voices together.",
+      cta: "Book now",
       icon: (
         <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
         </svg>
       )
     },
     {
       number: "02", 
-      title: "Open your project",
-      description: "Cursor reads your entire codebase and understands your project structure, dependencies, and coding patterns.",
+      title: "We craft your Personal Manual and five voices together",
+      description: "During the session, we'll identify your values, inspirations, and create five tailored voices for your personal council.",
       icon: (
         <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
         </svg>
       )
     },
     {
       number: "03",
-      title: "Code through conversation",
-      description: "Describe what you want in plain English and watch AI create the exact code you need. No more syntax hunting or memorization.",
+      title: "Use Pentara anytime. Private, on your device.",
+      description: "After activation, you'll have your own private council of five voices. All conversations stay on your device.",
       icon: (
         <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
         </svg>
       )
     }
@@ -39,10 +39,10 @@ export default function HowItWorksSection() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-secondary-900 mb-4">
-            How Vibe Code works
+            How it works
           </h2>
           <p className="text-xl text-secondary-600 max-w-2xl mx-auto">
-            Three simple steps to AI-powered development
+            Three simple steps to your personal council
           </p>
         </div>
 
@@ -78,7 +78,7 @@ export default function HowItWorksSection() {
                 {step.cta && (
                   <div className="flex items-center justify-center">
                     <a
-                      href="https://cursor.sh"
+                      href="https://calendly.com/optimaldev/pentara-onboarding"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn-primary"
