@@ -10,9 +10,15 @@ const nextConfig = {
   experimental: {
     esmExternals: false,
   },
-          // Use server-side rendering to avoid static generation issues
+          // Force server-side rendering only - no static generation
         output: 'standalone',
         distDir: '.next',
+        // Disable static generation completely
+        generateStaticParams: false,
+        // Force all pages to be dynamic
+        dynamicParams: false,
+        // Disable static optimization
+        staticPageGenerationTimeout: 0,
         // Disable styled-jsx completely to avoid context issues
         compiler: {
           styledJsx: false,
