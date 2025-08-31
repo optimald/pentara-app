@@ -47,6 +47,14 @@ export const useAnalytics = () => {
     trackEngagement: (action: string, properties?: Record<string, any>) => {
       const { trackEngagement } = require('../lib/analytics');
       trackEngagement(action, properties);
+    },
+    trackPlausible: (eventName: string, properties?: Record<string, any>) => {
+      const { trackPlausible } = require('../lib/analytics');
+      trackPlausible(eventName, properties);
+    },
+    trackCustomEvent: (eventName: string, properties?: Record<string, any>) => {
+      const { trackCustomEvent } = require('../lib/analytics');
+      trackCustomEvent(eventName, properties);
     }
   };
 };

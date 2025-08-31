@@ -65,6 +65,22 @@ export default function Document() {
             `,
           }}
         />
+        
+        {/* Plausible Analytics */}
+        <script 
+          defer 
+          data-domain="pentara" 
+          src="https://plausible.io/js/script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.plausible = window.plausible || function() { 
+                (window.plausible.q = window.plausible.q || []).push(arguments) 
+              }
+            `,
+          }}
+        />
       </Head>
       <body className="bg-dark-50 text-dark-700">
         <Main />

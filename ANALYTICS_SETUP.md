@@ -1,6 +1,6 @@
 # Analytics Setup Guide
 
-This guide will help you set up Google Analytics and Mixpanel for the Pentara application.
+This guide will help you set up Google Analytics, Mixpanel, and Plausible Analytics for the Pentara application.
 
 ## Google Analytics Setup
 
@@ -23,6 +23,15 @@ NEXT_PUBLIC_GA_ID=G-67S63E3C14
 3. Go to **Project Settings** → **Project Token**
 4. Copy the token (starts with something like `1234567890abcdef`)
 
+## Plausible Analytics Setup
+
+### 1. Domain Configuration
+- **Domain**: `pentara` (already configured in script)
+- **Features Enabled**: File downloads, hash tracking, outbound links, pageview props, revenue tracking, tagged events
+
+### 2. No Additional Configuration Required
+Plausible Analytics is automatically configured and will start tracking immediately upon deployment.
+
 ### 2. Environment Variables
 Add to your `.env.local` file:
 ```bash
@@ -38,6 +47,8 @@ If you're trying to access project ID `3837305` but don't have permission:
 
 ### What's Already Set Up
 ✅ **Google Analytics Script** - Added to `_document.tsx`
+✅ **Mixpanel Integration** - Configured with token
+✅ **Plausible Analytics Script** - Added to `_document.tsx`
 ✅ **Analytics Library** - Created `src/lib/analytics.ts`
 ✅ **Tracking Hook** - Created `src/hooks/useAnalytics.ts`
 ✅ **Auto-initialization** - Added to `_app.tsx`
@@ -58,7 +69,12 @@ useAnalytics().trackConversion('signup', 99.99);
 
 // Engagement
 useAnalytics().trackEngagement('form_submit', { form: 'contact' });
-```
+
+// Plausible-specific events
+useAnalytics().trackPlausible('Custom Event', { category: 'feature' });
+
+// Track across all platforms
+useAnalytics().trackCustomEvent('User Action', { action: 'click' });
 
 ### Example Usage in Components
 ```typescript

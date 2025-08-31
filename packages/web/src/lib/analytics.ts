@@ -99,4 +99,39 @@ export const trackEngagement = (action: string, properties?: Record<string, any>
     action: action,
     ...properties
   });
+
+  // Plausible
+  if (typeof window !== 'undefined' && window.plausible) {
+    window.plausible('User Engagement', {
+      props: {
+        action: action,
+        ...properties
+      }
+    });
+  }
+};
+
+// Plausible Analytics tracking
+export const trackPlausible = (eventName: string, properties?: Record<string, any>) => {
+  if (typeof window !== 'undefined' && window.plausible) {
+    window.plausible(eventName, {
+      props: properties
+    });
+  }
+};
+
+// Track custom events across all platforms
+export const trackCustomEvent = (eventName: string, properties?: Record<string, any>) => {
+  // Google Analytics
+  event({
+    action: eventName,
+    category: 'custom',
+    label: properties?.label
+  });
+
+  // Mixpanel
+  trackEvent(eventName, properties);
+
+  // Plausible
+  trackPlausible(eventName, properties);
 };
