@@ -2,6 +2,7 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { SessionProvider } from 'next-auth/react';
 import { ErrorBoundary } from 'react-error-boundary';
+import { useEffect, useState } from 'react';
 import '../styles/globals.css';
 
 // Error fallback component
@@ -27,16 +28,35 @@ function ErrorFallback({ error }: { error: Error }) {
   );
 }
 
+// Client-side only SessionProvider wrapper
+function ClientSessionProvider({ children, session }: { children: React.ReactNode; session: any }) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return <>{children}</>;
+  }
+
+  return (
+    <SessionProvider session={session}>
+      {children}
+    </SessionProvider>
+  );
+}
+
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <SessionProvider session={pageProps.session}>
+      <ClientSessionProvider session={pageProps.session}>
         <Head>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Component {...pageProps} />
-      </SessionProvider>
+      </ClientSessionProvider>
     </ErrorBoundary>
   );
 }
