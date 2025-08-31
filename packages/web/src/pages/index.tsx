@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Layout from '../components/Layout/Layout';
 import HeroSection from '../components/Home/HeroSection';
+import RoyalCouncilSection from '../components/Home/RoyalCouncilSection';
 import HowItWorksSection from '../components/Home/HowItWorksSection';
 import NotTherapySection from '../components/Home/NotTherapySection';
 import FAQSection from '../components/Home/FAQSection';
@@ -9,22 +10,22 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Pentara - Five voices. One circle. Clarity on demand.</title>
+        <title>Pentara - Ascend to Your Throne of Self-Mastery</title>
         <meta 
           name="description" 
-          content="A private self-coaching app with five inspired-by voices tuned to your values. Not therapy." 
+          content="By royal invitation only. Your Personal Court of Wisdom awaits - five sovereign advisors crafted by master coaches to guide your destined path to greatness." 
         />
-        <meta name="keywords" content="pentara, coaching, self-coaching, personal development, AI voices, clarity" />
+        <meta name="keywords" content="pentara, royal coaching, sovereign advisors, throne of self-mastery, royal destiny, exclusive court of wisdom, master coaches" />
         
         {/* OpenGraph */}
-        <meta property="og:title" content="Pentara - Five voices. One circle. Clarity on demand." />
-        <meta property="og:description" content="A private self-coaching app with five inspired-by voices tuned to your values. Not therapy." />
+        <meta property="og:title" content="Pentara - Ascend to Your Throne of Self-Mastery" />
+        <meta property="og:description" content="By royal invitation only. Your Personal Court of Wisdom awaits - five sovereign advisors crafted by master coaches to guide your destined path to greatness." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://pentara.app" />
         
         {/* Twitter */}
-        <meta name="twitter:title" content="Pentara - Five voices. One circle. Clarity on demand." />
-        <meta name="twitter:description" content="A private self-coaching app with five inspired-by voices tuned to your values. Not therapy." />
+        <meta name="twitter:title" content="Pentara - Ascend to Your Throne of Self-Mastery" />
+        <meta name="twitter:description" content="By royal invitation only. Your Personal Court of Wisdom awaits - five sovereign advisors crafted by master coaches to guide your destined path to greatness." />
         
         {/* Structured Data */}
         <script
@@ -34,7 +35,7 @@ export default function Home() {
               "@context": "https://schema.org",
               "@type": "SoftwareApplication",
               "name": "Pentara",
-              "description": "A private self-coaching app with five inspired-by voices tuned to your values",
+              "description": "A private self-coaching app with five inspired-by perspectives tuned to your values",
               "url": "https://pentara.app",
               "applicationCategory": "HealthApplication",
               "operatingSystem": "iOS, Android",
@@ -51,19 +52,13 @@ export default function Home() {
 
       <Layout>
         <HeroSection />
+        <RoyalCouncilSection />
         <HowItWorksSection />
         <NotTherapySection />
         <FAQSection />
       </Layout>
     </>
   );
-}
-
-// Use server-side rendering for the home page to avoid static generation issues
-export async function getServerSideProps() {
-  return {
-    props: {},
-  };
 }
 
 

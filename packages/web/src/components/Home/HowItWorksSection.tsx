@@ -1,48 +1,48 @@
 export default function HowItWorksSection() {
   const steps = [
     {
-      number: "01",
-      title: "Book a 45-minute onboarding",
-      description: "Schedule your personalized session with a coach. We'll craft your Personal Manual and five voices together.",
-      cta: "Book now",
+      number: "I",
+      title: "The Assessment",
+      description: "A focused 45-minute consultation to understand your leadership context and determine fit for our exclusive process.",
+      cta: "Request Assessment",
       icon: (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
         </svg>
       )
     },
     {
-      number: "02", 
-      title: "We craft your Personal Manual and five voices together",
-      description: "During the session, we'll identify your values, inspirations, and create five tailored voices for your personal council.",
+      number: "II", 
+      title: "The Crafting",
+      description: "Master coaches create your bespoke council—five distinct advisors calibrated to your values, goals, and decision-making style.",
       icon: (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 1L9 9l-8 0 6.5 4.7L5 22l7-5.2L19 22l-2.5-8.3L23 9l-8 0L12 1z"/>
         </svg>
       )
     },
     {
-      number: "03",
-      title: "Use Pentara anytime. Private, on your device.",
-      description: "After activation, you'll have your own private council of five voices. All conversations stay on your device.",
+      number: "III",
+      title: "The Council",
+      description: "Your personal advisory council is delivered to your device. Five sophisticated perspectives, available whenever you need clarity.",
       icon: (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+        <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M5 16L3 14l5.5-5.5L10 10l4-4 6 6-4 4-1.5-1.5L9 20l-4-4zm2.5-2.5L6 12l1.5-1.5L9 12l-1.5 1.5z"/>
         </svg>
       )
     }
   ];
 
   return (
-    <section id="how-it-works" className="section-padding bg-white">
+    <section id="how-it-works" className="section-padding bg-dark-100">
       <div className="container-max">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-secondary-900 mb-4">
-            How it works
+          <h2 className="text-4xl md:text-5xl font-serif font-bold text-dark-800 mb-6">
+            The Process
           </h2>
-          <p className="text-xl text-secondary-600 max-w-2xl mx-auto">
-            Three simple steps to your personal council
+          <p className="text-xl text-dark-600 max-w-2xl mx-auto">
+            Three steps to your personal council of advisors.
           </p>
         </div>
 
@@ -52,25 +52,28 @@ export default function HowItWorksSection() {
             <div key={step.number} className="relative">
               {/* Connector line (desktop only) */}
               {index < steps.length - 1 && (
-                <div className="hidden lg:block absolute top-16 left-full w-full h-0.5 bg-gradient-to-r from-primary-200 to-transparent transform translate-x-6 -translate-y-1/2 z-0" />
+                <div className="hidden lg:block absolute top-16 left-full w-full h-0.5 bg-gradient-to-r from-gold-200 to-transparent transform translate-x-6 -translate-y-1/2 z-0" />
               )}
               
-              <div className="relative bg-white p-8 rounded-2xl border border-secondary-100 hover:border-primary-200 transition-all duration-300 hover:shadow-lg">
+              <div className="relative bg-gradient-to-b from-purple-900/20 to-dark-200 p-8 rounded-2xl border-2 border-gold-500/30 hover:border-gold-400 transition-all duration-300 hover:shadow-2xl hover:shadow-gold-500/20 backdrop-blur-sm">
+                {/* Ornate border decoration */}
+                <div className="absolute -top-1 -left-1 -right-1 -bottom-1 bg-gradient-to-r from-gold-500/20 via-purple-500/20 to-gold-500/20 rounded-2xl -z-10"></div>
+                
                 {/* Step number */}
-                <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 text-white font-bold text-lg rounded-xl mb-6">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-800 via-gold-500 to-purple-800 text-white font-bold text-xl rounded-full mb-6 border-2 border-gold-400 shadow-lg">
                   {step.number}
                 </div>
 
                 {/* Icon */}
-                <div className="text-primary-600 mb-4">
+                <div className="text-gold-400 mb-6">
                   {step.icon}
                 </div>
 
                 {/* Content */}
-                <h3 className="text-xl font-serif font-semibold text-secondary-900 mb-4">
+                <h3 className="text-xl font-serif font-bold text-dark-800 mb-4">
                   {step.title}
                 </h3>
-                <p className="text-secondary-600 mb-6 leading-relaxed">
+                <p className="text-dark-600 mb-6 leading-relaxed font-medium">
                   {step.description}
                 </p>
 
@@ -81,7 +84,7 @@ export default function HowItWorksSection() {
                       href="https://calendly.com/optimaldev/pentara-onboarding"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-primary"
+                      className="btn-primary text-sm px-6 py-2"
                     >
                       {step.cta}
                     </a>
@@ -90,6 +93,13 @@ export default function HowItWorksSection() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Learn More link */}
+        <div className="text-center mt-12">
+          <a href="#faq" className="text-gold-500 hover:text-gold-400 font-medium transition-colors border-b border-gold-500/30 hover:border-gold-400">
+            Questions? Read the details below.
+          </a>
         </div>
       </div>
     </section>
