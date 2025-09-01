@@ -11,7 +11,7 @@ export default function RoyalCouncilSection() {
             Your Personal Support Circle
           </h2>
           <p className="text-xl text-white max-w-2xl font-light tracking-wide">
-            Five compassionate voices who never judge, never get tired of listening, and never share your secrets.
+            Five compassionate experts who never judge, never get tired of listening, and never share your secrets.
           </p>
         </div>
 
@@ -76,7 +76,7 @@ export default function RoyalCouncilSection() {
             <p className="text-xl text-white leading-relaxed font-light tracking-wide" style={{ lineHeight: '1.8' }}>
               Every individual carries within them the seeds of greatness, but the path to realizing that potential 
               is often obscured by doubt, confusion, and the weight of isolation. Our philosophy is simple: 
-              when you have access to the right voices at the right time, transformation becomes not just possible, 
+              when you have access to the right experts at the right time, transformation becomes not just possible, 
               but inevitable. We don't create solutions—we reveal the wisdom that was always there, waiting to be heard.
             </p>
           </div>

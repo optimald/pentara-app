@@ -6,7 +6,7 @@ export default function Document() {
       <Head>
         <meta charSet="utf-8" />
         <meta name="theme-color" content="#f59e0b" />
-        <meta name="description" content="Five voices. One circle. Clarity on demand. A private self-coaching app with five inspired-by voices tuned to your values." />
+        <meta name="description" content="Five experts. One circle. Clarity on demand. A private self-coaching app with five inspired-by experts tuned to your values." />
         
         {/* Favicons - Complete set to prevent 404 errors */}
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -16,16 +16,16 @@ export default function Document() {
         
         {/* OpenGraph */}
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Pentara - Five voices. One circle. Clarity on demand." />
-        <meta property="og:description" content="A private self-coaching app with five inspired-by voices tuned to your values. Not therapy." />
+        <meta property="og:title" content="Pentara - Five experts. One circle. Clarity on demand." />
+        <meta property="og:description" content="A private self-coaching app with five inspired-by experts tuned to your values. Not therapy." />
         <meta property="og:image" content="/logo.jpeg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Pentara - Five voices. One circle. Clarity on demand." />
-        <meta name="twitter:description" content="A private self-coaching app with five inspired-by voices tuned to your values. Not therapy." />
+        <meta name="twitter:title" content="Pentara - Five experts. One circle. Clarity on demand." />
+        <meta name="twitter:description" content="A private self-coaching app with five inspired-by experts tuned to your values. Not therapy." />
         <meta name="twitter:image" content="/logo.jpeg" />
         
         {/* App manifest */}

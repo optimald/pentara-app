@@ -40,7 +40,7 @@ export default function HeroSection() {
 
           {/* Sophisticated Sub-headline */}
           <p className="text-lg md:text-xl text-white mb-8 max-w-2xl leading-relaxed animate-slide-up drop-shadow-lg font-light tracking-wide text-3d">
-            Master-crafted perspectives for the strategically ambitious. Five distinct voices converging into singular clarity.
+            Master-crafted perspectives for the strategically ambitious. Five distinct experts converging into singular clarity.
           </p>
 
           {/* 3 Hard-Hitting Benefits */}

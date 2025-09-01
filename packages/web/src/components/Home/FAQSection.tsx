@@ -8,15 +8,15 @@ export default function FAQSection() {
   const faqs: FAQItem[] = [
     {
       question: "What is this?",
-      answer: "Pentara creates your personal advisory council—five distinct voices that live on your device. You can consult individual advisors or your entire team for complex decisions. Ultra-private, personalized, and exclusively yours."
+      answer: "Pentara creates your personal advisory council—five distinct experts that live on your device. You can consult individual advisors or your entire team for complex decisions. Ultra-private, personalized, and exclusively yours."
     },
     {
       question: "What do I get in onboarding?",
-      answer: "A focused 45-minute conversation to understand your needs, followed by the creation of your personal advisory council of five voices, each tailored to your unique situation and goals."
+      answer: "A focused 45-minute conversation to understand your needs, followed by the creation of your personal advisory council of five experts, each tailored to your unique situation and goals."
     },
     {
       question: "What happens after?",
-      answer: "You get ongoing access to your personal team of five trusted voices for just $15/month. All conversations remain exclusively on your device—we never store chat logs on our servers."
+      answer: "You get ongoing access to your personal team of five trusted experts for just $15/month. All conversations remain exclusively on your device—we never store chat logs on our servers."
     },
     {
       question: "Is this therapy?",
