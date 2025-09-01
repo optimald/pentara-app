@@ -2,6 +2,7 @@ import NextAuth, { NextAuthOptions } from 'next-auth';
 import EmailProvider from 'next-auth/providers/email';
 import GoogleProvider from 'next-auth/providers/google';
 import FacebookProvider from 'next-auth/providers/facebook';
+import CredentialsProvider from 'next-auth/providers/credentials';
 // import { PrismaAdapter } from '@next-auth/prisma-adapter';
 // import { prisma } from '../../../lib/prisma';
 
@@ -45,8 +46,58 @@ if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
   );
 }
 
-// If no providers are configured, add a fallback email provider
-if (providers.length === 0) {
+// Add credentials provider for demo logins
+providers.push(
+  CredentialsProvider({
+    id: 'credentials',
+    name: 'Credentials',
+    credentials: {
+      email: { label: 'Email', type: 'email' },
+      password: { label: 'Password', type: 'password' }
+    },
+    async authorize(credentials) {
+      if (!credentials?.email || !credentials?.password) {
+        return null;
+      }
+
+      // Demo users for development
+      const demoUsers = [
+        {
+          id: 'demo-coach-1',
+          email: 'coach@pentara.app',
+          password: 'demo123',
+          name: 'Demo Coach',
+          role: 'COACH'
+        },
+        {
+          id: 'demo-admin-1',
+          email: 'admin@pentara.app',
+          password: 'demo123',
+          name: 'Demo Admin',
+          role: 'ADMIN'
+        }
+      ];
+
+      const user = demoUsers.find(
+        u => u.email === credentials.email && u.password === credentials.password
+      );
+
+      if (user) {
+        return {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          role: user.role,
+        };
+      }
+
+      return null;
+    }
+  })
+);
+
+// If no OAuth providers are configured, add a fallback email provider
+if (providers.length === 1) { // Only credentials provider
   console.warn('No OAuth providers configured. Using fallback email provider.');
   providers.push(
     EmailProvider({
@@ -70,9 +121,15 @@ export const authOptions: NextAuthOptions = {
     async session({ session, token }) {
       if (session.user && token) {
         session.user.id = token.sub;
-        // session.user.role = (token as any).role;
+        session.user.role = (token as any).role;
       }
       return session;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.role = (user as any).role;
+      }
+      return token;
     },
     async signIn({ user, account, profile, email, credentials }) {
       // Temporarily allow all sign-ins for development
