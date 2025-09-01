@@ -195,7 +195,12 @@ export default function ConsoleDashboard() {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
 
+  // Debug logging
+  console.log('Console page - Session:', session);
+  console.log('Console page - Cookies:', context.req.headers.cookie);
+
   if (!session) {
+    console.log('Console page - No session found, redirecting to signin');
     return {
       redirect: {
         destination: '/auth/signin',
@@ -204,6 +209,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 
+  console.log('Console page - Session found, allowing access');
   return {
     props: {
       session,

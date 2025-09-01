@@ -1,5 +1,3 @@
-import { signIn, getSession } from 'next-auth/react';
-import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 
 export default function SignIn() {
@@ -70,8 +68,8 @@ export default function SignIn() {
 
               <div>
                 <button
-                  type="submit"
                   id="submit-btn"
+                  type="submit"
                   className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-champagne-lg text-sm font-medium text-white bg-gradient-to-r from-[#D4AF37] to-[#B8941F] hover:from-[#B8941F] hover:to-[#9A7B1A] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#D4AF37] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-[1.02] tracking-wider"
                 >
                   Enter the Portal
@@ -115,138 +113,66 @@ export default function SignIn() {
         </div>
       </div>
 
-      {/* Client-side script for form handling */}
+      {/* Client-side script for demo login */}
       <script
         dangerouslySetInnerHTML={{
           __html: `
             (function() {
-              const form = document.getElementById('login-form');
-              const submitBtn = document.getElementById('submit-btn');
-              const messageDiv = document.getElementById('message');
-              const messageText = messageDiv.querySelector('p');
               const guideBtn = document.getElementById('guide-login-btn');
               const guardianBtn = document.getElementById('guardian-login-btn');
+              const messageDiv = document.getElementById('message');
+              const messageText = messageDiv.querySelector('p');
               
-              // Demo login functionality
-              guideBtn.addEventListener('click', async function() {
-                const originalText = guideBtn.textContent;
-                guideBtn.textContent = 'Opening Portal...';
-                guideBtn.disabled = true;
-                
-                try {
-                  // Demo login as Guide
-                  const response = await fetch('/api/auth/signin/credentials', {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ 
-                      email: 'guide@pentara.app',
-                      password: 'demo123'
-                    }),
-                  });
-                  
-                  const result = await response.json();
-                  
-                  if (result.error) {
-                    console.error('Guide portal failed:', result.error);
-                    messageText.textContent = 'Guide portal failed. Please try again.';
-                    messageDiv.className = 'mt-4 p-4 rounded-md bg-red-900/20 text-red-200 border border-red-500/30 backdrop-blur-sm';
-                    guideBtn.textContent = originalText;
-                    guideBtn.disabled = false;
-                  } else {
-                    window.location.href = '/console';
-                  }
-                } catch (error) {
-                  console.error('Guide portal failed:', error);
-                  messageText.textContent = 'Guide portal failed. Please try again.';
-                  messageDiv.className = 'mt-4 p-4 rounded-md bg-red-900/20 text-red-200 border border-red-500/30 backdrop-blur-sm';
-                  guideBtn.textContent = originalText;
-                  guideBtn.disabled = false;
-                }
-              });
+              function showError(message) {
+                messageText.textContent = message;
+                messageDiv.className = 'mt-4 p-4 rounded-md bg-red-900/20 text-red-200 border border-red-500/30 backdrop-blur-sm';
+              }
               
-              guardianBtn.addEventListener('click', async function() {
-                const originalText = guardianBtn.textContent;
-                guardianBtn.textContent = 'Opening Portal...';
-                guardianBtn.disabled = true;
-                
-                try {
-                  // Demo login as Guardian
-                  const response = await fetch('/api/auth/signin/credentials', {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ 
-                      email: 'guardian@pentara.app',
-                      password: 'demo123'
-                    }),
-                  });
-                  
-                  const result = await response.json();
-                  
-                  if (result.error) {
-                    console.error('Guardian portal failed:', result.error);
-                    messageText.textContent = 'Guardian portal failed. Please try again.';
-                    messageDiv.className = 'mt-4 p-4 rounded-md bg-red-900/20 text-red-200 border border-red-500/30 backdrop-blur-sm';
-                    guardianBtn.textContent = originalText;
-                    guardianBtn.disabled = false;
-                  } else {
-                    window.location.href = '/console';
-                  }
-                } catch (error) {
-                  console.error('Guardian portal failed:', error);
-                  messageText.textContent = 'Guardian portal failed. Please try again.';
-                  messageDiv.className = 'mt-4 p-4 rounded-md bg-red-900/20 text-red-200 border border-red-500/30 backdrop-blur-sm';
-                  guardianBtn.textContent = originalText;
-                  guardianBtn.disabled = false;
-                }
-              });
-              
-              form.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                
-                const email = document.getElementById('email').value;
-                const password = document.getElementById('password').value;
-                const originalText = submitBtn.textContent;
-                
-                // Update button state
-                submitBtn.textContent = 'Opening Portal...';
-                submitBtn.disabled = true;
-                
-                // Hide any existing message
+              function hideError() {
                 messageDiv.className = 'mt-4 p-4 rounded-md hidden';
+              }
+              
+              async function demoLogin(email, password, button) {
+                const originalText = button.textContent;
+                button.textContent = 'Opening Portal...';
+                button.disabled = true;
+                hideError();
                 
                 try {
                   const response = await fetch('/api/auth/signin/credentials', {
                     method: 'POST',
                     headers: {
-                      'Content-Type': 'application/json',
+                      'Content-Type': 'application/x-www-form-urlencoded',
                     },
-                    body: JSON.stringify({ 
+                    body: new URLSearchParams({
                       email: email,
-                      password: password 
+                      password: password,
+                      callbackUrl: window.location.origin + '/console'
                     }),
                   });
                   
-                  const result = await response.json();
-                  
-                  if (result.error) {
-                    messageText.textContent = 'The portal rejects your credentials. Try again.';
-                    messageDiv.className = 'mt-4 p-4 rounded-md bg-red-900/20 text-red-200 border border-red-500/30 backdrop-blur-sm';
-                  } else {
-                    // Redirect to console on successful login
+                  if (response.ok || response.status === 302) {
+                    // Success - redirect to console
                     window.location.href = '/console';
+                  } else {
+                    showError('Login failed. Please try again.');
+                    button.textContent = originalText;
+                    button.disabled = false;
                   }
                 } catch (error) {
-                  messageText.textContent = 'The portal is sealed. Try again.';
-                  messageDiv.className = 'mt-4 p-4 rounded-md bg-red-900/20 text-red-200 border border-red-500/30 backdrop-blur-sm';
-                } finally {
-                  // Reset button state
-                  submitBtn.textContent = originalText;
-                  submitBtn.disabled = false;
+                  console.error('Login error:', error);
+                  showError('Login failed. Please try again.');
+                  button.textContent = originalText;
+                  button.disabled = false;
                 }
+              }
+              
+              guideBtn.addEventListener('click', () => {
+                demoLogin('guide@pentara.app', 'demo123', guideBtn);
+              });
+              
+              guardianBtn.addEventListener('click', () => {
+                demoLogin('guardian@pentara.app', 'demo123', guardianBtn);
               });
             })();
           `
@@ -256,19 +182,4 @@ export default function SignIn() {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context);
 
-  if (session) {
-    return {
-      redirect: {
-        destination: '/console',
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {},
-  };
-};
