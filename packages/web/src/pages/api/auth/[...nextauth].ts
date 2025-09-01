@@ -9,18 +9,18 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 // Demo users for development
 const demoUsers = [
   {
-    id: 'demo-coach-uuid',
-    email: 'coach@pentara.app',
+    id: 'demo-guide-uuid',
+    email: 'guide@pentara.app',
     password: 'demo123',
-    name: 'Demo Coach',
-    role: 'COACH'
+    name: 'Demo Guide',
+    role: 'GUIDE'
   },
   {
-    id: 'demo-admin-uuid',
-    email: 'admin@pentara.app',
+    id: 'demo-guardian-uuid',
+    email: 'guardian@pentara.app',
     password: 'demo123',
-    name: 'Demo Admin',
-    role: 'ADMIN'
+    name: 'Demo Guardian',
+    role: 'GUARDIAN'
   }
 ];
 

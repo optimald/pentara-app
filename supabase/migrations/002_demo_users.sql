@@ -4,7 +4,7 @@
 -- Note: In production, you would create these users through the Supabase dashboard
 -- or through the auth API. This migration is for development purposes.
 
--- Create demo coach user
+-- Create demo guide user
 INSERT INTO auth.users (
   id,
   instance_id,
@@ -20,11 +20,11 @@ INSERT INTO auth.users (
   email_change_token_new,
   recovery_token
 ) VALUES (
-  'demo-coach-uuid',
+  'demo-guide-uuid',
   '00000000-0000-0000-0000-000000000000',
   'authenticated',
   'authenticated',
-  'coach@pentara.app',
+  'guide@pentara.app',
   crypt('demo123', gen_salt('bf')),
   NOW(),
   NOW(),
@@ -35,7 +35,7 @@ INSERT INTO auth.users (
   ''
 ) ON CONFLICT (email) DO NOTHING;
 
--- Create demo admin user
+-- Create demo guardian user
 INSERT INTO auth.users (
   id,
   instance_id,
@@ -51,11 +51,11 @@ INSERT INTO auth.users (
   email_change_token_new,
   recovery_token
 ) VALUES (
-  'demo-admin-uuid',
+  'demo-guardian-uuid',
   '00000000-0000-0000-0000-000000000000',
   'authenticated',
   'authenticated',
-  'admin@pentara.app',
+  'guardian@pentara.app',
   crypt('demo123', gen_salt('bf')),
   NOW(),
   NOW(),
@@ -76,11 +76,11 @@ INSERT INTO public.users (
   created_at,
   updated_at
 ) VALUES (
-  'demo-coach-uuid',
-  'Demo Coach',
-  'coach@pentara.app',
+  'demo-guide-uuid',
+  'Demo Guide',
+  'guide@pentara.app',
   NOW(),
-  'COACH',
+  'GUIDE',
   NOW(),
   NOW()
 ) ON CONFLICT (id) DO UPDATE SET
@@ -97,11 +97,11 @@ INSERT INTO public.users (
   created_at,
   updated_at
 ) VALUES (
-  'demo-admin-uuid',
-  'Demo Admin',
-  'admin@pentara.app',
+  'demo-guardian-uuid',
+  'Demo Guardian',
+  'guardian@pentara.app',
   NOW(),
-  'ADMIN',
+  'GUARDIAN',
   NOW(),
   NOW()
 ) ON CONFLICT (id) DO UPDATE SET

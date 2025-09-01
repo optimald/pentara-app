@@ -101,13 +101,13 @@ export default function SignIn() {
                   id="guide-login-btn"
                   className="w-full flex justify-center py-2 px-4 border border-[#D4AF37]/30 rounded-md shadow-sm text-sm font-medium text-[#D4AF37] bg-[#D4AF37]/10 hover:bg-[#D4AF37]/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#D4AF37] transition-all duration-300 tracking-wider"
                 >
-                  Enter as Coach
+                  Enter as Guide
                 </button>
                 <button
                   id="guardian-login-btn"
                   className="w-full flex justify-center py-2 px-4 border border-[#E5E4E2]/30 rounded-md shadow-sm text-sm font-medium text-white/80 bg-[#E5E4E2]/10 hover:bg-[#E5E4E2]/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#E5E4E2] transition-all duration-300 tracking-wider"
                 >
-                  Enter as Admin
+                  Enter as Guardian
                 </button>
               </div>
             </div>
@@ -134,14 +134,14 @@ export default function SignIn() {
                 guideBtn.disabled = true;
                 
                 try {
-                  // Demo login as Coach
+                  // Demo login as Guide
                   const response = await fetch('/api/auth/signin/credentials', {
                     method: 'POST',
                     headers: {
                       'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({ 
-                      email: 'coach@pentara.app',
+                      email: 'guide@pentara.app',
                       password: 'demo123'
                     }),
                   });
@@ -149,8 +149,8 @@ export default function SignIn() {
                   const result = await response.json();
                   
                   if (result.error) {
-                    console.error('Coach portal failed:', result.error);
-                    messageText.textContent = 'Coach portal failed. Please try again.';
+                    console.error('Guide portal failed:', result.error);
+                    messageText.textContent = 'Guide portal failed. Please try again.';
                     messageDiv.className = 'mt-4 p-4 rounded-md bg-red-900/20 text-red-200 border border-red-500/30 backdrop-blur-sm';
                     guideBtn.textContent = originalText;
                     guideBtn.disabled = false;
@@ -158,8 +158,8 @@ export default function SignIn() {
                     window.location.href = '/console';
                   }
                 } catch (error) {
-                  console.error('Coach portal failed:', error);
-                  messageText.textContent = 'Coach portal failed. Please try again.';
+                  console.error('Guide portal failed:', error);
+                  messageText.textContent = 'Guide portal failed. Please try again.';
                   messageDiv.className = 'mt-4 p-4 rounded-md bg-red-900/20 text-red-200 border border-red-500/30 backdrop-blur-sm';
                   guideBtn.textContent = originalText;
                   guideBtn.disabled = false;
@@ -172,14 +172,14 @@ export default function SignIn() {
                 guardianBtn.disabled = true;
                 
                 try {
-                  // Demo login as Admin
+                  // Demo login as Guardian
                   const response = await fetch('/api/auth/signin/credentials', {
                     method: 'POST',
                     headers: {
                       'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({ 
-                      email: 'admin@pentara.app',
+                      email: 'guardian@pentara.app',
                       password: 'demo123'
                     }),
                   });
@@ -187,8 +187,8 @@ export default function SignIn() {
                   const result = await response.json();
                   
                   if (result.error) {
-                    console.error('Admin portal failed:', result.error);
-                    messageText.textContent = 'Admin portal failed. Please try again.';
+                    console.error('Guardian portal failed:', result.error);
+                    messageText.textContent = 'Guardian portal failed. Please try again.';
                     messageDiv.className = 'mt-4 p-4 rounded-md bg-red-900/20 text-red-200 border border-red-500/30 backdrop-blur-sm';
                     guardianBtn.textContent = originalText;
                     guardianBtn.disabled = false;
@@ -196,8 +196,8 @@ export default function SignIn() {
                     window.location.href = '/console';
                   }
                 } catch (error) {
-                  console.error('Admin portal failed:', error);
-                  messageText.textContent = 'Admin portal failed. Please try again.';
+                  console.error('Guardian portal failed:', error);
+                  messageText.textContent = 'Guardian portal failed. Please try again.';
                   messageDiv.className = 'mt-4 p-4 rounded-md bg-red-900/20 text-red-200 border border-red-500/30 backdrop-blur-sm';
                   guardianBtn.textContent = originalText;
                   guardianBtn.disabled = false;
