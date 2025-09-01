@@ -3,7 +3,7 @@
 ## Phase 1: Core Onboarding & Council Formation (Weeks 1-4)
 
 ### Pentara Onboarding Interview and Council Formation
-**Purpose**: To create a personalized user manual and SWOT, then form a tailored council with dynamic archetype selection/swaps.
+**Purpose**: To create a personalized user manual and SWOT, then form a tailored council with dynamic archetype selection/swaps, culminating in a Warrior Name Ritual.
 
 #### Interview Questions (10-15 Minutes)
 - **Strengths**: What are you naturally great at in your work or personal life? (e.g., creativity, leadership)
@@ -13,17 +13,34 @@
 - **User Manual**: What type of advice resonates most? (e.g., inspirational, tactical) Who inspires your decisions? (e.g., specific thought leaders)
 - **Preferences**: How do you prefer to receive guidance? (e.g., direct, reflective, data-driven)
 
+#### Warrior Name Ritual (5-10 Minutes)
+**Purpose**: To amplify the ritualistic aura and cement the user's identity within their council through a sacred naming ceremony.
+
+**Process**:
+1. **Introspective Segment**: Facilitator asks probing questions like "What battles have you fought to reach this moment?" or "What victory do you seek next?"
+2. **AI Name Generation**: AI processes user data to propose warrior names (e.g., "Iron Vanguard" for resilience, "Shadow Blade" for strategic cunning)
+3. **Sacred Unveiling**: Facilitator narrates as a fortune-teller's reading: "The council whispers your name... shall it be this, or do we forge another?"
+4. **Co-Selection**: Guide user through options, encouraging reflection before finalizing the warrior name
+5. **Identity Anchoring**: Name becomes the anchor for session decrees and ongoing council interactions
+
+**Examples**:
+- "Stormbreaker" for bold disruption goals
+- "Silent Sentinel" for steady defense strategies
+- "Iron Vanguard" for resilience and protection
+- "Shadow Blade" for strategic cunning and stealth
+
 #### AI Processing Logic
 1. **Input Analysis**: Parse responses using LLM (e.g., Grok) to extract key themes and map to archetype traits
 2. **Initial Council Formation**: Assign five archetypes based on SWOT and user manual
 3. **Swap Mechanic**: If archetype traits mismatch user needs, simulate council discussion and propose replacements
+4. **Warrior Name Generation**: AI generates culturally-rooted warrior names based on user's battles, victories, and goals
 
 #### Sample Output (First Decree)
-**User Input**: Strengths (sales), Weaknesses (organization), Opportunities (new market), Threats (competitors), User Manual (prefers direct, Horowitz-style advice).
+**User Input**: Strengths (sales), Weaknesses (organization), Opportunities (new market), Threats (competitors), User Manual (prefers direct, Horowitz-style advice), Warrior Name ("Stormbreaker").
 
 **Council**: Sage, Warrior, Strategist, Visionary, Executor (swapped for Healer).
 
-**Decree**: "Leverage your sales strength to enter the new market swiftly (Visionary), but implement a CRM system to address organization gaps (Strategist). Monitor competitors closely (Warrior) and seek mentorship to refine your approach (Sage). Prioritize actionable steps over emotional reflection (Executor)."
+**Decree**: "Stormbreaker, your council decrees: Leverage your sales strength to enter the new market swiftly (Visionary), but implement a CRM system to address organization gaps (Strategist). Monitor competitors closely (Warrior) and seek mentorship to refine your approach (Sage). Prioritize actionable steps over emotional reflection (Executor)."
 
 ---
 
@@ -39,6 +56,7 @@
 - What's changed in your goals or challenges since last session?
 - What type of advice has been most/least helpful?
 - Any new inspirations or role models?
+- **Warrior Name Evolution**: Has your warrior name taken on new meaning? Should we consider a new name?
 
 **Council Realignment (10 Minutes)**:
 - AI prompt: "Analyze user ID [X]'s encrypted profile and new check-in data. Evaluate archetype fit; propose swaps if fit score < 70%."
@@ -51,7 +69,7 @@
 #### Technical Implementation
 - **Data**: Encrypted database (AWS RDS, AES-256). Access restricted to AI layer
 - **AI**: Grok or GPT-4o via API, with secure prompts
-- **Security**: GDPR/CCPA-compliant; regular audits
+- **Security**: GDPR/CCPA compliance; regular audits
 - **Scalability**: Fully automated, with optional human facilitators
 
 ---
@@ -62,11 +80,13 @@
 - **Archetype-specific wisdom** delivered based on user's council composition
 - **Seasonal growth practices** aligned with natural cycles
 - **Progress tracking** and milestone celebrations
+- **Warrior Name Integration**: Council addresses user by their warrior name in all interactions
 
 ### Community & Network Effects
 - **Private user forums** for council members
 - **Success story sharing** (anonymized)
 - **Mentorship matching** between users
+- **Warrior Name Recognition**: Users can share their warrior names as conversation starters
 
 ### B2B Expansion
 - **Team council formation** for leadership groups
@@ -100,6 +120,7 @@
 - **Onboarding completion rate**: Target 85%+
 - **Council satisfaction score**: Target 4.5/5
 - **First decree effectiveness**: Target 90% user approval
+- **Warrior name adoption**: Target 95% of users embrace their warrior name
 
 ### Phase 3-4 (Weeks 9-32)
 - **Monthly retention**: Target 80%+
@@ -137,6 +158,7 @@
 1. **Build MVP onboarding flow** with basic SWOT analysis
 2. **Implement archetype mapping logic** using existing LLM APIs
 3. **Create first decree generation** system
-4. **Test with 10-20 beta users** to validate core concept
-5. **Iterate based on feedback** and refine archetype descriptions
-6. **Prepare follow-up session** technical architecture
+4. **Develop Warrior Name Ritual** with AI name generation
+5. **Test with 10-20 beta users** to validate core concept
+6. **Iterate based on feedback** and refine archetype descriptions
+7. **Prepare follow-up session** technical architecture

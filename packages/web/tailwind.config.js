@@ -8,33 +8,70 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Golden/Amber - Primary brand color
+        // Champagne Gold - Luxury brand color
+        champagne: {
+          50: '#fefcf7',
+          100: '#fdf8e8',
+          200: '#fbf0d1',
+          300: '#f8e4a8',
+          400: '#f4d375',
+          500: '#D4AF37', // Primary champagne gold
+          600: '#B8941F',
+          700: '#9A7A1A',
+          800: '#7D6118',
+          900: '#67501A',
+        },
+        // Platinum accents
+        platinum: {
+          50: '#fefefe',
+          100: '#fdfdfd',
+          200: '#fafafa',
+          300: '#f5f5f5',
+          400: '#E5E4E2', // Primary platinum
+          500: '#d1d0ce',
+          600: '#b8b7b5',
+          700: '#9a9997',
+          800: '#7c7b79',
+          900: '#666564',
+        },
+        // Deep charcoal to black gradient
+        charcoal: {
+          50: '#f8f8f8',
+          100: '#e8e8e8',
+          200: '#d1d1d1',
+          300: '#b4b4b4',
+          400: '#8a8a8a',
+          500: '#636363',
+          600: '#515151',
+          700: '#434343',
+          800: '#383838',
+          900: '#1a1a1a', // Deep charcoal
+        },
+        // Legacy colors for compatibility
         gold: {
           50: '#fffbeb',
           100: '#fef3c7',
           200: '#fde68a',
           300: '#fcd34d',
           400: '#fbbf24',
-          500: '#f59e0b', // Primary gold
+          500: '#f59e0b',
           600: '#d97706',
           700: '#b45309',
           800: '#92400e',
           900: '#78350f',
         },
-        // Dark theme colors
         dark: {
-          50: '#18181b',  // Darkest background
-          100: '#27272a', // Card backgrounds
-          200: '#3f3f46', // Input backgrounds
-          300: '#52525b', // Borders
-          400: '#71717a', // Muted text
-          500: '#a1a1aa', // Body text
-          600: '#d4d4d8', // Headings
-          700: '#e4e4e7', // Bright text
-          800: '#f4f4f5', // Brightest text
-          900: '#fafafa', // Pure white text
+          50: '#18181b',
+          100: '#27272a',
+          200: '#3f3f46',
+          300: '#52525b',
+          400: '#71717a',
+          500: '#a1a1aa',
+          600: '#d4d4d8',
+          700: '#e4e4e7',
+          800: '#f4f4f5',
+          900: '#fafafa',
         },
-        // Semantic colors for dark theme
         success: {
           400: '#4ade80',
           500: '#22c55e',
@@ -57,8 +94,8 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
-        serif: ['Crimson Text', 'Times New Roman', 'serif'],
+        sans: ['Montserrat', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+        serif: ['Playfair Display', 'Times New Roman', 'serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
       },
       animation: {
@@ -66,6 +103,8 @@ module.exports = {
         'slide-up': 'slideUp 0.5s ease-out',
         'glow': 'glow 2s ease-in-out infinite alternate',
         'shimmer': 'shimmer 2s linear infinite',
+
+        'float': 'float 6s ease-in-out infinite',
       },
       keyframes: {
         fadeIn: {
@@ -77,15 +116,31 @@ module.exports = {
           '100%': { transform: 'translateY(0)', opacity: '1' },
         },
         glow: {
-          '0%': { boxShadow: '0 0 20px rgba(245, 158, 11, 0.3)' },
-          '100%': { boxShadow: '0 0 30px rgba(245, 158, 11, 0.5)' },
+          '0%': { boxShadow: '0 0 20px rgba(212, 175, 55, 0.3)' },
+          '100%': { boxShadow: '0 0 30px rgba(212, 175, 55, 0.5)' },
         },
         shimmer: {
           '0%': { transform: 'translateX(-100%)' },
           '100%': { transform: 'translateX(100%)' },
         },
+
+        float: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
       },
       boxShadow: {
+        'glow-champagne': '0 0 20px rgba(212, 175, 55, 0.3)',
+        'glow-champagne-strong': '0 0 30px rgba(212, 175, 55, 0.5)',
+        'luxury-sm': '0 2px 8px rgba(0, 0, 0, 0.12)',
+        'luxury-md': '0 8px 32px rgba(0, 0, 0, 0.12)',
+        'luxury-lg': '0 16px 64px rgba(0, 0, 0, 0.24)',
+        'luxury-xl': '0 24px 96px rgba(0, 0, 0, 0.36)',
+        'champagne-sm': '0 2px 8px rgba(212, 175, 55, 0.12)',
+        'champagne-md': '0 8px 32px rgba(212, 175, 55, 0.12)',
+        'champagne-lg': '0 16px 64px rgba(212, 175, 55, 0.24)',
+        'champagne-xl': '0 24px 96px rgba(212, 175, 55, 0.36)',
+        // Legacy shadows for compatibility
         'glow-gold': '0 0 20px rgba(245, 158, 11, 0.3)',
         'glow-gold-strong': '0 0 30px rgba(245, 158, 11, 0.5)',
         'dark-sm': '0 1px 2px 0 rgba(0, 0, 0, 0.3)',
@@ -95,8 +150,24 @@ module.exports = {
         'dark-2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
       },
       backgroundImage: {
+        'gradient-champagne': 'linear-gradient(135deg, #D4AF37, #B8941F)',
+        'gradient-charcoal': 'linear-gradient(135deg, #1a1a1a, #000000)',
+        'gradient-luxury': 'linear-gradient(135deg, #1a1a1a 0%, #000000 100%)',
+        // Legacy gradients for compatibility
         'gradient-gold': 'linear-gradient(135deg, #fbbf24, #f59e0b, #d97706)',
         'gradient-dark': 'linear-gradient(135deg, #27272a, #3f3f46)',
+      },
+      spacing: {
+        '18': '4.5rem',
+        '88': '22rem',
+        '128': '32rem',
+      },
+      letterSpacing: {
+        'wider': '0.05em',
+        'widest': '0.1em',
+      },
+      backdropBlur: {
+        'luxury': '12px',
       },
     },
   },

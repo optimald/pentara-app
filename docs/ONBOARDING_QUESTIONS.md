@@ -1,9 +1,9 @@
 Pentara Onboarding Questionnaire (Coach-Led)
 Section 1 — Core Identity
 
-How would you describe yourself in one line? (e.g. “Sensitive tactician, builder, operator.”)
+How would you describe yourself in one line? (e.g. "Sensitive tactician, builder, operator.")
 
-What makes you powerful when you’re at your best? (short traits, strengths)
+What makes you powerful when you're at your best? (short traits, strengths)
 
 What consistently drains or derails you? (weak points, triggers, vulnerabilities)
 
@@ -35,7 +35,7 @@ Section 4 — Positive Traits
 
 What do others consistently admire or rely on you for? (free text, strengths)
 
-What do you think is your “superpower”? (e.g. pattern recognition, empathy, discipline)
+What do you think is your "superpower"? (e.g. pattern recognition, empathy, discipline)
 
 Section 5 — Negative Traits
 
@@ -43,7 +43,7 @@ When you break down, what does it usually look like? (patterns, spirals, coping)
 
 What are the habits you fall into when stressed? (ghosting, resets, impatience, etc.)
 
-How do you want the voices to respond when you’re in that state? (gentle, direct, tactical, etc.)
+How do you want the voices to respond when you're in that state? (gentle, direct, tactical, etc.)
 
 Section 6 — Reset Protocol
 
@@ -67,9 +67,9 @@ What behavior makes you feel supported and seen?
 
 Section 9 — Belief Shifts
 
-What old belief holds you back? (e.g. “If the routine breaks, I collapse.”)
+What old belief holds you back? (e.g. "If the routine breaks, I collapse.")
 
-Rewrite it into a new belief you want the voices to reinforce. (e.g. “I carry the routine with me.”)
+Rewrite it into a new belief you want the voices to reinforce. (e.g. "I carry the routine with me.")
 
 Any mantras or reminders you want Pentara to echo back to you?
 
@@ -79,12 +79,33 @@ What conditions make you most powerful? (open)
 
 If your future self could speak to you, what would they say? (open)
 
+Section 11 — Warrior Name Ritual
+
+What battles have you fought to reach this moment? (probe for resilience, determination, growth)
+
+What victory do you seek next? (uncover current goals and aspirations)
+
+What kind of warrior are you becoming? (explore identity transformation)
+
+What name would your future self call you? (if they could speak to you now)
+
+**AI Name Generation Process:**
+- AI processes responses to generate culturally-rooted warrior names
+- Examples: "Stormbreaker" (bold disruption), "Silent Sentinel" (steady defense), "Iron Vanguard" (resilience), "Shadow Blade" (strategic cunning)
+- Facilitator presents 3-5 options with rationale
+- User co-selects final warrior name through guided reflection
+
+**Sacred Unveiling Script:**
+"The council whispers your name... shall it be [name], or do we forge another?"
+
 Output Artifacts (generated from Qs)
 
 Personal Manual (summary bullets) → values, drivers, strengths, resets, rewritten beliefs.
 
 Five-Voice Profile → exactly five personas, each mapped from chosen inspirations & archetypes.
 
-Welcome Message → coach writes a 2–3 line introduction from the “council.”
+Warrior Name → culturally-rooted identity anchor for council interactions.
+
+Welcome Message → coach writes a 2–3 line introduction from the "council" addressing user by their warrior name.
 
 This gives the coach a repeatable script to pull out the deep material once, encode it, and then Pentara runs from that manual without ever needing logs or support.

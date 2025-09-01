@@ -8,9 +8,10 @@ export default function Document() {
         <meta name="theme-color" content="#f59e0b" />
         <meta name="description" content="Five voices. One circle. Clarity on demand. A private self-coaching app with five inspired-by voices tuned to your values." />
         
-        {/* Favicons - Use actual logo file */}
-        <link rel="icon" type="image/jpeg" href="/favicon.jpeg" />
-        <link rel="apple-touch-icon" href="/favicon.jpeg" />
+        {/* Favicons - Complete set to prevent 404 errors */}
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
         
         {/* OpenGraph */}

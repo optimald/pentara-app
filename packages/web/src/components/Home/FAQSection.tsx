@@ -40,129 +40,93 @@ export default function FAQSection() {
   const displayedFaqs = faqs.slice(0, 3);
 
   return (
-    <section id="faq" className="section-padding bg-gradient-to-b from-dark-100 to-dark-200 relative">
-      {/* Subtle luxury texture - barely perceptible */}
-      <div className="absolute inset-0 opacity-[0.02]">
-        <div 
-          className="w-full h-full"
-          style={{
-            backgroundImage: `
-              radial-gradient(circle at 25% 25%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
-              radial-gradient(circle at 75% 75%, rgba(255, 215, 0, 0.05) 0%, transparent 50%),
-              linear-gradient(45deg, transparent 49%, rgba(255, 215, 0, 0.02) 50%, transparent 51%)
-            `,
-            backgroundSize: '200px 200px, 300px 300px, 100px 100px'
-          }}
-        />
-      </div>
-      
-      <div className="container-max relative">
-        <div className="max-w-3xl mx-auto">
+    <section id="faq" className="section-padding bg-[#0a0a0a] py-32 stacked-panel panel-reveal stacked-3d" data-panel="5">
+      <div className="container-max sticky-panel">
+        <div className="max-w-4xl">
           {/* Section Header */}
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-dark-800 mb-4">
+          <div className="text-left mb-20">
+            <div className="mb-8">
+              <span className="text-[120px] font-light text-[#D4AF37] leading-none">05</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-serif font-light text-white mb-6 tracking-widest">
               Details
             </h2>
-            <p className="text-xl text-dark-600">
+            <p className="text-xl text-white font-light tracking-wide">
               What you need to know
             </p>
           </div>
 
           {/* FAQ Items - Static */}
-          <div className="space-y-4">
+          <div className="space-y-8">
             {displayedFaqs.map((faq, index) => (
               <div
                 key={index}
-                className="bg-dark-200 border border-dark-300 rounded-xl overflow-hidden hover:border-gold-500 transition-colors"
+                className="border-b border-[#E5E4E2]/20 pb-8"
               >
-                <div className="w-full px-6 py-5 text-left flex items-center justify-between">
-                  <h3 className="text-lg font-semibold text-dark-800 pr-4">
-                    {faq.question}
-                  </h3>
-                  <div className="flex-shrink-0">
-                    <svg
-                      className="w-5 h-5 text-dark-500"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
-                  </div>
-                </div>
-                <div className="px-6 pb-5 border-t border-dark-300">
-                  <p className="text-dark-600 leading-relaxed pt-4">
-                    {faq.answer}
-                  </p>
-                </div>
+                <h3 className="text-xl font-light text-white mb-4 tracking-wide">
+                  {faq.question}
+                </h3>
+                <p className="text-white leading-relaxed font-light tracking-wide">
+                  {faq.answer}
+                </p>
               </div>
             ))}
           </div>
 
-          {/* View More Hint */}
-          <div className="text-center mt-8">
-            <p className="text-dark-500 text-sm">
+          {/* Learn More Hint */}
+          <div className="text-left mt-16">
+            <p className="text-white/60 text-sm font-light tracking-wide">
               Learn more about your council during your onboarding session
             </p>
           </div>
 
           {/* Enhanced CTA with Seductress Guide */}
-          <div className="text-center mt-12">
-            <div className="max-w-4xl mx-auto">
+          <div className="mt-20">
+            <div className="max-w-4xl">
               {/* Seductress Guide Image - Full Impact */}
-              <div className="mb-8 flex justify-center">
-                <div className="relative w-64 h-80 rounded-lg overflow-hidden border-2 border-amber-600/40 shadow-2xl shadow-amber-500/20">
+              <div className="mb-12">
+                <div className="relative w-64 h-80 rounded-xl overflow-hidden border-2 border-[#D4AF37]/40 shadow-champagne-xl">
                   <img 
                     src="/seductress-guide.jpeg" 
                     alt="Your Guide to the Council" 
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent"></div>
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-900/80 to-transparent p-4">
-                    <p className="text-amber-200 text-sm font-medium text-center">
-                      ✦ Your Personal Guide to the Council ✦
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/40 via-transparent to-transparent"></div>
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#0a0a0a]/80 to-transparent p-6">
+                    <p className="text-[#D4AF37] text-sm font-light text-center tracking-wide">
+                      Your Personal Guide to Strategic Mastery
                     </p>
                   </div>
                 </div>
               </div>
               
               {/* Human Connection Narrative */}
-              <div className="text-center mb-6">
-                <h3 className="text-xl font-serif font-bold text-amber-300 mb-2">
-                  ✦ Meet Your Personal Guide ✦
+              <div className="mb-8">
+                <h3 className="text-2xl font-serif font-light text-[#D4AF37] mb-4 tracking-widest">
+                  Curate Your Advisory Circle
                 </h3>
-                <p className="text-slate-300 text-lg leading-relaxed">
-                  Your 45-minute onboarding session is led by an experienced facilitator who will help you 
-                  discover your unique council of five archetypes. This personal consultation ensures your 
-                  council is perfectly calibrated to your journey.
+                <p className="text-white text-lg leading-relaxed font-light tracking-wide">
+                  Your exclusive 45-minute consultation is led by a master strategist who will architect your bespoke council of five perspectives. This private session ensures your advisory circle is precisely calibrated to your vision and values.
                 </p>
               </div>
               
               {/* Enhanced CTA Button */}
-              <div className="flex justify-center">
+              <div className="flex items-center">
                 <a
                   href="https://calendly.com/optimaldev/pentara-onboarding"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-gradient-to-r from-slate-900 via-amber-700 to-slate-900 text-white text-lg px-16 py-6 inline-flex items-center space-x-3 font-bold hover:shadow-2xl hover:shadow-amber-500/40 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl border-2 border-amber-600 group"
+                  className="btn-primary text-xl px-20 py-6 inline-flex items-center space-x-4 shadow-champagne-lg hover:shadow-champagne-xl transition-all duration-300 transform hover:scale-[1.02] font-medium tracking-wider"
                 >
-                  <span className="text-2xl font-bold tracking-wide mr-3">Book Your Onboarding</span>
-                  <span className="text-amber-200 font-normal text-lg">($299)</span>
-                  <svg className="w-6 h-6 text-amber-200 ml-3 group-hover:translate-x-1 transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 19l-8-8z"/>
-                  </svg>
+                  <span className="text-2xl font-medium tracking-widest">Book Your Onboarding</span>
+                  <span className="text-[#D4AF37] font-light text-lg">($299)</span>
                 </a>
               </div>
               
               {/* Professional Assurance */}
-              <div className="mt-4 text-center">
-                <p className="text-slate-400 text-sm">
-                  <span className="text-amber-400">✦</span> Professional guidance for your transformation <span className="text-amber-400">✦</span>
+              <div className="mt-6">
+                <p className="text-white/60 text-sm font-light tracking-wide">
+                  Professional guidance for your transformation
                 </p>
               </div>
             </div>

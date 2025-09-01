@@ -41,17 +41,17 @@
 
 ### Hero Section
 - ✅ Design and implement hero section with main tagline
-- ✅ Add "Five voices. One circle. Clarity on demand." headline
+- ✅ Add "Your Trusted Advisory Council" headline
 - ✅ Create compelling sub-headline about personal council
-- ✅ Design primary CTA button for Calendly booking
+- ✅ Design primary CTA button for Calendly booking ($299)
 - ✅ Add hero background/visual elements
 - ✅ Implement mobile-responsive hero layout
 
 ### How It Works Section
 - ✅ Create 3-step process visualization
-- ✅ Step 1: "Book a 45-minute onboarding ($150)"
+- ✅ Step 1: "Book a 45-minute onboarding ($299)"
 - ✅ Step 2: "We craft your Personal Manual and five voices together"
-- ✅ Step 3: "Use Pentara anytime. Private, on your device."
+- ✅ Step 3: "Use Pentara anytime. Private, on your device ($15/month)"
 - ✅ Add icons/illustrations for each step
 - ✅ Link Step 1 to Calendly booking page
 
@@ -79,17 +79,22 @@
 
 ---
 
-## Week 2: Coach Console MVP
+## Week 2: Onboarding Specialist Console MVP
 
 ### Authentication System
-- ✅ Set up NextAuth.js for coach authentication
-- ✅ Implement magic link login for coaches
-- ✅ Create admin panel for managing coach accounts
-- ✅ Add role-based access control (admin vs coach)
+- ✅ Set up NextAuth.js for onboarding specialist authentication
+- ⏳ Implement email and password authentication for onboarding specialists
+- ✅ Create admin panel for managing onboarding specialist accounts
+- ✅ Add role-based access control (admin vs onboarding specialist)
 - ✅ Implement session management and security
+- ✅ **Console uses email/password authentication - no social login**
+- ⏳ Define role descriptions (Guide: onboarding specialist, Guardian: superadmin)
+- ⏳ Implement 2FA integration via Supabase (email or authenticator app) post-launch
+- ⏳ Add "Easy Login" demo buttons for Guide and Guardian roles (dev only)
+- ⏳ Create toggle/flag to disable demo login buttons post-launch
 
 ### Console Interface
-- ✅ Create coach dashboard layout and navigation
+- ✅ Create onboarding specialist dashboard layout and navigation
 - ✅ Build questionnaire interface based on ONBOARDING_QUESTIONS.md
 - ⏳ Implement form validation and error handling
 - ✅ Add progress tracking through questionnaire sections
@@ -106,6 +111,16 @@
 - ✅ Section 8: Relationship Dynamics (trust/respect factors)
 - ✅ Section 9: Belief Shifts (old vs new beliefs, mantras)
 - ✅ Section 10: Final Instructions (power conditions, future self)
+- ⏳ Section 11: Warrior Name Ritual (battles, victories, identity transformation)
+
+### Warrior Name Ritual Implementation
+- ⏳ Create AI name generation system for culturally-rooted warrior names
+- ⏳ Implement name suggestion algorithm based on user responses
+- ⏳ Build sacred unveiling interface with 3-5 name options
+- ⏳ Add co-selection process with guided reflection
+- ⏳ Create name rationale display for each option
+- ⏳ Integrate warrior name into profile generation
+- ⏳ Add warrior name to Personal Manual output
 
 ### Profile Generation
 - ✅ Build Personal Manual generator from questionnaire data
@@ -114,11 +129,12 @@
 - ✅ Generate sample voice responses for preview
 - ⏳ Add manual editing/refinement interface
 - ⏳ Implement profile validation and quality checks
+- ⏳ Integrate warrior name into council interactions
 
 ### Activation Code System
 - ✅ Create activation code generation (PNR-8X2-K7 format)
 - ✅ Implement code validation and expiration logic
-- ⏳ Build code management interface for coaches
+- ⏳ Build code management interface for onboarding specialists
 - ⏳ Add email delivery system for codes
 - ⏳ Create code redemption tracking
 
@@ -128,6 +144,7 @@
 - ✅ Implement dynamic PDF generation from profile data
 - ⏳ Add PDF download and email delivery
 - ⏳ Test PDF generation across different profile types
+- ⏳ Include warrior name in PDF output
 
 ---
 
@@ -144,8 +161,10 @@
 - ✅ `POST /api/activate` - Validate code, return encrypted profile
 - ✅ `POST /api/chat` - 5-voice fan-out + synthesis endpoint
 - ✅ `POST /api/usage` - Anonymous usage counter increment
-- ✅ `POST /api/swap-request` - Voice swap request to coach
+- ✅ `POST /api/swap-request` - Voice swap request to onboarding specialist
+- ✅ `POST /api/subscription/check` - Validate monthly subscription status
 - ✅ Add comprehensive input validation with Zod schemas
+- ⏳ Update `/api/activate` to include warrior name in response
 
 ### Five-Voice Orchestrator
 - ✅ Implement parallel LLM calls (5 simultaneous requests)
@@ -153,6 +172,8 @@
 - ✅ Add Personal Manual context injection per voice
 - ✅ Implement response validation and token counting
 - ✅ Add fallback handling for failed voice responses
+- ⏳ Integrate warrior name into voice prompts
+- ⏳ Update synthesis to begin with "[Warrior Name], your council decrees:"
 
 ### Synthesis Generation
 - ✅ Create synthesis prompt combining 5 voice responses
@@ -160,6 +181,7 @@
 - ✅ Add reassurance message generation
 - ✅ Implement synthesis token cap (<120 tokens)
 - ⏳ Test synthesis quality across different prompt types
+- ⏳ Ensure warrior name is included in all synthesis outputs
 
 ### Security & Rate Limiting
 - ✅ Implement JWT token generation and validation
@@ -174,6 +196,8 @@
 - ✅ Create user management functions
 - ✅ Add profile storage with encryption at rest
 - ✅ Implement usage tracking without chat logs
+- ⏳ Add subscription management (subscription_status, subscription_expires_at)
+- ⏳ Update profiles table to include warrior_name field
 
 ### Cost Control & Monitoring
 - ⏳ Implement token counting and cost tracking
@@ -200,8 +224,9 @@
 - ⏳ Implement daily check-in screen with mood slider
 - ⏳ Create journal/history screen with local data
 - ⏳ Build voice profile viewing screen
-- ⏳ Add settings screen with data management
+- ⏳ Add settings screen with data management and subscription
 - ⏳ Create resources/legal screen with crisis links
+- ⏳ Display warrior name prominently in user interface
 
 ### Activation Flow
 - ⏳ Design activation code input interface
@@ -210,6 +235,7 @@
 - ⏳ Create welcome screen after successful activation
 - ⏳ Handle activation errors and edge cases
 - ⏳ Test activation flow end-to-end
+- ⏳ Display warrior name in welcome screen
 
 ### Chat Interface
 - ⏳ Build prompt input with character limits
@@ -218,6 +244,7 @@
 - ⏳ Add "Add to Journal" functionality
 - ⏳ Create loading states for API calls
 - ⏳ Implement offline handling and retry logic
+- ⏳ Ensure warrior name appears in synthesis responses
 
 ### Local Data Management
 - ⏳ Set up SQLite schema for chat threads and messages
@@ -226,6 +253,7 @@
 - ⏳ Create export functionality (Markdown format)
 - ⏳ Implement data deletion and privacy controls
 - ⏳ Test data persistence across app updates
+- ⏳ Store warrior name locally for offline access
 
 ### UI/UX Design
 - ⏳ Create consistent design system and components
@@ -234,6 +262,14 @@
 - ⏳ Design intuitive navigation and user flows
 - ⏳ Create loading and error state designs
 - ⏳ Test usability across different screen sizes
+
+### End User Authentication (Mobile App)
+- ⏳ **Social login integration** (Google, Apple, Facebook) for end users
+- ⏳ Implement OAuth flows for mobile app users
+- ⏳ Add account linking with activation codes
+- ⏳ Create user profile management
+- ⏳ Implement secure token storage
+- ⏳ Add logout and session management
 
 ---
 
@@ -290,6 +326,8 @@
 - ⏳ Test activation code generation and redemption
 - ⏳ Validate profile quality across different user types
 - ⏳ Test mobile app performance on various devices
+- ⏳ Test warrior name ritual with real users
+- ⏳ Validate warrior name integration in council interactions
 
 ### Cost & Performance Analysis
 - ⏳ Measure actual cost per turn with real usage
@@ -314,14 +352,16 @@
 - ⏳ Ensure consistent voice personalities
 - ⏳ Validate token efficiency of prompts
 - ⏳ Create prompt version control system
+- ⏳ Test warrior name integration in prompts
 
 ### Documentation & Training
-- ⏳ Create coach training materials
+- ⏳ Create onboarding specialist training materials
 - ⏳ Document troubleshooting procedures
 - ⏳ Create user onboarding guides
 - ⏳ Write technical documentation for maintenance
 - ⏳ Create FAQ based on test user questions
 - ⏳ Document known issues and workarounds
+- ⏳ Train facilitators on warrior name ritual delivery
 
 ---
 
@@ -366,8 +406,8 @@
 ## Week 8+: Ongoing Operations
 
 ### Scaling to 50 Onboardings/Month
-- ⏳ Monitor coach capacity (12 sessions/week per coach)
-- ⏳ Recruit and train additional coaches if needed
+- ⏳ Monitor onboarding specialist capacity (12 sessions/week per specialist)
+- ⏳ Recruit and train additional onboarding specialists if needed
 - ⏳ Optimize onboarding session efficiency
 - ⏳ Track conversion rates from landing to booking
 - ⏳ Monitor user retention and engagement
@@ -380,6 +420,7 @@
 - ⏳ Measure voice response quality
 - ⏳ Monitor crisis resource usage
 - ⏳ Create operational dashboards
+- ⏳ Track warrior name adoption rates
 
 ### Customer Support
 - ⏳ Set up support ticket system
@@ -388,6 +429,7 @@
 - ⏳ Monitor user feedback and feature requests
 - ⏳ Handle activation code issues
 - ⏳ Manage voice swap requests
+- ⏳ Support warrior name-related inquiries
 
 ### Continuous Improvement
 - ⏳ Collect and analyze user feedback
@@ -396,13 +438,14 @@
 - ⏳ Improve onboarding conversion rates
 - ⏳ Plan feature roadmap for v2
 - ⏳ Monitor competitive landscape
+- ⏳ Refine warrior name generation algorithm
 
 ### Business Operations
 - ⏳ Track revenue and unit economics
 - ⏳ Monitor customer acquisition costs
 - ⏳ Analyze lifetime value metrics
 - ⏳ Plan marketing and growth strategies
-- ⏳ Manage coach scheduling and capacity
+- ⏳ Manage onboarding specialist scheduling and capacity
 - ⏳ Handle refunds and customer issues
 
 ---
@@ -422,6 +465,7 @@
 - ⏳ User activation rate > 80%
 - ⏳ Monthly active users growth
 - ⏳ Customer satisfaction > 4.5/5
+- ⏳ Warrior name adoption rate > 95%
 
 ### Privacy & Compliance
 - ⏳ Zero server-side chat storage incidents

@@ -1,72 +1,58 @@
 export default function Header() {
   return (
-    <header className="bg-dark-100/80 backdrop-blur-md border-b border-dark-200">
-      <nav className="container-max section-padding py-4">
-        <div className="flex justify-between items-center">
-          {/* Logo */}
-          <a href="/" className="logo">
-            <div className="logo-symbol">
-              <img
-                src="/logo.jpeg"
-                alt="Pentara"
-                width={40}
-                height={40}
-                className="w-full h-full rounded-lg"
-              />
-            </div>
-            <span className="logo-text">
-              Pentara
-            </span>
-          </a>
+    <header className="bg-transparent backdrop-blur-luxury">
+      <nav className="container-max py-4">
+        <div className="flex flex-col items-center">
+          {/* Centered Logo */}
+          <div className="mb-4">
+            <a href="/" className="logo">
+              <div className="logo-symbol">
+                <img
+                  src="/logo.jpeg"
+                  alt="Pentara"
+                  width={40}
+                  height={40}
+                  className="w-full h-full rounded-lg"
+                />
+              </div>
+              <span className="logo-text">
+                Pentara
+              </span>
+            </a>
+          </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          {/* Minimal Navigation - Text Only */}
+          <div className="flex items-center space-x-8">
             <a 
               href="#how-it-works" 
-              className="nav-link"
+              className="nav-link text-sm"
             >
-              How it works
+              Initiation
+            </a>
+            <a 
+              href="#royal-council" 
+              className="nav-link text-sm"
+            >
+              Council
             </a>
             <a 
               href="#faq" 
-              className="nav-link"
+              className="nav-link text-sm"
             >
               FAQ
             </a>
             <a 
               href="/privacy" 
-              className="nav-link"
+              className="nav-link text-sm"
             >
               Privacy
             </a>
-            <a
-              href="https://calendly.com/optimaldev/pentara-onboarding"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary"
-            >
-              Book Onboarding
-            </a>
-          </div>
-
-          {/* Mobile menu button - simplified for now */}
-          <div className="md:hidden p-2 text-dark-600">
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
           </div>
         </div>
       </nav>
+      
+      {/* Thin horizontal line below header */}
+      <div className="w-full h-px bg-[#333]"></div>
     </header>
   );
 }

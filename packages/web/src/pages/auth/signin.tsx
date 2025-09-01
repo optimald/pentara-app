@@ -1,95 +1,42 @@
-import { useState } from 'react';
 import { signIn, getSession } from 'next-auth/react';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
-import Link from 'next/link';
-import SocialLoginButton from '../../components/Auth/SocialLoginButton';
 
 export default function SignIn() {
-  const [email, setEmail] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [message, setMessage] = useState('');
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setMessage('');
-
-    try {
-      const result = await signIn('email', {
-        email,
-        redirect: false,
-      });
-
-      if (result?.error) {
-        setMessage('Error sending magic link. Please try again.');
-      } else {
-        setMessage('Check your email for a magic link to sign in.');
-      }
-    } catch (error) {
-      setMessage('Something went wrong. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   return (
     <>
       <Head>
-        <title>Coach Sign In - Pentara</title>
-        <meta name="description" content="Sign in to the Pentara coach console" />
+        <title>Portal Access - Pentara</title>
+        <meta name="description" content="Enter the council's domain" />
       </Head>
 
-      <div className="min-h-screen bg-secondary-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-slate-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <Link href="/" className="flex justify-center items-center space-x-2 mb-8">
-            <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-700 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold">P</span>
-            </div>
-            <span className="text-2xl font-serif font-semibold text-secondary-900">
+          <a href="/" className="flex justify-center items-center space-x-2 mb-8">
+            <img 
+              src="/logo.jpeg" 
+              alt="Pentara" 
+              className="w-10 h-10 rounded-lg"
+            />
+            <span className="text-2xl font-serif font-semibold text-white">
               Pentara
             </span>
-          </Link>
+          </a>
           
-          <h2 className="text-center text-3xl font-serif font-bold text-secondary-900">
-            Coach Console
+          <h2 className="text-center text-3xl font-serif font-bold text-white">
+            Council Portal
           </h2>
-          <p className="mt-2 text-center text-sm text-secondary-600">
-            Sign in with your coach email address
+          <p className="mt-2 text-center text-sm text-slate-300">
+            Enter your credentials to access the inner sanctum
           </p>
         </div>
 
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-          <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            {/* Social Login Buttons */}
-            <div className="space-y-3 mb-6">
-              <SocialLoginButton 
-                provider="google" 
-                disabled={isLoading}
-                callbackUrl="/console"
-              />
-              <SocialLoginButton 
-                provider="facebook" 
-                disabled={isLoading}
-                callbackUrl="/console"
-              />
-            </div>
-
-            <div className="relative mb-6">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-secondary-300" />
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-secondary-500">
-                  Or continue with email
-                </span>
-              </div>
-            </div>
-
-            <form className="space-y-6" onSubmit={handleSubmit}>
+          <div className="bg-slate-800 py-8 px-4 shadow-xl sm:rounded-lg sm:px-10 border border-slate-700">
+            <form id="login-form" className="space-y-6">
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-secondary-700">
-                  Email address
+                <label htmlFor="email" className="block text-sm font-medium text-slate-200">
+                  Initiate's Email
                 </label>
                 <div className="mt-1">
                   <input
@@ -98,10 +45,25 @@ export default function SignIn() {
                     type="email"
                     autoComplete="email"
                     required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="appearance-none block w-full px-3 py-2 border border-secondary-300 rounded-md placeholder-secondary-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
-                    placeholder="coach@pentara.app"
+                    className="appearance-none block w-full px-3 py-2 border border-slate-600 rounded-md placeholder-slate-400 focus:outline-none focus:ring-amber-500 focus:border-amber-500 sm:text-sm bg-slate-700 text-white"
+                    placeholder="initiate@pentara.app"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium text-slate-200">
+                  Sacred Key
+                </label>
+                <div className="mt-1">
+                  <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    autoComplete="current-password"
+                    required
+                    className="appearance-none block w-full px-3 py-2 border border-slate-600 rounded-md placeholder-slate-400 focus:outline-none focus:ring-amber-500 focus:border-amber-500 sm:text-sm bg-slate-700 text-white"
+                    placeholder="Enter your sacred key"
                   />
                 </div>
               </div>
@@ -109,45 +71,143 @@ export default function SignIn() {
               <div>
                 <button
                   type="submit"
-                  disabled={isLoading}
-                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                  id="submit-btn"
+                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
                 >
-                  {isLoading ? 'Sending...' : 'Send magic link'}
+                  Enter the Portal
                 </button>
               </div>
             </form>
 
-            {message && (
-              <div className={`mt-4 p-4 rounded-md ${
-                message.includes('Check your email') 
-                  ? 'bg-green-50 text-green-800 border border-green-200' 
-                  : 'bg-red-50 text-red-800 border border-red-200'
-              }`}>
-                <p className="text-sm">{message}</p>
-              </div>
-            )}
+            <div id="message" className="mt-4 p-4 rounded-md hidden">
+              <p className="text-sm"></p>
+            </div>
 
+            {/* Mystical Access Portals (Dev Only) */}
             <div className="mt-6">
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-secondary-300" />
+                  <div className="w-full border-t border-slate-600" />
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-white text-secondary-500">
-                    Need access?
+                  <span className="px-2 bg-slate-800 text-slate-400">
+                    Mystical Portals
                   </span>
                 </div>
               </div>
 
-              <div className="mt-6 text-center">
-                <p className="text-sm text-secondary-600">
-                  Contact an admin to get coach access.
-                </p>
+              <div className="mt-6 space-y-3">
+                <button
+                  id="guide-login-btn"
+                  className="w-full flex justify-center py-2 px-4 border border-amber-500/30 rounded-md shadow-sm text-sm font-medium text-amber-200 bg-amber-500/10 hover:bg-amber-500/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 transition-all duration-200"
+                >
+                  Enter as Guide
+                </button>
+                <button
+                  id="guardian-login-btn"
+                  className="w-full flex justify-center py-2 px-4 border border-slate-500/30 rounded-md shadow-sm text-sm font-medium text-slate-200 bg-slate-500/10 hover:bg-slate-500/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500 transition-all duration-200"
+                >
+                  Enter as Guardian
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Client-side script for form handling */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+            (function() {
+              const form = document.getElementById('login-form');
+              const submitBtn = document.getElementById('submit-btn');
+              const messageDiv = document.getElementById('message');
+              const messageText = messageDiv.querySelector('p');
+              const guideBtn = document.getElementById('guide-login-btn');
+              const guardianBtn = document.getElementById('guardian-login-btn');
+              
+              // Mystical portal functionality
+              guideBtn.addEventListener('click', async function() {
+                const originalText = guideBtn.textContent;
+                guideBtn.textContent = 'Opening Portal...';
+                guideBtn.disabled = true;
+                
+                try {
+                  // Simulate Guide portal opening - replace with actual implementation
+                  await new Promise(resolve => setTimeout(resolve, 1000));
+                  window.location.href = '/console?role=guide';
+                } catch (error) {
+                  console.error('Guide portal failed:', error);
+                  guideBtn.textContent = originalText;
+                  guideBtn.disabled = false;
+                }
+              });
+              
+              guardianBtn.addEventListener('click', async function() {
+                const originalText = guardianBtn.textContent;
+                guardianBtn.textContent = 'Opening Portal...';
+                guardianBtn.disabled = true;
+                
+                try {
+                  // Simulate Guardian portal opening - replace with actual implementation
+                  await new Promise(resolve => setTimeout(resolve, 1000));
+                  window.location.href = '/console?role=guardian';
+                } catch (error) {
+                  console.error('Guardian portal failed:', error);
+                  guardianBtn.textContent = originalText;
+                  guardianBtn.disabled = false;
+                }
+              });
+              
+              form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const originalText = submitBtn.textContent;
+                
+                // Update button state
+                submitBtn.textContent = 'Opening Portal...';
+                submitBtn.disabled = true;
+                
+                // Hide any existing message
+                messageDiv.className = 'mt-4 p-4 rounded-md hidden';
+                
+                try {
+                  const response = await fetch('/api/auth/signin/credentials', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                      email: email,
+                      password: password 
+                    }),
+                  });
+                  
+                  const result = await response.json();
+                  
+                  if (result.error) {
+                    messageText.textContent = 'The portal rejects your credentials. Try again.';
+                    messageDiv.className = 'mt-4 p-4 rounded-md bg-red-900/20 text-red-200 border border-red-500/30';
+                  } else {
+                    // Redirect to console on successful login
+                    window.location.href = '/console';
+                  }
+                } catch (error) {
+                  messageText.textContent = 'The portal is sealed. Try again.';
+                  messageDiv.className = 'mt-4 p-4 rounded-md bg-red-900/20 text-red-200 border border-red-500/30';
+                } finally {
+                  // Reset button state
+                  submitBtn.textContent = originalText;
+                  submitBtn.disabled = false;
+                }
+              });
+            })();
+          `
+        }}
+      />
     </>
   );
 }

@@ -1,471 +1,156 @@
-import { useState } from 'react';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import Head from 'next/head';
 import ConsoleLayout from '../../components/Console/ConsoleLayout';
-import { OnboardingAnswers } from '@pentara/shared';
+
+// Simplified type for the onboarding answers
+interface OnboardingAnswers {
+  'self-description'?: string;
+  'strengths'?: string;
+  'weaknesses'?: string;
+  'values'?: string;
+  'goals'?: string;
+  'role-models'?: string;
+  'qualities-admired'?: string;
+}
 
 export default function OnboardingQuestionnaire() {
-  const [currentSection, setCurrentSection] = useState(0);
-  const [answers, setAnswers] = useState<Partial<OnboardingAnswers>>({});
-  const [isGenerating, setIsGenerating] = useState(false);
-
   const sections = [
     {
-      title: "Core Identity",
-      description: "Understanding the user's self-perception and core traits",
-      fields: [
+      id: 'core-identity',
+      title: 'Core Identity',
+      description: 'Tell us about yourself and your current situation',
+      questions: [
         {
-          key: 'coreIdentity.selfDescription',
-          label: 'How would you describe yourself in one line?',
-          type: 'text',
-          placeholder: 'e.g., "Sensitive tactician, builder, operator."',
-          required: true,
-        },
-        {
-          key: 'coreIdentity.strengths',
-          label: 'What makes you powerful when you\'re at your best?',
+          id: 'self-description',
+          label: 'How would you describe yourself in 2-3 sentences?',
           type: 'textarea',
-          placeholder: 'Short traits, strengths',
-          required: true,
+          placeholder: 'I am...'
         },
         {
-          key: 'coreIdentity.weaknesses',
-          label: 'What consistently drains or derails you?',
+          id: 'strengths',
+          label: 'What are your top 3 strengths?',
           type: 'textarea',
-          placeholder: 'Weak points, triggers, vulnerabilities',
-          required: true,
-        },
-      ],
-    },
-    {
-      title: "Drivers & Values",
-      description: "Core motivations and relationship values",
-      fields: [
-        {
-          key: 'driversValues.topDrivers',
-          label: 'Rank your top 3 drivers',
-          type: 'multiselect',
-          options: ['Autonomy', 'Clarity', 'Respect', 'Momentum', 'Efficiency', 'Other'],
-          maxSelections: 3,
-          required: true,
+          placeholder: '1. ...\n2. ...\n3. ...'
         },
         {
-          key: 'driversValues.relationshipValues',
-          label: 'What do you value most in relationships (business/romantic/friends)?',
+          id: 'weaknesses',
+          label: 'What are your main challenges or areas for growth?',
           type: 'textarea',
-          required: true,
-        },
-      ],
-    },
-    {
-      title: "Environmental Needs",
-      description: "Understanding optimal and problematic environments",
-      fields: [
-        {
-          key: 'environmentalNeeds.thriveEnvironment',
-          label: 'What kind of environment lets you thrive?',
-          type: 'textarea',
-          placeholder: 'Noise level, space, tools, aesthetics',
-          required: true,
-        },
-        {
-          key: 'environmentalNeeds.avoidEnvironment',
-          label: 'What do you avoid at all costs?',
-          type: 'textarea',
-          placeholder: 'Environments, tools, behaviors, energy',
-          required: true,
-        },
-      ],
-    },
-    {
-      title: "Positive Traits",
-      description: "Strengths and superpowers",
-      fields: [
-        {
-          key: 'positiveTraits.admiredFor',
-          label: 'What do others consistently admire or rely on you for?',
-          type: 'textarea',
-          placeholder: 'Free text, strengths',
-          required: true,
-        },
-        {
-          key: 'positiveTraits.superpower',
-          label: 'What do you think is your "superpower"?',
-          type: 'text',
-          placeholder: 'e.g., pattern recognition, empathy, discipline',
-          required: true,
-        },
-      ],
-    },
-    {
-      title: "Negative Traits",
-      description: "Breakdown patterns and stress responses",
-      fields: [
-        {
-          key: 'negativeTraits.breakdownPattern',
-          label: 'When you break down, what does it usually look like?',
-          type: 'textarea',
-          placeholder: 'Patterns, spirals, coping mechanisms',
-          required: true,
-        },
-        {
-          key: 'negativeTraits.stressHabits',
-          label: 'What are the habits you fall into when stressed?',
-          type: 'textarea',
-          placeholder: 'Ghosting, resets, impatience, etc.',
-          required: true,
-        },
-        {
-          key: 'negativeTraits.preferredResponse',
-          label: 'How do you want the voices to respond when you\'re in that state?',
-          type: 'multiselect',
-          options: ['Gentle', 'Direct', 'Tactical', 'Supportive', 'Challenging'],
-          required: true,
-        },
-      ],
-    },
-    {
-      title: "Reset Protocol",
-      description: "Recovery and momentum strategies",
-      fields: [
-        {
-          key: 'resetProtocol.resetActions',
-          label: 'What are 3 simple actions that reliably reset you?',
-          type: 'array',
-          placeholder: 'Walk, music, workout, hydration',
-          maxItems: 3,
-          required: true,
-        },
-        {
-          key: 'resetProtocol.momentumReminder',
-          label: 'What do you want the voices to remind you when you lose momentum?',
-          type: 'text',
-          placeholder: 'Short mantra/phrase',
-          required: true,
-        },
-      ],
-    },
-    {
-      title: "Inspirations",
-      description: "Figures and qualities that inspire the user",
-      fields: [
-        {
-          key: 'inspirations.figures',
-          label: 'Name up to 8–12 figures that inspire you',
-          type: 'array',
-          placeholder: 'Authors, leaders, movie characters, mentors, archetypes',
-          maxItems: 12,
-          required: true,
-        },
-        {
-          key: 'inspirations.qualities',
-          label: 'What qualities do you admire in them?',
-          type: 'array',
-          placeholder: 'e.g., discipline, creativity, ruthlessness, humor',
-          required: true,
-        },
-        {
-          key: 'inspirations.desiredArchetypes',
-          label: 'If you had to pick five voices to guide you, which qualities/archetypes do you want them to represent?',
-          type: 'textarea',
-          placeholder: 'Coach uses this to map into the council',
-          required: true,
-        },
-      ],
-    },
-    {
-      title: "Relationship Dynamics",
-      description: "Trust and support preferences",
-      fields: [
-        {
-          key: 'relationshipDynamics.trustLosers',
-          label: 'What instantly loses your trust/respect?',
-          type: 'textarea',
-          required: true,
-        },
-        {
-          key: 'relationshipDynamics.supportBehaviors',
-          label: 'What behavior makes you feel supported and seen?',
-          type: 'textarea',
-          required: true,
-        },
-      ],
-    },
-    {
-      title: "Belief Shifts",
-      description: "Old patterns to new empowering beliefs",
-      fields: [
-        {
-          key: 'beliefShifts.oldBelief',
-          label: 'What old belief holds you back?',
-          type: 'text',
-          placeholder: 'e.g., "If the routine breaks, I collapse."',
-          required: true,
-        },
-        {
-          key: 'beliefShifts.newBelief',
-          label: 'Rewrite it into a new belief you want the voices to reinforce',
-          type: 'text',
-          placeholder: 'e.g., "I carry the routine with me."',
-          required: true,
-        },
-        {
-          key: 'beliefShifts.mantras',
-          label: 'Any mantras or reminders you want Pentara to echo back to you?',
-          type: 'array',
-          required: false,
-        },
-      ],
-    },
-    {
-      title: "Final Instructions",
-      description: "Power conditions and future self wisdom",
-      fields: [
-        {
-          key: 'finalInstructions.powerConditions',
-          label: 'What conditions make you most powerful?',
-          type: 'textarea',
-          required: true,
-        },
-        {
-          key: 'finalInstructions.futureSelftalk',
-          label: 'If your future self could speak to you, what would they say?',
-          type: 'textarea',
-          required: true,
-        },
-      ],
-    },
-  ];
-
-  const updateAnswer = (key: string, value: any) => {
-    const keys = key.split('.');
-    setAnswers(prev => {
-      const updated = { ...prev };
-      let current = updated as any;
-      
-      for (let i = 0; i < keys.length - 1; i++) {
-        if (!current[keys[i]]) {
-          current[keys[i]] = {};
+          placeholder: 'I struggle with...'
         }
-        current = current[keys[i]];
-      }
-      
-      current[keys[keys.length - 1]] = value;
-      return updated;
-    });
-  };
-
-  const getAnswer = (key: string) => {
-    const keys = key.split('.');
-    let current = answers as any;
-    
-    for (const k of keys) {
-      if (!current || !current[k]) return '';
-      current = current[k];
-    }
-    
-    return current;
-  };
-
-  const renderField = (field: any) => {
-    const value = getAnswer(field.key);
-    
-    switch (field.type) {
-      case 'text':
-        return (
-          <input
-            type="text"
-            value={value || ''}
-            onChange={(e) => updateAnswer(field.key, e.target.value)}
-            placeholder={field.placeholder}
-            className="mt-1 block w-full border-secondary-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
-            required={field.required}
-          />
-        );
-        
-      case 'textarea':
-        return (
-          <textarea
-            value={value || ''}
-            onChange={(e) => updateAnswer(field.key, e.target.value)}
-            placeholder={field.placeholder}
-            rows={4}
-            className="mt-1 block w-full border-secondary-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
-            required={field.required}
-          />
-        );
-        
-      case 'array':
-        const arrayValue = Array.isArray(value) ? value : [];
-        return (
-          <div className="mt-1">
-            {arrayValue.map((item: string, index: number) => (
-              <div key={index} className="flex mb-2">
-                <input
-                  type="text"
-                  value={item}
-                  onChange={(e) => {
-                    const newArray = [...arrayValue];
-                    newArray[index] = e.target.value;
-                    updateAnswer(field.key, newArray);
-                  }}
-                  placeholder={field.placeholder}
-                  className="flex-1 border-secondary-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
-                />
-                <button
-                  type="button"
-                  onClick={() => {
-                    const newArray = arrayValue.filter((_, i) => i !== index);
-                    updateAnswer(field.key, newArray);
-                  }}
-                  className="ml-2 text-red-600 hover:text-red-800"
-                >
-                  Remove
-                </button>
-              </div>
-            ))}
-            {(!field.maxItems || arrayValue.length < field.maxItems) && (
-              <button
-                type="button"
-                onClick={() => {
-                  updateAnswer(field.key, [...arrayValue, '']);
-                }}
-                className="text-primary-600 hover:text-primary-800 text-sm"
-              >
-                + Add item
-              </button>
-            )}
-          </div>
-        );
-        
-      case 'multiselect':
-        const selectedValues = Array.isArray(value) ? value : [];
-        return (
-          <div className="mt-1 space-y-2">
-            {field.options.map((option: string) => (
-              <label key={option} className="flex items-center">
-                <input
-                  type="checkbox"
-                  checked={selectedValues.includes(option)}
-                  onChange={(e) => {
-                    let newValues;
-                    if (e.target.checked) {
-                      newValues = [...selectedValues, option];
-                      if (field.maxSelections && newValues.length > field.maxSelections) {
-                        newValues = newValues.slice(-field.maxSelections);
-                      }
-                    } else {
-                      newValues = selectedValues.filter((v: string) => v !== option);
-                    }
-                    updateAnswer(field.key, newValues);
-                  }}
-                  className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-secondary-300 rounded"
-                />
-                <span className="ml-2 text-sm text-secondary-900">{option}</span>
-              </label>
-            ))}
-          </div>
-        );
-        
-      default:
-        return null;
-    }
-  };
-
-  const handleGenerateProfile = async () => {
-    setIsGenerating(true);
-    try {
-      // Get user email from the questionnaire
-      const userEmail = prompt('Enter user email for activation code:');
-      if (!userEmail) {
-        alert('Email is required to generate profile');
-        return;
-      }
-
-      const response = await fetch('/api/profiles/generate', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      ]
+    },
+    {
+      id: 'drivers-values',
+      title: 'Drivers & Values',
+      description: 'What motivates you and what do you value most?',
+      questions: [
+        {
+          id: 'values',
+          label: 'What are your top 3 core values?',
+          type: 'textarea',
+          placeholder: '1. ...\n2. ...\n3. ...'
         },
-        body: JSON.stringify({
-          answers,
-          userEmail,
-        }),
-      });
-
-      const result = await response.json();
-
-      if (result.success) {
-        alert(`Profile generated successfully!\n\nActivation Code: ${result.activationCode.code}\n\nPlease save this code and send it to the user along with their Personal Manual.`);
-        
-        // TODO: Generate and download PDF
-        // TODO: Send email with activation code
-        
-        // Reset form for next user
-        setAnswers({});
-        setCurrentSection(0);
-      } else {
-        throw new Error(result.error || 'Failed to generate profile');
-      }
-    } catch (error) {
-      console.error('Error generating profile:', error);
-      alert('Error generating profile. Please try again.');
-    } finally {
-      setIsGenerating(false);
+        {
+          id: 'goals',
+          label: 'What are your main goals right now?',
+          type: 'textarea',
+          placeholder: 'I want to...'
+        }
+      ]
+    },
+    {
+      id: 'inspirations',
+      title: 'Inspirations',
+      description: 'Who inspires you and why?',
+      questions: [
+        {
+          id: 'role-models',
+          label: 'Name 3-5 people who inspire you (can be public figures, authors, mentors, etc.)',
+          type: 'textarea',
+          placeholder: '1. [Name] - because...\n2. [Name] - because...\n3. [Name] - because...'
+        },
+        {
+          id: 'qualities-admired',
+          label: 'What qualities do you admire most in others?',
+          type: 'textarea',
+          placeholder: 'I admire people who are...'
+        }
+      ]
     }
-  };
-
-  const currentSectionData = sections[currentSection];
-  const isLastSection = currentSection === sections.length - 1;
+  ];
 
   return (
     <>
       <Head>
         <title>New Onboarding - Pentara Console</title>
-        <meta name="description" content="Pentara onboarding questionnaire" />
+        <meta name="description" content="Start a new user onboarding session" />
       </Head>
 
       <ConsoleLayout>
-        <div className="px-4 sm:px-0">
-          {/* Progress */}
+        <div className="max-w-4xl mx-auto">
+          {/* Header */}
           <div className="mb-8">
-            <div className="flex items-center justify-between mb-4">
-              <h1 className="text-3xl font-serif font-bold text-secondary-900">
-                New Onboarding Session
-              </h1>
-              <div className="text-sm text-secondary-600">
-                Section {currentSection + 1} of {sections.length}
-              </div>
+            <h1 className="text-3xl font-serif font-bold text-secondary-900">
+              New Onboarding Session
+            </h1>
+            <p className="text-secondary-600">
+              Guide the user through the questionnaire to create their personal council
+            </p>
+          </div>
+
+          {/* Progress Bar */}
+          <div className="mb-8">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm font-medium text-secondary-700">
+                Section <span id="current-section">1</span> of {sections.length}
+              </span>
+              <span className="text-sm text-secondary-500">
+                <span id="progress-percent">33</span>% Complete
+              </span>
             </div>
-            
             <div className="w-full bg-secondary-200 rounded-full h-2">
               <div
+                id="progress-bar"
                 className="bg-primary-600 h-2 rounded-full transition-all duration-300"
-                style={{ width: `${((currentSection + 1) / sections.length) * 100}%` }}
+                style={{ width: '33%' }}
               />
             </div>
           </div>
 
           {/* Current Section */}
-          <div className="bg-white shadow rounded-lg p-6 mb-6">
+          <div className="bg-white shadow rounded-lg p-6 mb-8">
             <div className="mb-6">
-              <h2 className="text-xl font-semibold text-secondary-900">
-                {currentSectionData.title}
+              <h2 className="text-xl font-semibold text-secondary-900 mb-2" id="section-title">
+                {sections[0].title}
               </h2>
-              <p className="text-secondary-600 mt-1">
-                {currentSectionData.description}
+              <p className="text-secondary-600" id="section-description">
+                {sections[0].description}
               </p>
             </div>
 
-            <div className="space-y-6">
-              {currentSectionData.fields.map((field, index) => (
-                <div key={index}>
-                  <label className="block text-sm font-medium text-secondary-700">
-                    {field.label}
-                    {field.required && <span className="text-red-500 ml-1">*</span>}
+            <div className="space-y-6" id="questions-container">
+              {sections[0].questions.map((question) => (
+                <div key={question.id}>
+                  <label className="block text-sm font-medium text-secondary-700 mb-2">
+                    {question.label}
                   </label>
-                  {renderField(field)}
+                  {question.type === 'textarea' ? (
+                    <textarea
+                      id={question.id}
+                      rows={4}
+                      className="w-full px-3 py-2 border border-secondary-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                      placeholder={question.placeholder}
+                    />
+                  ) : (
+                    <input
+                      id={question.id}
+                      type="text"
+                      className="w-full px-3 py-2 border border-secondary-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                      placeholder={question.placeholder}
+                    />
+                  )}
                 </div>
               ))}
             </div>
@@ -474,32 +159,159 @@ export default function OnboardingQuestionnaire() {
           {/* Navigation */}
           <div className="flex justify-between">
             <button
-              onClick={() => setCurrentSection(Math.max(0, currentSection - 1))}
-              disabled={currentSection === 0}
-              className="btn-secondary disabled:opacity-50 disabled:cursor-not-allowed"
+              id="prev-btn"
+              disabled
+              className="px-4 py-2 border border-secondary-300 rounded-md text-secondary-700 hover:bg-secondary-50 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Previous
             </button>
 
-            {isLastSection ? (
+            <div className="flex space-x-3">
               <button
-                onClick={handleGenerateProfile}
-                disabled={isGenerating}
-                className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                id="next-btn"
+                className="px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700"
               >
-                {isGenerating ? 'Generating Profile...' : 'Generate Profile & Code'}
+                Next Section
               </button>
-            ) : (
-              <button
-                onClick={() => setCurrentSection(Math.min(sections.length - 1, currentSection + 1))}
-                className="btn-primary"
-              >
-                Next
-              </button>
-            )}
+            </div>
+          </div>
+
+          {/* Preview of collected answers */}
+          <div id="answers-preview" className="mt-8 bg-secondary-50 rounded-lg p-4 hidden">
+            <h3 className="text-sm font-medium text-secondary-900 mb-2">
+              Collected Information Preview
+            </h3>
+            <div id="answers-list" className="text-sm text-secondary-600 space-y-1">
+            </div>
           </div>
         </div>
       </ConsoleLayout>
+
+      {/* Client-side script for interactivity */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+            (function() {
+              const sections = ${JSON.stringify(sections)};
+              let currentSection = 0;
+              const answers = {};
+              
+              const currentSectionEl = document.getElementById('current-section');
+              const progressPercentEl = document.getElementById('progress-percent');
+              const progressBarEl = document.getElementById('progress-bar');
+              const sectionTitleEl = document.getElementById('section-title');
+              const sectionDescriptionEl = document.getElementById('section-description');
+              const questionsContainerEl = document.getElementById('questions-container');
+              const prevBtn = document.getElementById('prev-btn');
+              const nextBtn = document.getElementById('next-btn');
+              const answersPreviewEl = document.getElementById('answers-preview');
+              const answersListEl = document.getElementById('answers-list');
+              
+              function updateSection() {
+                const section = sections[currentSection];
+                const progress = ((currentSection + 1) / sections.length) * 100;
+                
+                currentSectionEl.textContent = currentSection + 1;
+                progressPercentEl.textContent = Math.round(progress);
+                progressBarEl.style.width = progress + '%';
+                sectionTitleEl.textContent = section.title;
+                sectionDescriptionEl.textContent = section.description;
+                
+                // Update questions
+                questionsContainerEl.innerHTML = section.questions.map(question => \`
+                  <div>
+                    <label class="block text-sm font-medium text-secondary-700 mb-2">
+                      \${question.label}
+                    </label>
+                    \${question.type === 'textarea' ? 
+                      \`<textarea id="\${question.id}" rows="4" class="w-full px-3 py-2 border border-secondary-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500" placeholder="\${question.placeholder}"></textarea>\` :
+                      \`<input id="\${question.id}" type="text" class="w-full px-3 py-2 border border-secondary-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500" placeholder="\${question.placeholder}">\`
+                    }
+                  </div>
+                \`).join('');
+                
+                // Restore answers for this section
+                section.questions.forEach(question => {
+                  const element = document.getElementById(question.id);
+                  if (element && answers[question.id]) {
+                    element.value = answers[question.id];
+                  }
+                });
+                
+                // Update button states
+                prevBtn.disabled = currentSection === 0;
+                if (currentSection === sections.length - 1) {
+                  nextBtn.textContent = 'Generate Profile';
+                  nextBtn.className = 'px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700';
+                } else {
+                  nextBtn.textContent = 'Next Section';
+                  nextBtn.className = 'px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700';
+                }
+                
+                updateAnswersPreview();
+              }
+              
+              function updateAnswersPreview() {
+                // Collect all answers
+                sections.forEach(section => {
+                  section.questions.forEach(question => {
+                    const element = document.getElementById(question.id);
+                    if (element) {
+                      answers[question.id] = element.value;
+                    }
+                  });
+                });
+                
+                const hasAnswers = Object.values(answers).some(value => value && value.trim());
+                
+                if (hasAnswers) {
+                  answersPreviewEl.classList.remove('hidden');
+                  answersListEl.innerHTML = Object.entries(answers)
+                    .filter(([key, value]) => value && value.trim())
+                    .map(([key, value]) => \`
+                      <div>
+                        <strong>\${key}:</strong> \${value.toString().substring(0, 100)}\${value.toString().length > 100 ? '...' : ''}
+                      </div>
+                    \`).join('');
+                } else {
+                  answersPreviewEl.classList.add('hidden');
+                }
+              }
+              
+              // Event listeners
+              prevBtn.addEventListener('click', () => {
+                if (currentSection > 0) {
+                  currentSection--;
+                  updateSection();
+                }
+              });
+              
+              nextBtn.addEventListener('click', () => {
+                if (currentSection < sections.length - 1) {
+                  currentSection++;
+                  updateSection();
+                } else {
+                  // Generate profile
+                  nextBtn.textContent = 'Generating...';
+                  nextBtn.disabled = true;
+                  
+                  setTimeout(() => {
+                    nextBtn.textContent = 'Generate Profile';
+                    nextBtn.disabled = false;
+                    alert('Profile generation would happen here');
+                  }, 2000);
+                }
+              });
+              
+              // Update answers preview when inputs change
+              document.addEventListener('input', updateAnswersPreview);
+              
+              // Initialize
+              updateSection();
+            })();
+          `
+        }}
+      />
     </>
   );
 }
