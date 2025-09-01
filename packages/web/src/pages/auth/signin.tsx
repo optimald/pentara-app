@@ -83,7 +83,7 @@ export default function SignIn() {
               <p className="text-sm"></p>
             </div>
 
-            {/* Mystical Access Portals (Dev Only) */}
+            {/* Development Notice */}
             <div className="mt-6">
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
@@ -91,24 +91,17 @@ export default function SignIn() {
                 </div>
                 <div className="relative flex justify-center text-sm">
                   <span className="px-2 bg-[#0a0a0a] text-white/60 font-light tracking-wide">
-                    Mystical Portals
+                    Development Mode
                   </span>
                 </div>
               </div>
 
-              <div className="mt-6 space-y-3">
-                <button
-                  id="guide-login-btn"
-                  className="w-full flex justify-center py-2 px-4 border border-[#D4AF37]/30 rounded-md shadow-sm text-sm font-medium text-[#D4AF37] bg-[#D4AF37]/10 hover:bg-[#D4AF37]/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#D4AF37] transition-all duration-300 tracking-wider"
-                >
-                  Enter as Coach
-                </button>
-                <button
-                  id="guardian-login-btn"
-                  className="w-full flex justify-center py-2 px-4 border border-[#E5E4E2]/30 rounded-md shadow-sm text-sm font-medium text-white/80 bg-[#E5E4E2]/10 hover:bg-[#E5E4E2]/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#E5E4E2] transition-all duration-300 tracking-wider"
-                >
-                  Enter as Admin
-                </button>
+              <div className="mt-6 p-4 rounded-md bg-[#D4AF37]/10 border border-[#D4AF37]/30">
+                <p className="text-sm text-[#D4AF37] text-center font-light tracking-wide">
+                  Authentication is temporarily disabled for development. 
+                  <br />
+                  The portal will be available soon.
+                </p>
               </div>
             </div>
           </div>
@@ -199,46 +192,21 @@ export default function SignIn() {
               form.addEventListener('submit', async function(e) {
                 e.preventDefault();
                 
-                const email = document.getElementById('email').value;
-                const password = document.getElementById('password').value;
                 const originalText = submitBtn.textContent;
                 
                 // Update button state
-                submitBtn.textContent = 'Opening Portal...';
+                submitBtn.textContent = 'Portal Sealed...';
                 submitBtn.disabled = true;
                 
-                // Hide any existing message
-                messageDiv.className = 'mt-4 p-4 rounded-md hidden';
+                // Show development message
+                messageText.textContent = 'Authentication is temporarily disabled for development. The portal will be available soon.';
+                messageDiv.className = 'mt-4 p-4 rounded-md bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/30 backdrop-blur-sm';
                 
-                try {
-                  const response = await fetch('/api/auth/signin/credentials', {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ 
-                      email: email,
-                      password: password 
-                    }),
-                  });
-                  
-                  const result = await response.json();
-                  
-                  if (result.error) {
-                    messageText.textContent = 'The portal rejects your credentials. Try again.';
-                    messageDiv.className = 'mt-4 p-4 rounded-md bg-red-900/20 text-red-200 border border-red-500/30 backdrop-blur-sm';
-                  } else {
-                    // Redirect to console on successful login
-                    window.location.href = '/console';
-                  }
-                } catch (error) {
-                  messageText.textContent = 'The portal is sealed. Try again.';
-                  messageDiv.className = 'mt-4 p-4 rounded-md bg-red-900/20 text-red-200 border border-red-500/30 backdrop-blur-sm';
-                } finally {
-                  // Reset button state
+                // Reset button state after delay
+                setTimeout(() => {
                   submitBtn.textContent = originalText;
                   submitBtn.disabled = false;
-                }
+                }, 2000);
               });
             })();
           `
