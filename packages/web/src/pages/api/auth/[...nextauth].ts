@@ -1,13 +1,60 @@
 import NextAuth, { NextAuthOptions } from 'next-auth';
+import CredentialsProvider from 'next-auth/providers/credentials';
 // import EmailProvider from 'next-auth/providers/email';
 // import GoogleProvider from 'next-auth/providers/google';
 // import FacebookProvider from 'next-auth/providers/facebook';
-// import CredentialsProvider from 'next-auth/providers/credentials';
 // import { PrismaAdapter } from '@next-auth/prisma-adapter';
 // import { prisma } from '../../../lib/prisma';
 
-// Simple providers array for development - temporarily empty
-const providers: any[] = [];
+// Demo users for development
+const demoUsers = [
+  {
+    id: 'demo-coach-uuid',
+    email: 'coach@pentara.app',
+    password: 'demo123',
+    name: 'Demo Coach',
+    role: 'COACH'
+  },
+  {
+    id: 'demo-admin-uuid',
+    email: 'admin@pentara.app',
+    password: 'demo123',
+    name: 'Demo Admin',
+    role: 'ADMIN'
+  }
+];
+
+// Providers array with credentials provider for demo logins
+const providers = [
+  CredentialsProvider({
+    id: 'credentials',
+    name: 'Credentials',
+    credentials: {
+      email: { label: 'Email', type: 'email' },
+      password: { label: 'Password', type: 'password' }
+    },
+    async authorize(credentials) {
+      if (!credentials?.email || !credentials?.password) {
+        return null;
+      }
+
+      const user = demoUsers.find(
+        u => u.email === credentials.email && u.password === credentials.password
+      );
+
+      if (user) {
+        return {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          role: user.role,
+        };
+      }
+
+      return null;
+    }
+  })
+];
 
 export const authOptions: NextAuthOptions = {
   // adapter: PrismaAdapter(prisma), // Temporarily disabled to fix context error

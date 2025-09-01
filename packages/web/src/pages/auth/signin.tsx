@@ -35,7 +35,7 @@ export default function SignIn() {
           <div className="bg-transparent border border-[#E5E4E2]/20 py-8 px-4 backdrop-blur-luxury shadow-luxury-lg sm:rounded-xl sm:px-10">
             <form id="login-form" className="space-y-6">
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-white/80 font-light tracking-wide">
+                <label htmlFor="email" className="block text-sm text-white/80 font-light tracking-wide">
                   Initiate's Email
                 </label>
                 <div className="mt-1">
@@ -52,7 +52,7 @@ export default function SignIn() {
               </div>
 
               <div>
-                <label htmlFor="password" className="block text-sm font-medium text-white/80 font-light tracking-wide">
+                <label htmlFor="password" className="block text-sm text-white/80 font-light tracking-wide">
                   Sacred Key
                 </label>
                 <div className="mt-1">
@@ -83,7 +83,7 @@ export default function SignIn() {
               <p className="text-sm"></p>
             </div>
 
-            {/* Development Notice */}
+            {/* Demo Login Portals */}
             <div className="mt-6">
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
@@ -91,17 +91,24 @@ export default function SignIn() {
                 </div>
                 <div className="relative flex justify-center text-sm">
                   <span className="px-2 bg-[#0a0a0a] text-white/60 font-light tracking-wide">
-                    Development Mode
+                    Demo Portals
                   </span>
                 </div>
               </div>
 
-              <div className="mt-6 p-4 rounded-md bg-[#D4AF37]/10 border border-[#D4AF37]/30">
-                <p className="text-sm text-[#D4AF37] text-center font-light tracking-wide">
-                  Authentication is temporarily disabled for development. 
-                  <br />
-                  The portal will be available soon.
-                </p>
+              <div className="mt-6 space-y-3">
+                <button
+                  id="guide-login-btn"
+                  className="w-full flex justify-center py-2 px-4 border border-[#D4AF37]/30 rounded-md shadow-sm text-sm font-medium text-[#D4AF37] bg-[#D4AF37]/10 hover:bg-[#D4AF37]/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#D4AF37] transition-all duration-300 tracking-wider"
+                >
+                  Enter as Coach
+                </button>
+                <button
+                  id="guardian-login-btn"
+                  className="w-full flex justify-center py-2 px-4 border border-[#E5E4E2]/30 rounded-md shadow-sm text-sm font-medium text-white/80 bg-[#E5E4E2]/10 hover:bg-[#E5E4E2]/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#E5E4E2] transition-all duration-300 tracking-wider"
+                >
+                  Enter as Admin
+                </button>
               </div>
             </div>
           </div>
@@ -120,7 +127,7 @@ export default function SignIn() {
               const guideBtn = document.getElementById('guide-login-btn');
               const guardianBtn = document.getElementById('guardian-login-btn');
               
-              // Mystical portal functionality
+              // Demo login functionality
               guideBtn.addEventListener('click', async function() {
                 const originalText = guideBtn.textContent;
                 guideBtn.textContent = 'Opening Portal...';
@@ -143,6 +150,8 @@ export default function SignIn() {
                   
                   if (result.error) {
                     console.error('Coach portal failed:', result.error);
+                    messageText.textContent = 'Coach portal failed. Please try again.';
+                    messageDiv.className = 'mt-4 p-4 rounded-md bg-red-900/20 text-red-200 border border-red-500/30 backdrop-blur-sm';
                     guideBtn.textContent = originalText;
                     guideBtn.disabled = false;
                   } else {
@@ -150,6 +159,8 @@ export default function SignIn() {
                   }
                 } catch (error) {
                   console.error('Coach portal failed:', error);
+                  messageText.textContent = 'Coach portal failed. Please try again.';
+                  messageDiv.className = 'mt-4 p-4 rounded-md bg-red-900/20 text-red-200 border border-red-500/30 backdrop-blur-sm';
                   guideBtn.textContent = originalText;
                   guideBtn.disabled = false;
                 }
@@ -177,6 +188,8 @@ export default function SignIn() {
                   
                   if (result.error) {
                     console.error('Admin portal failed:', result.error);
+                    messageText.textContent = 'Admin portal failed. Please try again.';
+                    messageDiv.className = 'mt-4 p-4 rounded-md bg-red-900/20 text-red-200 border border-red-500/30 backdrop-blur-sm';
                     guardianBtn.textContent = originalText;
                     guardianBtn.disabled = false;
                   } else {
@@ -184,6 +197,8 @@ export default function SignIn() {
                   }
                 } catch (error) {
                   console.error('Admin portal failed:', error);
+                  messageText.textContent = 'Admin portal failed. Please try again.';
+                  messageDiv.className = 'mt-4 p-4 rounded-md bg-red-900/20 text-red-200 border border-red-500/30 backdrop-blur-sm';
                   guardianBtn.textContent = originalText;
                   guardianBtn.disabled = false;
                 }
@@ -192,21 +207,46 @@ export default function SignIn() {
               form.addEventListener('submit', async function(e) {
                 e.preventDefault();
                 
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
                 const originalText = submitBtn.textContent;
                 
                 // Update button state
-                submitBtn.textContent = 'Portal Sealed...';
+                submitBtn.textContent = 'Opening Portal...';
                 submitBtn.disabled = true;
                 
-                // Show development message
-                messageText.textContent = 'Authentication is temporarily disabled for development. The portal will be available soon.';
-                messageDiv.className = 'mt-4 p-4 rounded-md bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/30 backdrop-blur-sm';
+                // Hide any existing message
+                messageDiv.className = 'mt-4 p-4 rounded-md hidden';
                 
-                // Reset button state after delay
-                setTimeout(() => {
+                try {
+                  const response = await fetch('/api/auth/signin/credentials', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                      email: email,
+                      password: password 
+                    }),
+                  });
+                  
+                  const result = await response.json();
+                  
+                  if (result.error) {
+                    messageText.textContent = 'The portal rejects your credentials. Try again.';
+                    messageDiv.className = 'mt-4 p-4 rounded-md bg-red-900/20 text-red-200 border border-red-500/30 backdrop-blur-sm';
+                  } else {
+                    // Redirect to console on successful login
+                    window.location.href = '/console';
+                  }
+                } catch (error) {
+                  messageText.textContent = 'The portal is sealed. Try again.';
+                  messageDiv.className = 'mt-4 p-4 rounded-md bg-red-900/20 text-red-200 border border-red-500/30 backdrop-blur-sm';
+                } finally {
+                  // Reset button state
                   submitBtn.textContent = originalText;
                   submitBtn.disabled = false;
-                }, 2000);
+                }
               });
             })();
           `
