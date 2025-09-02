@@ -1,5 +1,6 @@
 import { GetServerSideProps } from 'next';
-import { getSession } from 'next-auth/react';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '../api/auth/[...nextauth]';
 import Head from 'next/head';
 import Link from 'next/link';
 import ConsoleLayout from '../../components/Console/ConsoleLayout';
@@ -193,7 +194,7 @@ export default function ConsoleDashboard() {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context);
+  const session = await getServerSession(context.req, context.res, authOptions);
 
   // Debug logging
   console.log('Console page - Session:', session);
