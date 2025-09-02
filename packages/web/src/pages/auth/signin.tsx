@@ -118,10 +118,14 @@ export default function SignIn() {
         dangerouslySetInnerHTML={{
           __html: `
             (function() {
+              console.log('🔥 Demo login script starting...');
               const guideBtn = document.getElementById('guide-login-btn');
               const guardianBtn = document.getElementById('guardian-login-btn');
               const messageDiv = document.getElementById('message');
               const messageText = messageDiv.querySelector('p');
+              
+              console.log('🔥 Guide button found:', guideBtn);
+              console.log('🔥 Guardian button found:', guardianBtn);
               
               function showError(message) {
                 messageText.textContent = message;
@@ -133,6 +137,7 @@ export default function SignIn() {
               }
               
               async function demoLogin(email, password, button) {
+                console.log('🔥 Demo login called with:', email, password);
                 const originalText = button.textContent;
                 button.textContent = 'Opening Portal...';
                 button.disabled = true;
@@ -167,13 +172,23 @@ export default function SignIn() {
                 }
               }
               
-              guideBtn.addEventListener('click', () => {
-                demoLogin('guide@pentara.app', 'demo123', guideBtn);
-              });
+              if (guideBtn) {
+                guideBtn.addEventListener('click', () => {
+                  console.log('🔥 Guide button clicked');
+                  demoLogin('guide@pentara.app', 'demo123', guideBtn);
+                });
+              } else {
+                console.log('🔥 Guide button not found!');
+              }
               
-              guardianBtn.addEventListener('click', () => {
-                demoLogin('guardian@pentara.app', 'demo123', guardianBtn);
-              });
+              if (guardianBtn) {
+                guardianBtn.addEventListener('click', () => {
+                  console.log('🔥 Guardian button clicked');
+                  demoLogin('guardian@pentara.app', 'demo123', guardianBtn);
+                });
+              } else {
+                console.log('🔥 Guardian button not found!');
+              }
             })();
           `
         }}
