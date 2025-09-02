@@ -7,7 +7,13 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 // import { prisma } from '../../../lib/prisma';
 
 // Demo users for development
-const demoUsers = [
+const demoUsers: Array<{
+  id: string;
+  email: string;
+  password: string;
+  name: string;
+  role: 'GUIDE' | 'GUARDIAN';
+}> = [
   {
     id: 'demo-guide-uuid',
     email: 'guide@pentara.app',
@@ -47,7 +53,7 @@ const providers = [
           id: user.id,
           email: user.email,
           name: user.name,
-          role: user.role,
+          role: user.role as 'GUIDE' | 'GUARDIAN',
         };
       }
 
