@@ -40,7 +40,10 @@ const providers = [
       password: { label: 'Password', type: 'password' }
     },
     async authorize(credentials) {
+      console.log('NextAuth authorize - credentials:', credentials);
+      
       if (!credentials?.email || !credentials?.password) {
+        console.log('NextAuth authorize - missing credentials');
         return null;
       }
 
@@ -48,15 +51,20 @@ const providers = [
         u => u.email === credentials.email && u.password === credentials.password
       );
 
+      console.log('NextAuth authorize - found user:', user);
+
       if (user) {
-        return {
+        const userObj = {
           id: user.id,
           email: user.email,
           name: user.name,
           role: user.role as 'GUIDE' | 'GUARDIAN',
         };
+        console.log('NextAuth authorize - returning user:', userObj);
+        return userObj;
       }
 
+      console.log('NextAuth authorize - no user found');
       return null;
     }
   })
@@ -82,8 +90,12 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
     async jwt({ token, user }) {
+      console.log('NextAuth jwt callback - token:', token);
+      console.log('NextAuth jwt callback - user:', user);
+      
       if (user) {
         token.role = (user as any).role;
+        console.log('NextAuth jwt callback - setting role:', (user as any).role);
       }
       return token;
     },
