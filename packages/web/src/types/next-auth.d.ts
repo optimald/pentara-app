@@ -16,13 +16,13 @@ declare module "next-auth" {
     name?: string | null
     email?: string | null
     image?: string | null
-    role?: 'ADMIN' | 'COACH'
+    role?: 'ADMIN' | 'COACH' | 'GUIDE' | 'GUARDIAN'
   }
 }
 
 declare module "next-auth/jwt" {
   interface JWT {
     id: string
-    role?: 'ADMIN' | 'COACH'
+    role?: 'ADMIN' | 'COACH' | 'GUIDE' | 'GUARDIAN'
   }
 }
