@@ -87,8 +87,8 @@ export const authOptions: NextAuthOptions = {
       console.log('NextAuth session callback - token:', token);
       
       if (session.user && token) {
-        session.user.id = token.sub;
-        session.user.role = (token as any).role;
+        (session.user as any).id = token.sub;
+        (session.user as any).role = (token as any).role;
       }
       return session;
     },
