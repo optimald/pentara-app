@@ -70,6 +70,9 @@ const providers = [
   })
 ];
 
+console.log('NextAuth configuration loading...');
+console.log('NextAuth providers:', providers);
+
 export const authOptions: NextAuthOptions = {
   // adapter: PrismaAdapter(prisma), // Temporarily disabled to fix context error
   providers,
