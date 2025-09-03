@@ -1,6 +1,50 @@
 import Head from 'next/head';
 
 export default function SignIn() {
+  const handleDemoLogin = async (email: string, password: string) => {
+    console.log('🔥 Demo login called with:', email, password);
+    
+    try {
+      // First, get the CSRF token
+      console.log('🔥 Getting CSRF token...');
+      const csrfResponse = await fetch('/api/auth/csrf');
+      const csrfData = await csrfResponse.json();
+      console.log('🔥 CSRF token:', csrfData.csrfToken);
+      
+      // Then make the signin request with proper NextAuth format
+      const response = await fetch('/api/auth/callback/credentials', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+          email: email,
+          password: password,
+          csrfToken: csrfData.csrfToken,
+          callbackUrl: window.location.origin + '/console',
+          json: 'true'
+        }),
+      });
+      
+      console.log('🔥 Response status:', response.status);
+      const responseData = await response.json();
+      console.log('🔥 Response data:', responseData);
+      
+      if (responseData.url) {
+        console.log('🔥 Login successful, redirecting to:', responseData.url);
+        window.location.href = responseData.url;
+      } else if (responseData.error) {
+        console.log('🔥 Login failed with error:', responseData.error);
+        alert('Login failed: ' + responseData.error);
+      } else {
+        console.log('🔥 Login failed - unknown response');
+        alert('Login failed. Please try again.');
+      }
+    } catch (error) {
+      console.error('🔥 Login error:', error);
+      alert('Login failed. Please try again.');
+    }
+  };
   return (
     <>
       <Head>
@@ -77,9 +121,7 @@ export default function SignIn() {
               </div>
             </form>
 
-            <div id="message" className="mt-4 p-4 rounded-md hidden">
-              <p className="text-sm"></p>
-            </div>
+
 
             {/* Demo Login Portals */}
             <div className="mt-6">
@@ -96,13 +138,19 @@ export default function SignIn() {
 
               <div className="mt-6 space-y-3">
                 <button
-                  id="guide-login-btn"
+                  onClick={() => {
+                    console.log('🔥 Guide button clicked!');
+                    handleDemoLogin('guide@pentara.app', 'demo123');
+                  }}
                   className="w-full flex justify-center py-2 px-4 border border-[#D4AF37]/30 rounded-md shadow-sm text-sm font-medium text-[#D4AF37] bg-[#D4AF37]/10 hover:bg-[#D4AF37]/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#D4AF37] transition-all duration-300 tracking-wider"
                 >
                   Enter as Guide
                 </button>
                 <button
-                  id="guardian-login-btn"
+                  onClick={() => {
+                    console.log('🔥 Guardian button clicked!');
+                    handleDemoLogin('guardian@pentara.app', 'demo123');
+                  }}
                   className="w-full flex justify-center py-2 px-4 border border-[#E5E4E2]/30 rounded-md shadow-sm text-sm font-medium text-white/80 bg-[#E5E4E2]/10 hover:bg-[#E5E4E2]/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#E5E4E2] transition-all duration-300 tracking-wider"
                 >
                   Enter as Guardian
@@ -113,86 +161,7 @@ export default function SignIn() {
         </div>
       </div>
 
-      {/* Client-side script for demo login */}
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            (function() {
-              console.log('🔥 Demo login script starting...');
-              const guideBtn = document.getElementById('guide-login-btn');
-              const guardianBtn = document.getElementById('guardian-login-btn');
-              const messageDiv = document.getElementById('message');
-              const messageText = messageDiv.querySelector('p');
-              
-              console.log('🔥 Guide button found:', guideBtn);
-              console.log('🔥 Guardian button found:', guardianBtn);
-              
-              function showError(message) {
-                messageText.textContent = message;
-                messageDiv.className = 'mt-4 p-4 rounded-md bg-red-900/20 text-red-200 border border-red-500/30 backdrop-blur-sm';
-              }
-              
-              function hideError() {
-                messageDiv.className = 'mt-4 p-4 rounded-md hidden';
-              }
-              
-              async function demoLogin(email, password, button) {
-                console.log('🔥 Demo login called with:', email, password);
-                const originalText = button.textContent;
-                button.textContent = 'Opening Portal...';
-                button.disabled = true;
-                hideError();
-                
-                try {
-                  const response = await fetch('/api/auth/signin/credentials', {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: new URLSearchParams({
-                      email: email,
-                      password: password,
-                      callbackUrl: window.location.origin + '/console'
-                    }),
-                  });
-                  
-                  if (response.ok || response.status === 302) {
-                    // Success - redirect to console
-                    window.location.href = '/console';
-                  } else {
-                    showError('Login failed. Please try again.');
-                    button.textContent = originalText;
-                    button.disabled = false;
-                  }
-                } catch (error) {
-                  console.error('Login error:', error);
-                  showError('Login failed. Please try again.');
-                  button.textContent = originalText;
-                  button.disabled = false;
-                }
-              }
-              
-              if (guideBtn) {
-                guideBtn.addEventListener('click', () => {
-                  console.log('🔥 Guide button clicked');
-                  demoLogin('guide@pentara.app', 'demo123', guideBtn);
-                });
-              } else {
-                console.log('🔥 Guide button not found!');
-              }
-              
-              if (guardianBtn) {
-                guardianBtn.addEventListener('click', () => {
-                  console.log('🔥 Guardian button clicked');
-                  demoLogin('guardian@pentara.app', 'demo123', guardianBtn);
-                });
-              } else {
-                console.log('🔥 Guardian button not found!');
-              }
-            })();
-          `
-        }}
-      />
+
     </>
   );
 }

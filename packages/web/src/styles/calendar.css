@@ -1,0 +1,159 @@
+/* Custom styles for react-big-calendar to match dark theme */
+
+.custom-calendar {
+  background: transparent !important;
+  color: white !important;
+}
+
+.custom-calendar .rbc-header {
+  background: transparent !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  border-bottom: 1px solid rgba(229, 228, 226, 0.2) !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.05em !important;
+  font-size: 12px !important;
+  padding: 8px !important;
+}
+
+.custom-calendar .rbc-month-view {
+  border: 1px solid rgba(229, 228, 226, 0.2) !important;
+  border-radius: 8px !important;
+}
+
+.custom-calendar .rbc-month-row {
+  border-bottom: 1px solid rgba(229, 228, 226, 0.1) !important;
+}
+
+.custom-calendar .rbc-date-cell {
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.05em !important;
+  font-size: 12px !important;
+  padding: 4px !important;
+}
+
+.custom-calendar .rbc-off-range-bg {
+  background: transparent !important;
+}
+
+.custom-calendar .rbc-off-range {
+  color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.custom-calendar .rbc-today {
+  background: rgba(212, 175, 55, 0.2) !important;
+  color: #D4AF37 !important;
+  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+}
+
+.custom-calendar .rbc-day-bg {
+  background: transparent !important;
+  border: 1px solid rgba(229, 228, 226, 0.1) !important;
+}
+
+.custom-calendar .rbc-day-bg:hover {
+  background: rgba(229, 228, 226, 0.05) !important;
+}
+
+.custom-calendar .rbc-event {
+  background: #D4AF37 !important;
+  border: none !important;
+  border-radius: 4px !important;
+  color: white !important;
+  font-size: 12px !important;
+  padding: 2px 4px !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.05em !important;
+}
+
+.custom-calendar .rbc-event.rbc-selected {
+  background: #B8941F !important;
+}
+
+.custom-calendar .rbc-event:hover {
+  background: #B8941F !important;
+}
+
+/* Week view styles */
+.custom-calendar .rbc-time-view {
+  border: 1px solid rgba(229, 228, 226, 0.2) !important;
+  border-radius: 8px !important;
+}
+
+.custom-calendar .rbc-time-header {
+  background: transparent !important;
+  border-bottom: 1px solid rgba(229, 228, 226, 0.2) !important;
+}
+
+.custom-calendar .rbc-time-header-content {
+  border-left: 1px solid rgba(229, 228, 226, 0.1) !important;
+}
+
+.custom-calendar .rbc-time-content {
+  border-top: 1px solid rgba(229, 228, 226, 0.1) !important;
+}
+
+.custom-calendar .rbc-time-slot {
+  border-top: 1px solid rgba(229, 228, 226, 0.1) !important;
+  color: rgba(255, 255, 255, 0.5) !important;
+  font-size: 11px !important;
+}
+
+.custom-calendar .rbc-timeslot-group {
+  border-bottom: 1px solid rgba(229, 228, 226, 0.1) !important;
+}
+
+.custom-calendar .rbc-day-slot {
+  border-right: 1px solid rgba(229, 228, 226, 0.1) !important;
+}
+
+.custom-calendar .rbc-day-slot .rbc-events-container {
+  margin-right: 0 !important;
+}
+
+.custom-calendar .rbc-current-time-indicator {
+  background: #D4AF37 !important;
+  height: 2px !important;
+}
+
+/* Toolbar styles */
+.custom-calendar .rbc-toolbar {
+  background: transparent !important;
+  border: none !important;
+  margin-bottom: 16px !important;
+}
+
+.custom-calendar .rbc-toolbar button {
+  background: transparent !important;
+  border: 1px solid rgba(229, 228, 226, 0.3) !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+  border-radius: 6px !important;
+  padding: 8px 12px !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.05em !important;
+  font-size: 14px !important;
+  transition: all 0.2s ease !important;
+}
+
+.custom-calendar .rbc-toolbar button:hover {
+  background: rgba(229, 228, 226, 0.1) !important;
+  color: white !important;
+}
+
+.custom-calendar .rbc-toolbar button.rbc-active {
+  background: rgba(212, 175, 55, 0.1) !important;
+  border-color: rgba(212, 175, 55, 0.3) !important;
+  color: #D4AF37 !important;
+}
+
+.custom-calendar .rbc-toolbar-label {
+  color: white !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.05em !important;
+  font-size: 18px !important;
+}
+
+/* Hide the default toolbar since we have custom navigation */
+.custom-calendar .rbc-toolbar {
+  display: none !important;
+}

@@ -1,66 +1,95 @@
 import { ReactNode } from 'react';
-import { useSession, signOut } from 'next-auth/react';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { signOut } from 'next-auth/react';
 
 interface ConsoleLayoutProps {
   children: ReactNode;
+  currentPath?: string;
+  session?: {
+    user?: {
+      id?: string | null;
+      name?: string | null;
+      email?: string | null;
+      image?: string | null;
+      role?: string | null;
+    } | null;
+    expires?: string;
+  } | null;
 }
 
-export default function ConsoleLayout({ children }: ConsoleLayoutProps) {
-  const { data: session } = useSession();
-  const router = useRouter();
+export default function ConsoleLayout({ children, session, currentPath = '/console' }: ConsoleLayoutProps) {
+  const userRole = session?.user?.role;
+  const isGuide = userRole === 'GUIDE';
+  const isGuardian = userRole === 'GUARDIAN';
 
-  const navigation = [
-    { name: 'Dashboard', href: '/console', current: router.pathname === '/console' },
-    { name: 'New Onboarding', href: '/console/onboarding', current: router.pathname === '/console/onboarding' },
-    { name: 'Profiles', href: '/console/profiles', current: router.pathname === '/console/profiles' },
-    { name: 'Activation Codes', href: '/console/codes', current: router.pathname === '/console/codes' },
+  // Role-specific navigation
+  const guideNavigation = [
+    { name: 'Dashboard', href: '/console', current: currentPath === '/console' },
+    { name: 'My Clients', href: '/console/profiles', current: currentPath === '/console/profiles' },
+    { name: 'Schedule', href: '/console/schedule', current: currentPath === '/console/schedule' },
+    { name: 'Profile', href: '/console/profile', current: currentPath === '/console/profile' },
+    { name: 'Working Hours', href: '/console/hours', current: currentPath === '/console/hours' },
+    { name: 'Compensation', href: '/console/compensation', current: currentPath === '/console/compensation' },
+    { name: 'Tax', href: '/console/tax', current: currentPath === '/console/tax' },
   ];
 
+  const guardianNavigation = [
+    { name: 'Overview', href: '/console', current: currentPath === '/console' },
+    { name: 'Guide Management', href: '/console/guides', current: currentPath === '/console/guides' },
+    { name: 'Financials', href: '/console/financials', current: currentPath.startsWith('/console/financials') },
+    { name: 'User Analytics', href: '/console/analytics', current: currentPath === '/console/analytics' },
+    { name: 'System Settings', href: '/console/settings', current: currentPath === '/console/settings' },
+  ];
+
+  const navigation = isGuide ? guideNavigation : guardianNavigation;
+
   return (
-    <div className="min-h-screen bg-secondary-50">
+    <div className="min-h-screen bg-[#0a0a0a]">
       {/* Navigation */}
-      <nav className="bg-white shadow-sm border-b border-secondary-200">
+      <nav className="bg-[#0a0a0a] shadow-sm border-b border-[#E5E4E2]/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex">
               {/* Logo */}
-              <Link href="/console" className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-gradient-to-br from-primary-500 to-primary-700 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">P</span>
-                </div>
-                <span className="text-xl font-serif font-semibold text-secondary-900">
+              <a href="/console" className="flex items-center space-x-2">
+                <img 
+                  src="/logo.jpeg" 
+                  alt="Pentara" 
+                  className="w-8 h-8 rounded-lg"
+                />
+                <span className="text-xl font-serif font-semibold text-white tracking-wider" style={{ fontWeight: '400', letterSpacing: '1px' }}>
                   Pentara Console
                 </span>
-              </Link>
+              </a>
 
               {/* Navigation Links */}
               <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                 {navigation.map((item) => (
-                  <Link
+                  <a
                     key={item.name}
                     href={item.href}
-                    className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
+                    className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium tracking-wide ${
                       item.current
-                        ? 'border-primary-500 text-secondary-900'
-                        : 'border-transparent text-secondary-500 hover:text-secondary-700 hover:border-secondary-300'
+                        ? 'border-[#D4AF37] text-[#D4AF37]'
+                        : 'border-transparent text-white/70 hover:text-white hover:border-[#E5E4E2]/30'
                     }`}
                   >
                     {item.name}
-                  </Link>
+                  </a>
                 ))}
               </div>
             </div>
 
             {/* User menu */}
             <div className="flex items-center space-x-4">
-              <span className="text-sm text-secondary-600">
+              <span className="text-sm text-white/70 tracking-wide">
                 {session?.user?.email}
               </span>
               <button
-                onClick={() => signOut()}
-                className="text-sm text-secondary-500 hover:text-secondary-700"
+                onClick={() => {
+                  // Navigate to custom sign out confirmation page
+                  window.location.href = '/auth/signout';
+                }}
+                className="text-sm text-white/60 hover:text-white tracking-wide transition-colors duration-300"
               >
                 Sign out
               </button>
@@ -72,17 +101,17 @@ export default function ConsoleLayout({ children }: ConsoleLayoutProps) {
         <div className="sm:hidden">
           <div className="pt-2 pb-3 space-y-1">
             {navigation.map((item) => (
-              <Link
+              <a
                 key={item.name}
                 href={item.href}
-                className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium ${
+                className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium tracking-wide ${
                   item.current
-                    ? 'bg-primary-50 border-primary-500 text-primary-700'
-                    : 'border-transparent text-secondary-600 hover:text-secondary-800 hover:bg-secondary-50 hover:border-secondary-300'
+                    ? 'bg-[#D4AF37]/10 border-[#D4AF37] text-[#D4AF37]'
+                    : 'border-transparent text-white/70 hover:text-white hover:bg-[#E5E4E2]/10 hover:border-[#E5E4E2]/30'
                 }`}
               >
                 {item.name}
-              </Link>
+              </a>
             ))}
           </div>
         </div>

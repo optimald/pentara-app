@@ -14,7 +14,14 @@
     "build:android": "expo build:android",
     "eject": "expo eject",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "deploy": "./deploy.sh",
+    "build:dev": "eas build --profile development",
+    "build:preview": "eas build --profile preview",
+    "build:prod": "eas build --profile production",
+    "update": "eas update --branch production",
+    "submit:ios": "eas submit --platform ios",
+    "submit:android": "eas submit --platform android"
   },
   "dependencies": {
     "expo": "~49.0.0",
@@ -26,6 +33,7 @@
     "expo-secure-store": "~12.3.0",
     "expo-notifications": "~0.20.0",
     "expo-constants": "~14.4.0",
+    "expo-image-picker": "~14.3.0",
     "react-navigation": "^4.4.4",
     "@react-navigation/native": "^6.1.0",
     "@react-navigation/stack": "^6.3.0",
@@ -36,7 +44,8 @@
     "react-native-reanimated": "~3.3.0",
     "@types/react": "~18.2.0",
     "@types/react-native": "~0.72.0",
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "expo-dev-client": "~2.4.13"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

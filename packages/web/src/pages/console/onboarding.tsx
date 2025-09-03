@@ -1,5 +1,6 @@
 import { GetServerSideProps } from 'next';
-import { getSession } from 'next-auth/react';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '../api/auth/[...nextauth]';
 import Head from 'next/head';
 import ConsoleLayout from '../../components/Console/ConsoleLayout';
 
@@ -14,7 +15,20 @@ interface OnboardingAnswers {
   'qualities-admired'?: string;
 }
 
-export default function OnboardingQuestionnaire() {
+interface OnboardingQuestionnaireProps {
+  session: {
+    user?: {
+      id?: string | null;
+      name?: string | null;
+      email?: string | null;
+      image?: string | null;
+      role?: string | null;
+    } | null;
+    expires?: string;
+  } | null;
+}
+
+export default function OnboardingQuestionnaire({ session }: OnboardingQuestionnaireProps) {
   const sections = [
     {
       id: 'core-identity',
@@ -88,14 +102,14 @@ export default function OnboardingQuestionnaire() {
         <meta name="description" content="Start a new user onboarding session" />
       </Head>
 
-      <ConsoleLayout>
+      <ConsoleLayout session={session} currentPath="/console/onboarding">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-3xl font-serif font-bold text-secondary-900">
+            <h1 className="text-3xl font-serif font-light text-white tracking-widest">
               New Onboarding Session
             </h1>
-            <p className="text-secondary-600">
+            <p className="text-white/70 font-light tracking-wide">
               Guide the user through the questionnaire to create their personal council
             </p>
           </div>
@@ -103,29 +117,29 @@ export default function OnboardingQuestionnaire() {
           {/* Progress Bar */}
           <div className="mb-8">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-secondary-700">
+              <span className="text-sm font-light text-white/80 tracking-wide">
                 Section <span id="current-section">1</span> of {sections.length}
               </span>
-              <span className="text-sm text-secondary-500">
+              <span className="text-sm text-white/60 font-light tracking-wide">
                 <span id="progress-percent">33</span>% Complete
               </span>
             </div>
-            <div className="w-full bg-secondary-200 rounded-full h-2">
+            <div className="w-full bg-[#E5E4E2]/20 rounded-full h-2">
               <div
                 id="progress-bar"
-                className="bg-primary-600 h-2 rounded-full transition-all duration-300"
+                className="bg-gradient-to-r from-[#D4AF37] to-[#B8941F] h-2 rounded-full transition-all duration-300"
                 style={{ width: '33%' }}
               />
             </div>
           </div>
 
           {/* Current Section */}
-          <div className="bg-white shadow rounded-lg p-6 mb-8">
+          <div className="bg-transparent border border-[#E5E4E2]/20 backdrop-blur-luxury shadow-luxury-lg rounded-lg p-6 mb-8">
             <div className="mb-6">
-              <h2 className="text-xl font-semibold text-secondary-900 mb-2" id="section-title">
+              <h2 className="text-xl font-light text-white mb-2 tracking-widest" id="section-title">
                 {sections[0].title}
               </h2>
-              <p className="text-secondary-600" id="section-description">
+              <p className="text-white/70 font-light tracking-wide" id="section-description">
                 {sections[0].description}
               </p>
             </div>
@@ -133,21 +147,21 @@ export default function OnboardingQuestionnaire() {
             <div className="space-y-6" id="questions-container">
               {sections[0].questions.map((question) => (
                 <div key={question.id}>
-                  <label className="block text-sm font-medium text-secondary-700 mb-2">
+                  <label className="block text-sm font-light text-white/80 mb-2 tracking-wide">
                     {question.label}
                   </label>
                   {question.type === 'textarea' ? (
                     <textarea
                       id={question.id}
                       rows={4}
-                      className="w-full px-3 py-2 border border-secondary-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                      className="w-full px-3 py-2 border border-[#E5E4E2]/30 rounded-md bg-transparent text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-[#D4AF37] backdrop-blur-sm"
                       placeholder={question.placeholder}
                     />
                   ) : (
                     <input
                       id={question.id}
                       type="text"
-                      className="w-full px-3 py-2 border border-secondary-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                      className="w-full px-3 py-2 border border-[#E5E4E2]/30 rounded-md bg-transparent text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-[#D4AF37] backdrop-blur-sm"
                       placeholder={question.placeholder}
                     />
                   )}
@@ -161,7 +175,7 @@ export default function OnboardingQuestionnaire() {
             <button
               id="prev-btn"
               disabled
-              className="px-4 py-2 border border-secondary-300 rounded-md text-secondary-700 hover:bg-secondary-50 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-4 py-2 border border-[#E5E4E2]/30 rounded-md text-white/70 hover:bg-[#E5E4E2]/10 disabled:opacity-50 disabled:cursor-not-allowed font-light tracking-wide transition-all duration-300"
             >
               Previous
             </button>
@@ -169,7 +183,7 @@ export default function OnboardingQuestionnaire() {
             <div className="flex space-x-3">
               <button
                 id="next-btn"
-                className="px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700"
+                className="px-4 py-2 bg-gradient-to-r from-[#D4AF37] to-[#B8941F] text-white rounded-md hover:from-[#B8941F] hover:to-[#9A7B1A] font-light tracking-wide transition-all duration-300"
               >
                 Next Section
               </button>
@@ -177,11 +191,11 @@ export default function OnboardingQuestionnaire() {
           </div>
 
           {/* Preview of collected answers */}
-          <div id="answers-preview" className="mt-8 bg-secondary-50 rounded-lg p-4 hidden">
-            <h3 className="text-sm font-medium text-secondary-900 mb-2">
+          <div id="answers-preview" className="mt-8 bg-[#E5E4E2]/10 border border-[#E5E4E2]/20 backdrop-blur-luxury rounded-lg p-4 hidden">
+            <h3 className="text-sm font-light text-white mb-2 tracking-wide">
               Collected Information Preview
             </h3>
-            <div id="answers-list" className="text-sm text-secondary-600 space-y-1">
+            <div id="answers-list" className="text-sm text-white/70 font-light space-y-1 tracking-wide">
             </div>
           </div>
         </div>
@@ -220,12 +234,12 @@ export default function OnboardingQuestionnaire() {
                 // Update questions
                 questionsContainerEl.innerHTML = section.questions.map(question => \`
                   <div>
-                    <label class="block text-sm font-medium text-secondary-700 mb-2">
+                    <label class="block text-sm font-light text-white/80 mb-2 tracking-wide">
                       \${question.label}
                     </label>
                     \${question.type === 'textarea' ? 
-                      \`<textarea id="\${question.id}" rows="4" class="w-full px-3 py-2 border border-secondary-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500" placeholder="\${question.placeholder}"></textarea>\` :
-                      \`<input id="\${question.id}" type="text" class="w-full px-3 py-2 border border-secondary-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500" placeholder="\${question.placeholder}">\`
+                      \`<textarea id="\${question.id}" rows="4" class="w-full px-3 py-2 border border-[#E5E4E2]/30 rounded-md bg-transparent text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-[#D4AF37] backdrop-blur-sm" placeholder="\${question.placeholder}"></textarea>\` :
+                      \`<input id="\${question.id}" type="text" class="w-full px-3 py-2 border border-[#E5E4E2]/30 rounded-md bg-transparent text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-[#D4AF37] backdrop-blur-sm" placeholder="\${question.placeholder}">\`
                     }
                   </div>
                 \`).join('');
@@ -242,10 +256,10 @@ export default function OnboardingQuestionnaire() {
                 prevBtn.disabled = currentSection === 0;
                 if (currentSection === sections.length - 1) {
                   nextBtn.textContent = 'Generate Profile';
-                  nextBtn.className = 'px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700';
+                  nextBtn.className = 'px-6 py-2 bg-gradient-to-r from-green-400 to-green-600 text-white rounded-md hover:from-green-500 hover:to-green-700 font-light tracking-wide transition-all duration-300';
                 } else {
                   nextBtn.textContent = 'Next Section';
-                  nextBtn.className = 'px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700';
+                  nextBtn.className = 'px-4 py-2 bg-gradient-to-r from-[#D4AF37] to-[#B8941F] text-white rounded-md hover:from-[#B8941F] hover:to-[#9A7B1A] font-light tracking-wide transition-all duration-300';
                 }
                 
                 updateAnswersPreview();
@@ -317,7 +331,7 @@ export default function OnboardingQuestionnaire() {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context);
+  const session = await getServerSession(context.req, context.res, authOptions);
 
   if (!session) {
     return {
@@ -328,9 +342,21 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 
+  // Clean up session object to avoid serialization issues
+  const cleanSession = {
+    user: {
+      id: session.user?.id || null,
+      name: session.user?.name || null,
+      email: session.user?.email || null,
+      image: session.user?.image || null,
+      role: (session.user as any)?.role || null,
+    },
+    expires: session.expires,
+  };
+
   return {
     props: {
-      session,
+      session: cleanSession,
     },
   };
 };
