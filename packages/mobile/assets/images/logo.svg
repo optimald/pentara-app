@@ -1,0 +1,33 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#f59e0b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d97706;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Outer circle -->
+  <circle cx="100" cy="100" r="95" fill="none" stroke="url(#goldGradient)" stroke-width="4"/>
+  
+  <!-- Five-petaled flower (sacred geometry) -->
+  <g transform="translate(100,100)">
+    <!-- Top petal -->
+    <path d="M 0,-60 Q -25,-35 0,-10 Q 25,-35 0,-60 Z" fill="none" stroke="url(#goldGradient)" stroke-width="3"/>
+    
+    <!-- Top-right petal -->
+    <path d="M 42.4,-42.4 Q 35,0 10,0 Q 35,-35 42.4,-42.4 Z" fill="none" stroke="url(#goldGradient)" stroke-width="3" transform="rotate(72)"/>
+    
+    <!-- Bottom-right petal -->
+    <path d="M 42.4,42.4 Q 0,35 0,10 Q 35,35 42.4,42.4 Z" fill="none" stroke="url(#goldGradient)" stroke-width="3" transform="rotate(144)"/>
+    
+    <!-- Bottom-left petal -->
+    <path d="M -42.4,42.4 Q -35,0 -10,0 Q -35,35 -42.4,42.4 Z" fill="none" stroke="url(#goldGradient)" stroke-width="3" transform="rotate(216)"/>
+    
+    <!-- Top-left petal -->
+    <path d="M -42.4,-42.4 Q 0,-35 0,-10 Q -35,-35 -42.4,-42.4 Z" fill="none" stroke="url(#goldGradient)" stroke-width="3" transform="rotate(288)"/>
+    
+    <!-- Center pentagram -->
+    <path d="M 0,-20 L 19,6 L -12,-6 L 12,-6 L -19,6 Z" fill="none" stroke="url(#goldGradient)" stroke-width="2"/>
+  </g>
+</svg>

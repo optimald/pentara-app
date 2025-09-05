@@ -9,6 +9,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ActivityIndicator,
+  Image,
 } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../types/navigation';
@@ -62,11 +63,13 @@ export default function ActivationScreen({ navigation }: Props) {
           </Text>
         </View>
 
-        {/* Logo/Icon Placeholder */}
+        {/* Logo */}
         <View style={styles.logoContainer}>
-          <View style={styles.logo}>
-            <Text style={styles.logoText}>P</Text>
-          </View>
+          <Image
+            source={require('../../assets/images/logo.jpeg')}
+            style={styles.logo}
+            resizeMode="contain"
+          />
         </View>
 
         {/* Activation Form */}
@@ -147,17 +150,8 @@ const styles = StyleSheet.create({
     marginBottom: 48,
   },
   logo: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    backgroundColor: '#D4AF37',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  logoText: {
-    fontSize: 36,
-    fontWeight: '300',
-    color: '#0a0a0a',
+    width: 120,
+    height: 120,
   },
   formContainer: {
     marginBottom: 48,

@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -20,10 +24,13 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@pentara/shared": ["./packages/shared/src"],
-      "@pentara/shared/*": ["./packages/shared/src/*"]
+      "@pentara/shared": [
+        "./packages/shared/src"
+      ],
+      "@pentara/shared/*": [
+        "./packages/shared/src/*"
+      ]
     },
-    // Strict mode settings for Pentara
     "noImplicitAny": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
@@ -50,5 +57,6 @@
     {
       "path": "./packages/shared"
     }
-  ]
+  ],
+  "extends": "expo/tsconfig.base"
 }

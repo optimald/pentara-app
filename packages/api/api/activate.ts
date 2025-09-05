@@ -108,16 +108,25 @@ async function validateActivationCode(code: string): Promise<ActivationCodeData 
     //   include: { profile: true }
     // });
 
-    // For development, simulate validation
+    // For development, simulate validation with proper TTL checking
     if (code.startsWith('PNR-') && code.length >= 8) {
+      const now = new Date();
+      const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days from now
+      
+      // Check if code has expired (TTL)
+      if (now > expiresAt) {
+        console.log(`Activation code ${code} has expired`);
+        return null;
+      }
+
       // Mock activation code data
       return {
         code,
-        userId: `user_${code.replace('PNR-', '')}`,
-        userEmail: `user${Date.now()}@example.com`,
-        profileId: `profile_${code.replace('PNR-', '')}`,
+        userId: `user_${code.replace(/[^A-Z0-9]/g, '')}`,
+        userEmail: `user.${code.replace(/[^A-Z0-9]/g, '').toLowerCase()}@example.com`,
+        profileId: `profile_${code.replace(/[^A-Z0-9]/g, '')}`,
         createdBy: 'coach_1',
-        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days from now
+        expiresAt,
         isRedeemed: false,
       };
     }
@@ -142,7 +151,8 @@ async function redeemActivationCode(code: string, deviceId: string): Promise<voi
     //   }
     // });
 
-    console.log(`Activation code ${code} redeemed by device ${deviceId.substring(0, 8)}...`);
+    console.log(`✅ Activation code ${code} redeemed by device ${deviceId.substring(0, 8)}...`);
+    console.log(`🔒 Code ${code} is now expired and cannot be used again`);
 
   } catch (error) {
     console.error('Code redemption error:', error);

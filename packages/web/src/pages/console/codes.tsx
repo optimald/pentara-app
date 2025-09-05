@@ -2,6 +2,7 @@ import { GetServerSideProps } from 'next';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../api/auth/[...nextauth]';
 import Head from 'next/head';
+import { useState } from 'react';
 import ConsoleLayout from '../../components/Console/ConsoleLayout';
 
 interface CodesPageProps {
@@ -18,16 +19,23 @@ interface CodesPageProps {
 }
 
 export default function CodesPage({ session }: CodesPageProps) {
-  const codes = [
+  const [codes, setCodes] = useState([
     {
       id: 1,
       code: 'No codes generated yet',
       status: 'unused',
       createdAt: 'N/A',
       usedAt: null,
-      usedBy: null
+      usedBy: null,
+      expiresAt: null
     }
-  ];
+  ]);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [showGenerateModal, setShowGenerateModal] = useState(false);
+  const [generateForm, setGenerateForm] = useState({
+    userEmail: '',
+    ttlDays: 7
+  });
 
   return (
     <>
@@ -48,8 +56,12 @@ export default function CodesPage({ session }: CodesPageProps) {
                 Generate and manage activation codes for user access
               </p>
             </div>
-            <button className="px-4 py-2 bg-gradient-to-r from-[#D4AF37] to-[#B8941F] text-white rounded-md hover:from-[#B8941F] hover:to-[#9A7B1A] font-light tracking-wide transition-all duration-300">
-              Generate New Code
+            <button 
+              onClick={() => setShowGenerateModal(true)}
+              disabled={isGenerating}
+              className="px-4 py-2 bg-gradient-to-r from-[#D4AF37] to-[#B8941F] text-white rounded-md hover:from-[#B8941F] hover:to-[#9A7B1A] font-light tracking-wide transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isGenerating ? 'Generating...' : 'Generate New Code'}
             </button>
           </div>
 
@@ -229,10 +241,125 @@ export default function CodesPage({ session }: CodesPageProps) {
               </div>
             </div>
           </div>
+
+          {/* Generate Code Modal */}
+          {showGenerateModal && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+              <div className="bg-[#0a0a0a] border border-[#E5E4E2]/20 rounded-lg p-6 w-full max-w-md">
+                <h3 className="text-lg font-light text-white mb-4 tracking-widest">
+                  Generate Activation Code
+                </h3>
+                
+                <form onSubmit={handleGenerateCode} className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-light text-white/70 mb-2 tracking-wide">
+                      User Email
+                    </label>
+                    <input
+                      type="email"
+                      value={generateForm.userEmail}
+                      onChange={(e) => setGenerateForm({...generateForm, userEmail: e.target.value})}
+                      className="w-full px-3 py-2 bg-transparent border border-[#E5E4E2]/20 rounded-md text-white focus:border-[#D4AF37] focus:outline-none"
+                      placeholder="user@example.com"
+                      required
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-light text-white/70 mb-2 tracking-wide">
+                      TTL (Days)
+                    </label>
+                    <select
+                      value={generateForm.ttlDays}
+                      onChange={(e) => setGenerateForm({...generateForm, ttlDays: parseInt(e.target.value)})}
+                      className="w-full px-3 py-2 bg-transparent border border-[#E5E4E2]/20 rounded-md text-white focus:border-[#D4AF37] focus:outline-none"
+                    >
+                      <option value={1} className="bg-[#0a0a0a]">1 Day</option>
+                      <option value={3} className="bg-[#0a0a0a]">3 Days</option>
+                      <option value={7} className="bg-[#0a0a0a]">7 Days</option>
+                      <option value={14} className="bg-[#0a0a0a]">14 Days</option>
+                      <option value={30} className="bg-[#0a0a0a]">30 Days</option>
+                    </select>
+                  </div>
+                  
+                  <div className="flex space-x-3 pt-4">
+                    <button
+                      type="button"
+                      onClick={() => setShowGenerateModal(false)}
+                      className="flex-1 px-4 py-2 border border-[#E5E4E2]/20 text-white rounded-md hover:bg-[#E5E4E2]/5 font-light tracking-wide transition-all duration-300"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={isGenerating}
+                      className="flex-1 px-4 py-2 bg-gradient-to-r from-[#D4AF37] to-[#B8941F] text-white rounded-md hover:from-[#B8941F] hover:to-[#9A7B1A] font-light tracking-wide transition-all duration-300 disabled:opacity-50"
+                    >
+                      {isGenerating ? 'Generating...' : 'Generate'}
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          )}
         </div>
       </ConsoleLayout>
     </>
   );
+
+  async function handleGenerateCode(e: React.FormEvent) {
+    e.preventDefault();
+    setIsGenerating(true);
+
+    try {
+      // In production, this would call the API:
+      // const response = await fetch('/api/codes/generate', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({
+      //     userEmail: generateForm.userEmail,
+      //     profileId: 'temp-profile-id', // Would come from profile creation
+      //     createdBy: session?.user?.id,
+      //     ttlDays: generateForm.ttlDays
+      //   })
+      // });
+      // const result = await response.json();
+
+      // For development, simulate code generation
+      const mockCode = `PNR-${Math.random().toString(36).substring(2, 5).toUpperCase()}-${Math.random().toString(36).substring(2, 5).toUpperCase()}`;
+      const expiresAt = new Date();
+      expiresAt.setDate(expiresAt.getDate() + generateForm.ttlDays);
+
+      const newCode = {
+        id: Date.now(),
+        code: mockCode,
+        status: 'unused',
+        createdAt: new Date().toLocaleDateString(),
+        usedAt: null,
+        usedBy: null,
+        expiresAt: expiresAt.toLocaleDateString(),
+        userEmail: generateForm.userEmail
+      };
+
+      // Update codes list
+      setCodes(prevCodes => {
+        const filtered = prevCodes.filter(c => c.code !== 'No codes generated yet');
+        return [newCode, ...filtered];
+      });
+
+      // Reset form and close modal
+      setGenerateForm({ userEmail: '', ttlDays: 7 });
+      setShowGenerateModal(false);
+
+      console.log('✅ Generated activation code:', mockCode);
+
+    } catch (error) {
+      console.error('Error generating code:', error);
+      alert('Failed to generate activation code. Please try again.');
+    } finally {
+      setIsGenerating(false);
+    }
+  }
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
